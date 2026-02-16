@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MF0 version="1.1" packageUris="http://schema.mathworks.com/mf0/faultinfo_datamodel/R2021a">
+  <faultinfo.FaultContainerSet type="faultinfo.FaultContainerSet" uuid="9936dddc-2eb0-4fcc-b689-ef18a1df155b">
+    <conditionals type="faultinfo.conditional.Conditional" uuid="f0845c24-dd6c-4738-91ce-40daa4c43254">
+      <checksum>00000000-0000-0000-0000-000000000000</checksum>
+      <condition>x == true</condition>
+      <mustBeLogged>false</mustBeLogged>
+      <name>SampleConditional</name>
+      <resyncRefBlkID></resyncRefBlkID>
+      <resyncUUID>00000000-0000-0000-0000-000000000000</resyncUUID>
+      <symbols type="faultinfo.conditional.ExpressionSymbol" uuid="b4ca1d08-7e11-4cc1-a6c3-978a35c2e50a">
+        <expression>true</expression>
+        <name>x</name>
+      </symbols>
+    </conditionals>
+    <isEnabled>false</isEnabled>
+    <lastUpdatedAt>2024-11-06T17:50:25</lastUpdatedAt>
+    <modelName>test_pump</modelName>
+    <modelUUID>35046dc2-6009-4c74-80b2-7b73605d0727</modelUUID>
+  </faultinfo.FaultContainerSet>
+</MF0>

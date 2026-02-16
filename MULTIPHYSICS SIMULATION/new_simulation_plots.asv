@@ -1,0 +1,11 @@
+clc; clear all; close all;
+
+% This is to see the energy graphs vs. time for the soft-switch.
+% Starting with an infinitely fast valve.
+
+simulation = sim("soft_switch_new_simulation.slx");
+
+t = simulation.tout;
+
+Work = simulation.Work.Data;
+Input_Energy = simulation.Input_Energy.Data;

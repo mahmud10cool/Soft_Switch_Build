@@ -1,0 +1,70 @@
+clc; clear; %close all;
+
+run param_file.m
+
+%% Start simulation here and take data
+param.zeta = 1;
+% opening_ratio = 2;
+
+wn_size = 15;
+wn = logspace(3,6,wn_size);
+
+xdot_size = 1;
+xdot = linspace(0,10e-2,xdot_size);
+
+open_ratio_size = 17;
+open_ratio_array = linspace(2,6,open_ratio_size);
+
+Loss = NaN(wn_size,xdot_size,open_ratio_size);
+Vx_final = NaN(wn_size,xdot_size,open_ratio_size);
+PX_final = NaN(wn_size,xdot_size,open_ratio_size);
+
+for i = 1:wn_size
+    for j = 1:xdot_size
+        for k = 1:open_ratio_size
+            param.wn = wn(i);
+            param.xdot = xdot(j);
+            opening_ratio = open_ratio_array(k);
+
+            x_sim = sim("soft_switch_new_simulation_2.slx");
+
+            Loss(i,j,k) = x_sim.Loss.Data(end);
+            Vx_final(i,j,k) = x_sim.Vx.Data(end);
+            PX_final(i,j,k) = x_sim.PX.Data(end);
+        end
+    end
+end
+
+switching_time = 1./(wn*2);
+
+%% Plots
+Loss2 = squeeze(Loss(:,1,:));
+[OR, Tsw] = meshgrid(open_ratio_array, switching_time*1e3);
+
+figure;
+surf(OR, Tsw, Loss2);
+xlabel('Opening ratio');
+ylabel('Switching time (s)');
+zlabel('Loss');
+set(gca,'YScale','log'); % switching_time is also log-spaced here
+% set(gca,'Ydir', 'reverse')
+grid on;
+
+
+% figure;
+% plot(switching_time*1e3, squeeze(Loss), 'o-');
+% xlabel('Switching Time (ms)')
+% ylabel('Loss (J)')
+% grid on
+% title('Throttling Losses vs. Switching Time')
+% 
+% set(gca,'FontSize',16,'FontWeight','bold','LineWidth',1.5)
+% 
+% labels = arrayfun(@(v) sprintf('$%d$', v), ...
+%                   open_ratio_array, 'UniformOutput', false);
+% 
+% lgd = legend(labels,'Interpreter','latex', 'Location','northwest');
+% lgd.FontWeight = 'bold';
+% lgd.Title.String = '$Multiple~of~max~valve~opening:$';
+% lgd.Title.Interpreter = 'latex';
+% lgd.Title.FontWeight = 'bold';
