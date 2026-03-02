@@ -1,0 +1,76 @@
+Outline for the paper:
+
+1. Introduction
+- The following three sections need to be short.
+	- Importance of Hydraulics and Energy Use
+	- Structural Inefficiencies in Conventional Hydraulic Control
+	- Digital Fluid Power as an Alternative
+- This is where the important stuff starts
+	- Pressure Discretization and Multiple Pressure Rails
+		- I really want to focus on this section, maybe have an independent section for this.
+		- Refer to a few papers talking about what that loss looks like relative to other losses.
+		% This is the real motivation behind soft-switching.
+2. Motivation
+	- Pressure Switching Losses
+		- This section is very important
+		- I want to talk about the extreme case where there is throttling loss even with an infinitely fast valve.
+			- Cite the purohit paper.
+			- Maybe show simulation results 
+		- Introduce the concept of soft-switching.
+		- Talk about how the previous soft-switches did not consider this.
+		- The other soft-switches targeted a different problem.
+	- Show how much that loss is relative to other losses. This is my using my own simulation.
+	- My own analyses
+	- Some reasonable case to get some sense.
+
+3. Evolution of soft-switch
+	- Inertia Based Hydraulic Soft-switching
+		- Transition from the problem to the concept. Explain the concept in detail here.
+		- Even if valve transitions are instantaneous, etized systems must still move a fixed amount of energy during each pressure change due to fluid compressibility and volume change; the inertia-based soft-switch gives this energy a controlled place to go so it can be stored and reused instead of being dissipated, complementing existing soft-switch methods rather than replacing them.
+   - For a fixed volume:
+	- Linear soft-switch and optimal design
+		- Talk about this briefly. 
+		- Write one statement on why this is not a feasible/practical method.
+	- Rotary soft-switch
+		- One of the benefits is that displacing a certain volume of fluid depends on number of rotations and not linear movement, which means space is not a constraint.
+		- Initial setup
+		- Bidirectionality
+			- An additional feature of the rotary system is that the inertia can be moving in one direction regardless of the direction of pressure switching.
+			- The benefit of this is that if pressure is being switched very frequently, the rotary inertia does not have to be stopped before the next transition.
+			- The built up speed will not counter the direction of pressure switching.
+			- In a sense, the built up kinetic energy can always help the next transition.
+   - For a changing volume:
+	- Talk about briefly maybe.
+	- Not sure about this one just yet.
+
+4.Simulation
+	- Rotary soft-switch
+		- Show simulations of successful energy recovery.
+		- Demonstrate the difference of results with and without soft-switch.
+		- Maybe have three pie charts: 1) Without soft-switch, 2) With ideal soft-switch, 3) With practical soft-switch.	
+	- Moving volume
+		- Show simulation when the volume is moving in either direction.
+		- Mention how switching time is a concern.
+		- Switching time is not just impacted by the switch but also by the rate of movement.
+
+5. Experimental setup and results
+	- Testbed
+		- Talk about the construction of the testbed.
+		- It was made with readily available components.
+		- The components are not custom built for this application.
+	- Practical Inefficiencies
+	- Friction removal for prospective savings
+	- Show the comparison to simulation after removing the friction.
+	- Mention the prospective energy savings
+
+5. Discussion and Conclusion
+	- Talk about the energy savings after friction removal.
+	- Round up the paper by discussing the need for a soft-switch in an MPR system
+	- Mention how this can be the next step in digital hydraulics
+
+6. References
+	- Initial references on the need for hydraulics
+	- Refer to a few papers on digital hydraulics.
+	- Papers on MPR systems, specifically HHEA systems.
+	- Refer to a few papers on Soft-switches
+
