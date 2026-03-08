@@ -47,6 +47,8 @@ param.delay_switch = 10e-3;
 % Hydraulic Pump/Motor
 param.J_hyd = 3000e-7;
 param.D = 0.8e-6;    % In cc/rev
+% param.pump_mech_eff = 100*(1/100);
+% param.pump_vol_eff = 100*(1/100);
 
 % Volumetric Efficiency Stuff
 param.eta_v_nom = 0.99;  
@@ -61,7 +63,6 @@ param.tau0 = 0.01;
 param.J_elec = 3060e-7;
 param.Kt = 109e-3;
 param.Kv = (87.6082*pi)/30; % In rads^-1/Volt
-param.B  = 1.16e-4;    % Nm*s/rad
 
 % Damping
 param.damping = 0;
