@@ -33,7 +33,7 @@ param.rho = 870;
 param.max_Avt = 4.9160e-06;
 param.Cd = 0.6;
 param.stroke = 5e-3;
-param.wn = 50;
+param.wn = 1000;
 param.zeta = 1;
 
 % Hoses
