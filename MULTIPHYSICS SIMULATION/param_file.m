@@ -32,17 +32,14 @@ param.rho = 870;
 % Valve
 param.max_Avt = 4.9160e-06;
 param.Cd = 0.6;
-param.stroke = 5e-3;
+% param.stroke = 5e-3;
+param.stroke = 1;
 param.wn = 1000;
 param.zeta = 1;
+param.delay_switch = 10e-3;
 
 % Hoses
 param.D_hose = 6.4;
-
-% Valve Dynamics
-param.wn = 50*2*pi;
-param.zeta = 1;
-param.delay_switch = 10e-3;
 
 % Hydraulic Pump/Motor
 param.J_hyd = 3000e-7;
