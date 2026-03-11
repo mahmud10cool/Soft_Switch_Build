@@ -19,10 +19,17 @@ param.Acap = pi*(2.54)^2*1e-4;
 % param.V5_0 = 20e-6;
 % param.V6_0 = 20e-6;
 
-param.VA_0 = 20e-6;
-param.VB_0 = 20e-6;
-param.VP_0 = 20e-6;
-param.VT_0 = 20e-6;
+% Hose parameters
+param.D_hose = 6.4e-3;
+param.L_hose = 0.6;
+param.mu = 0.04;
+param.ResistHose = 0.01*128*param.mu*param.L_hose/(pi*param.D_hose^4);
+
+% Hose volumes
+param.VA_0 = 0.25*pi*param.D_hose^2*param.L_hose;
+param.VB_0 = 0.25*pi*param.D_hose^2*param.L_hose;
+param.VP_0 = 0.25*pi*param.D_hose^2*param.L_hose;
+param.VT_0 = 0.25*pi*param.D_hose^2*param.L_hose;
 
 % Fluid
 param.beta = 1.8e9;
@@ -37,9 +44,6 @@ param.stroke = 1;
 param.wn = 1000;
 param.zeta = 1;
 param.delay_switch = 10e-3;
-
-% Hoses
-param.D_hose = 6.4;
 
 % Hydraulic Pump/Motor
 param.J_hyd = 3000e-7;

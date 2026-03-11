@@ -19,6 +19,12 @@ param.Acap = pi*(2.54)^2*1e-4;
 % param.V5_0 = 20e-6;
 % param.V6_0 = 20e-6;
 
+% Hose parameters
+param.D_hose = 6.4e-3;
+param.L_hose = 0.3;
+param.mu = 0.04;
+param.Rhose = 128*param.mu*param.L_hose/(pi*param.D_hose^4);
+
 param.VA_0 = 20e-6;
 param.VB_0 = 20e-6;
 param.VP_0 = 20e-6;
@@ -32,23 +38,15 @@ param.rho = 870;
 % Valve
 param.max_Avt = 4.9160e-06;
 param.Cd = 0.6;
-param.stroke = 5e-3;
-param.wn = 50;
-param.zeta = 1;
-
-% Hoses
-param.D_hose = 6.4;
-
-% Valve Dynamics
-param.wn = 50*2*pi;
+% param.stroke = 5e-3;
+param.stroke = 1;
+param.wn = 1000;
 param.zeta = 1;
 param.delay_switch = 10e-3;
 
 % Hydraulic Pump/Motor
 param.J_hyd = 3000e-7;
 param.D = 0.8e-6;    % In cc/rev
-% param.pump_mech_eff = 100*(1/100);
-% param.pump_vol_eff = 100*(1/100);
 
 % Volumetric Efficiency Stuff
 param.eta_v_nom = 0.99;  
@@ -63,6 +61,7 @@ param.tau0 = 0.01;
 param.J_elec = 3060e-7;
 param.Kt = 109e-3;
 param.Kv = (87.6082*pi)/30; % In rads^-1/Volt
+param.B  = 1.16e-4;    % Nm*s/rad
 
 % Damping
 param.damping = 0;
