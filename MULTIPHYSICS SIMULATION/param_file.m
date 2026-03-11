@@ -9,6 +9,11 @@ param.P_H = 10.342e6;
 param.P_M = 3.447e6;
 param.P_L = param.P_T;
 
+% Fluid
+param.beta = 1.8e9;
+param.air = 0.5/100;
+param.rho = 870;
+
 % Linear Actuator Chamber
 param.V1_0 = 150e-6;
 param.Acap = pi*(2.54)^2*1e-4;
@@ -23,18 +28,14 @@ param.Acap = pi*(2.54)^2*1e-4;
 param.D_hose = 6.4e-3;
 param.L_hose = 0.6;
 param.mu = 0.04;
-param.ResistHose = 0.01*128*param.mu*param.L_hose/(pi*param.D_hose^4);
+param.ResistHose = 128*param.mu*param.L_hose/(pi*param.D_hose^4);
+param.InertHose = (4*param.rho*param.L_hose)/(pi*param.D_hose^2);
 
 % Hose volumes
 param.VA_0 = 0.25*pi*param.D_hose^2*param.L_hose;
 param.VB_0 = 0.25*pi*param.D_hose^2*param.L_hose;
 param.VP_0 = 0.25*pi*param.D_hose^2*param.L_hose;
 param.VT_0 = 0.25*pi*param.D_hose^2*param.L_hose;
-
-% Fluid
-param.beta = 1.8e9;
-param.air = 0.5/100;
-param.rho = 870;
 
 % Valve
 param.max_Avt = 4.9160e-06;
