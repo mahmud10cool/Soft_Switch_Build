@@ -11,8 +11,11 @@ param.P_L = param.P_T;
 
 % Fluid
 param.beta = 1.8e9;
-param.air = 0.5/100;
 param.rho = 870;
+
+% Air content in fluid
+param.air = 0.5/100;
+param.gamma = 1.4;
 
 % Linear Actuator Chamber
 param.V1_0 = 150e-6;
