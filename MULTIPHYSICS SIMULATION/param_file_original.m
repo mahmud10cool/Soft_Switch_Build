@@ -36,7 +36,7 @@ param.V4_0 = 10e-6;
 
 % Fluid
 param.beta = 1.8e9;
-param.air = 0.5/100;
+param.air = 0/100;
 param.rho = 870;
 
 % Valve
@@ -50,17 +50,17 @@ param.D_hose = 6.4;
 
 % Valve Dynamics
 % Soft Switch Valve
-param.wn_ssv = 50*2*pi;
-param.zeta_ssv = 1;
-
-% Pressure Rail Valve
-param.wn_prv = 50*2*pi;
-param.zeta_prv = 1;
-param.delay_switch = 10e-3;
-
-% param.wn = 25*2*pi;
-% param.zeta = 1;
+% param.wn_ssv = 50*2*pi;
+% param.zeta_ssv = 1;
+% 
+% % Pressure Rail Valve
+% param.wn_prv = 50*2*pi;
+% param.zeta_prv = 1;
 % param.delay_switch = 10e-3;
+
+param.wn = 25*2*pi;
+param.zeta = 1;
+param.delay_switch = 10e-3;
 
 % Hydraulic Pump/Motor
 % param.J_hyd = 3000e-7;
