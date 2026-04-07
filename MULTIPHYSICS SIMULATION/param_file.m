@@ -14,8 +14,9 @@ param.beta = 1.8e9;
 param.rho = 870;
 
 % Air content in fluid
-param.air = 0.5/100;
+param.air = 0/100;
 param.gamma = 1.4;
+param.P_FD = 0.8*param.P_H;
 
 % Linear Actuator Chamber
 param.V1_0 = 150e-6;
@@ -35,7 +36,7 @@ param.ResistHose = 128*param.mu*param.L_hose/(pi*param.D_hose^4);
 param.InertHose = (4*param.rho*param.L_hose)/(pi*param.D_hose^2);
 
 % Hose volumes
-param.VA_0 = 0.25*pi*param.D_hose^2*param.L_hose;
+param.VA_0 = 0.5*0.25*pi*param.D_hose^2*param.L_hose;
 param.VB_0 = 0.25*pi*param.D_hose^2*param.L_hose;
 param.VP_0 = 0.25*pi*param.D_hose^2*param.L_hose;
 param.VT_0 = 0.25*pi*param.D_hose^2*param.L_hose;
