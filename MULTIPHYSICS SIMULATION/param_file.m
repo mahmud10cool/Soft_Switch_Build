@@ -14,7 +14,7 @@ param.beta = 1.8e9;
 param.rho = 870;
 
 % Air content in fluid
-param.air = 1/100;
+param.air = 5/100;
 param.gamma = 1.4;
 param.P_FD = 0.8*param.P_H;
 
