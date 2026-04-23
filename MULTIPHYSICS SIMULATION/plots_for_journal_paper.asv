@@ -1,0 +1,8 @@
+clc; clear; close all;
+
+some_sim = sim("soft_switch_new_simulation.slx");
+
+input_energy = some_sim.Input_Energy.Data;
+output_energy = some_sim.Output_Energy.Data;
+pump_loss = some_sim.Pump_Losses.Data;
+regen = some-

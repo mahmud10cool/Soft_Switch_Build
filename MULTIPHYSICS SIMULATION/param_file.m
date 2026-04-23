@@ -22,6 +22,9 @@ param.P_FD = 0.8*param.P_H;
 param.V1_0 = 150e-6;
 param.Acap = pi*(2.54)^2*1e-4;
 
+% Linear Actuator Piston Dynamics
+param.xdot = 0;
+
 % Intermediary volumes
 % param.V3_0 = 20e-6;
 % param.V4_0 = 20e-6;
