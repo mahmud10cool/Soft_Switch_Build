@@ -1,7 +1,7 @@
 param = struct();
 
 % Switching Time
-param.T_period = 0.4;
+param.T_period = 0.5;
 
 % Pressure Rails
 param.P_T = 101325;
@@ -14,7 +14,7 @@ param.beta = 1.8e9;
 param.rho = 870;
 
 % Air content in fluid
-param.air = 5/100;
+param.air = 0/100;
 param.gamma = 1.4;
 param.P_FD = 0.8*param.P_H;
 
@@ -83,8 +83,8 @@ param.Aplunger = pi*(2.54)^2*1e-4;
 param.damping = 5e-4; 
 
 % Initial speed
-param.start_final_velocity = 500*(2*pi/60);
-% param.max_speed = 900*(2*pi/60);
+param.start_final_velocity = 600*(2*pi/60);
+param.max_speed = 600*(2*pi/60);
 
 % param.start_final_velocity = 100;
 % param.max_speed = 125;

@@ -1,10 +1,11 @@
 clc; clear; close all;
 
-T_sim = 0.5;
+T_sim = 0.25;
 
 soft_sim = sim("soft_switch_new_simulation.slx");
 t_soft = soft_sim.tout;
 input_energy = soft_sim.Input_Energy.Data;
+hyd_in_energy = soft_sim.Hydraulic_Input.Data;
 output_energy = soft_sim.Output_Energy.Data;
 pump_loss = soft_sim.Pump_Losses.Data;
 regen = soft_sim.Regen.Data;
@@ -83,29 +84,32 @@ cla
 hold on
 axis equal
 axis off
+xlim([-2.4 2.4])
+ylim([-2.0 2.2])
 
 % Final energy values for soft-switch case
-E_input = input_energy(end);
-E_regen = regen(end);
+E_input   = input_energy(end);
+E_hyd_in = hyd_in_energy(end);
+E_regen   = regen(end);
 
-E_work  = work(end);
-E_throt = throttling_loss(end);
-E_pump  = pump_loss(end);
-E_elec  = elec_loss(end);
+E_work    = work(end);
+E_throt   = throttling_loss(end);
+E_pump    = pump_loss(end);
+E_elec_loss    = elec_loss(end);
 E_kinetic = kinetic_energy(end);
-E_stored = stored_energy(end);
+E_stored  = stored_energy(end);
 
 % Outer ring: input energy + regen
-outer_vals = abs([E_input, E_regen]);
-outer_labels = {'Input', 'Regen'};
+outer_vals   = abs([E_hyd_in]);
+outer_labels = {'Input'};
 
-% Inner pie: work + losses
-inner_vals = abs([E_work+E_stored, E_throt, E_pump, E_elec, E_kinetic]);
-inner_labels = {'Work', 'Throttling', 'Pump', 'E-Motor Losses', 'KE'};
+% Inner pie: work + stored + losses + KE
+inner_vals   = abs([E_work + E_stored, E_throt, E_pump, E_elec_loss, E_regen]);
+inner_labels = {'Work', 'Throttling', 'Pump', 'E-Motor Losses', 'Regen'};
 
 % Radii
-inner_pie_radius = 1;
-outer_ring_r1    = 1;
+inner_pie_radius = 1.0;
+outer_ring_r1    = 1.0;
 outer_ring_r2    = 1.5;
 
 % Colors
@@ -122,15 +126,23 @@ inner_colors = [
     0.40 0.80 0.80
 ];
 
-% Draw inner solid pie with labels and percentages
-solidPieWithOutsideLabels(inner_vals, inner_pie_radius, inner_colors, inner_labels);
+% Draw shapes first
+solidPieOnly(inner_vals, inner_pie_radius, inner_colors);
+donutRingOnly(outer_vals, outer_ring_r1, outer_ring_r2, outer_colors);
 
-% Draw outer donut ring with labels and percentages
-donutRingWithOutsideLabels(outer_vals, outer_ring_r1, outer_ring_r2, outer_colors, outer_labels);
+% Draw labels and leader lines after the shapes
+addPieOutsideLabels(inner_vals, inner_pie_radius, inner_colors, inner_labels, 1.85);
+addDonutOutsideLabels(outer_vals, outer_ring_r2, outer_colors, outer_labels, 2.25);
+
+% plot([-1.5 -10.15], [0 0], ...
+%     '-', 'Color', 'k', 'LineWidth', 1.5);
+% 
+
+
 
 title('Soft-Switch Energy Distribution', ...
       'Units', 'normalized', ...
-      'Position', [0.5, 1.15, 0])
+      'Position', [0.5, 1.12, 0])
 
 hold off
 
@@ -147,7 +159,9 @@ grid on
 title('Work vs. Time')
 
 
-function h = solidPieWithOutsideLabels(vals, radius, colors, labels)
+% Helper Functions
+
+function h = solidPieOnly(vals, radius, colors)
 
     vals = vals(:);
     vals = abs(vals);
@@ -163,7 +177,6 @@ function h = solidPieWithOutsideLabels(vals, radius, colors, labels)
     h = gobjects(length(vals),1);
 
     for i = 1:length(vals)
-
         theta = linspace(theta_edges(i), theta_edges(i+1), 120);
 
         x = [0, radius*cos(theta), 0];
@@ -172,45 +185,10 @@ function h = solidPieWithOutsideLabels(vals, radius, colors, labels)
         h(i) = patch(x, y, colors(i,:), ...
             'EdgeColor', 'w', ...
             'LineWidth', 1.5);
-
-        % Mid-angle of slice
-        theta_mid = 0.5 * (theta_edges(i) + theta_edges(i+1));
-
-        % Point on slice edge
-        x_edge = radius * cos(theta_mid);
-        y_edge = radius * sin(theta_mid);
-
-        % Label box location outside pie
-        r_text = 2 * radius;
-        x_text = r_text * cos(theta_mid);
-        y_text = r_text * sin(theta_mid);
-
-        percent = 100 * frac(i);
-
-        % Leader line
-        plot([x_edge x_text], [y_edge y_text], 'k-', 'LineWidth', 1);
-
-        % Alignment
-        if cos(theta_mid) >= 0
-            hAlign = 'left';
-        else
-            hAlign = 'right';
-        end
-
-        % Text box
-        text(x_text, y_text, ...
-            sprintf('%s\n%.1f%%', labels{i}, percent), ...
-            'HorizontalAlignment', hAlign, ...
-            'VerticalAlignment', 'middle', ...
-            'FontSize', 9, ...
-            'FontWeight', 'bold', ...
-            'BackgroundColor', 'w', ...
-            'EdgeColor', 'k', ...
-            'Margin', 4);
     end
 end
 
-function h = donutRingWithOutsideLabels(vals, r_inner, r_outer, colors, labels)
+function h = donutRingOnly(vals, r_inner, r_outer, colors)
 
     vals = vals(:);
     vals = abs(vals);
@@ -226,7 +204,6 @@ function h = donutRingWithOutsideLabels(vals, r_inner, r_outer, colors, labels)
     h = gobjects(length(vals),1);
 
     for i = 1:length(vals)
-
         theta = linspace(theta_edges(i), theta_edges(i+1), 120);
 
         x_outer = r_outer*cos(theta);
@@ -241,23 +218,35 @@ function h = donutRingWithOutsideLabels(vals, r_inner, r_outer, colors, labels)
         h(i) = patch(x, y, colors(i,:), ...
             'EdgeColor', 'w', ...
             'LineWidth', 1.5);
+    end
+end
 
-        % Mid-angle of slice
+function addPieOutsideLabels(vals, radius, colors, labels, r_text)
+
+    vals = vals(:);
+    vals = abs(vals);
+    total = sum(vals);
+
+    if total == 0
+        return
+    end
+
+    frac = vals / total;
+    theta_edges = [0; cumsum(frac) * 2*pi];
+
+    for i = 1:length(vals)
+
         theta_mid = 0.5 * (theta_edges(i) + theta_edges(i+1));
 
-        % Point on outer edge
-        x_edge = r_outer * cos(theta_mid);
-        y_edge = r_outer * sin(theta_mid);
+        % Start point on slice edge
+        x_edge = radius * cos(theta_mid);
+        y_edge = radius * sin(theta_mid);
 
-        % Label box location outside donut
-        r_text = 1.25 * r_outer;
+        % Text box location
         x_text = r_text * cos(theta_mid);
         y_text = r_text * sin(theta_mid);
 
         percent = 100 * frac(i);
-
-        % Leader line
-        plot([x_edge x_text], [y_edge y_text], 'k-', 'LineWidth', 1);
 
         % Alignment
         if cos(theta_mid) >= 0
@@ -266,15 +255,75 @@ function h = donutRingWithOutsideLabels(vals, r_inner, r_outer, colors, labels)
             hAlign = 'right';
         end
 
-        % Text box
+        % Leader line in slice color
+        plot([x_edge x_text], [y_edge y_text], ...
+            '-', 'Color', colors(i,:), 'LineWidth', 1.5);
+
+        % Text box with matching color
         text(x_text, y_text, ...
             sprintf('%s\n%.1f%%', labels{i}, percent), ...
             'HorizontalAlignment', hAlign, ...
             'VerticalAlignment', 'middle', ...
             'FontSize', 9, ...
             'FontWeight', 'bold', ...
+            'Color', colors(i,:), ...
             'BackgroundColor', 'w', ...
-            'EdgeColor', 'k', ...
+            'EdgeColor', colors(i,:), ...
+            'Margin', 4);
+    end
+end
+
+function addDonutOutsideLabels(vals, r_outer, colors, labels, r_text)
+
+    vals = vals(:);
+    vals = abs(vals);
+    total = sum(vals);
+
+    if total == 0
+        return
+    end
+
+    frac = vals / total;
+    theta_edges = [0; cumsum(frac) * 2*pi];
+
+    for i = 1:length(vals)
+
+        theta_mid = 0.5 * (theta_edges(i) + theta_edges(i+1));
+
+        % Start point on donut outer edge
+        x_edge = r_outer * cos(theta_mid);
+        y_edge = r_outer * sin(theta_mid);
+
+        % Text box location
+        x_text = r_text * cos(theta_mid);
+        y_text = r_text * sin(theta_mid);
+
+        disp(x_text)
+        disp(y_text)
+
+        percent = 100 * frac(i);
+
+        % Alignment
+        if cos(theta_mid) >= 0
+            hAlign = 'left';
+        else
+            hAlign = 'right';
+        end
+
+        % Leader line in slice color
+        plot([x_edge x_text], [y_edge y_text], ...
+            '-', 'Color', colors(i,:), 'LineWidth', 1.5);
+
+        % Text box with matching color
+        text(x_text, y_text, ...
+            sprintf('%s\n%.1f%%', labels{i}, percent), ...
+            'HorizontalAlignment', hAlign, ...
+            'VerticalAlignment', 'middle', ...
+            'FontSize', 9, ...
+            'FontWeight', 'bold', ...
+            'Color', colors(i,:), ...
+            'BackgroundColor', 'w', ...
+            'EdgeColor', colors(i,:), ...
             'Margin', 4);
     end
 end
