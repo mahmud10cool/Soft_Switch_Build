@@ -88,24 +88,24 @@ xlim([-2.4 2.4])
 ylim([-2.0 2.2])
 
 % Final energy values for soft-switch case
-E_input   = input_energy(end);
-E_hyd_in = hyd_in_energy(end);
-E_regen   = regen(end);
+E_input        = input_energy(end);
+E_hyd_in       = hyd_in_energy(end);
+E_regen        = regen(end);
 
-E_work    = work(end);
-E_throt   = throttling_loss(end);
-E_pump    = pump_loss(end);
+E_work         = work(end);
+E_throt        = throttling_loss(end);
+E_pump         = pump_loss(end);
 E_elec_loss    = elec_loss(end);
-E_kinetic = kinetic_energy(end);
-E_stored  = stored_energy(end);
+E_kinetic      = kinetic_energy(end);
+E_stored       = stored_energy(end);
 
 % Outer ring: input energy + regen
 outer_vals   = abs([E_hyd_in]);
 outer_labels = {'Input'};
 
 % Inner pie: work + stored + losses + KE
-inner_vals   = abs([E_work + E_stored, E_throt, E_pump, E_elec_loss, E_regen]);
-inner_labels = {'Work', 'Throttling', 'Pump', 'E-Motor Losses', 'Regen'};
+inner_vals   = abs([E_work + E_stored, E_throt, E_regen, E_pump, E_elec_loss]);
+inner_labels = {'Work', 'Throttling', 'Regen', 'Pump', 'E-Motor Losses'};
 
 % Radii
 inner_pie_radius = 1.0;
@@ -115,7 +115,6 @@ outer_ring_r2    = 1.5;
 % Colors
 outer_colors = [
     0.20 0.45 0.85
-    0.20 0.70 0.35
 ];
 
 inner_colors = [
@@ -148,15 +147,88 @@ hold off
 
 % Subplot 4: Work Comparison
 subplot(2,2,4)
-plot(t_soft, work, 'b-', ...
-     t_norm, work_norm, 'r-', ...
-     'LineWidth', 2)
+cla
+hold on
+axis equal
+axis off
+xlim([-2.4 2.4])
+ylim([-2.0 2.2])
 
-ylabel('Work (J)')
-xlabel('Time (s)')
-legend('Soft-Switch', 'Normal', 'Location', 'best')
-grid on
-title('Work vs. Time')
+% Final energy values for soft-switch case
+E_input_norm   = input_energy_norm(end);
+
+E_work_norm    = work_norm(end);
+E_throt   = throttling_loss_norm(end);
+
+% Outer ring: input energy + regen
+outer_vals_norm   = abs([E_input_norm]);
+outer_labels = {'Input'};
+
+% Inner pie: work + stored + losses + KE
+inner_vals_norm   = abs([E_work_norm, E_throt]);
+inner_labels = {'Work', 'Throttling'};
+
+% Radii
+inner_pie_radius = 1.0;
+outer_ring_r1    = 1.0;
+outer_ring_r2    = 1.5;
+
+% Colors
+outer_colors = [
+    0.20 0.45 0.85
+];
+
+inner_colors = [
+    0.25 0.80 0.20
+    0.90 0.35 0.30
+];
+
+% Draw shapes first
+solidPieOnly(inner_vals_norm, inner_pie_radius, inner_colors);
+donutRingOnly(outer_vals_norm, outer_ring_r1, outer_ring_r2, outer_colors);
+
+% Draw labels and leader lines after the shapes
+addPieOutsideLabels(inner_vals_norm, inner_pie_radius, inner_colors, inner_labels, 1.85);
+addDonutOutsideLabels(outer_vals_norm, outer_ring_r2, outer_colors, outer_labels, 2.25);
+
+% plot([-1.5 -10.15], [0 0], ...
+%     '-', 'Color', 'k', 'LineWidth', 1.5);
+% 
+
+
+
+title('Normal Switching Energy Distribution', ...
+      'Units', 'normalized', ...
+      'Position', [0.5, 1.12, 0])
+
+hold off
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 % Helper Functions
