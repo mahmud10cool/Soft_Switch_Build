@@ -49,9 +49,10 @@ param.max_Avt = 4.9160e-06;
 param.Cd = 0.6;
 % param.stroke = 5e-3;
 param.stroke = 1;
-param.wn = 10000;
+param.wn = 1000;
 param.zeta = 1;
-param.delay_switch = 0e-3;
+param.delay_switch = 5e-3;
+param.valve_buffer = 0.02;
 
 % Hydraulic Pump/Motor
 param.J_hyd = 3000e-7;
@@ -98,6 +99,7 @@ param.P_initial = param.P_M;
 param.delay = 0;
 
 % Initial Position for the pressure rail valve
+% param.initial_stroke = 0;
 param.initial_stroke = -param.stroke;
 
 % Constant speed of electric motor
