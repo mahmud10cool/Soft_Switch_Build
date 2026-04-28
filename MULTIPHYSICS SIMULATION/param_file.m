@@ -51,7 +51,7 @@ param.Cd = 0.6;
 param.stroke = 1;
 param.wn = 10000;
 param.zeta = 1;
-param.delay_switch = 1e-3;
+param.delay_switch = 0e-3;
 
 % Hydraulic Pump/Motor
 param.J_hyd = 3000e-7;
