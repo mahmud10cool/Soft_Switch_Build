@@ -181,8 +181,8 @@ outer_vals   = abs([E_hyd_in]);
 outer_labels = {'Input'};
 
 % Inner pie: work + stored + losses + KE
-inner_vals   = abs([E_work + E_stored, E_throt,  E_regen]);
-inner_labels = {'Work', 'Throttling', 'Regen'};
+inner_vals   = abs([(E_work + E_stored), E_throt, E_regen, E_pump_loss, E_elec_loss]);
+inner_labels = {'Work','Throttling', 'Regen', 'Pump Losses', 'E-Motor Losses'};
 
 % Radii
 inner_pie_radius = 1.0;
@@ -254,7 +254,7 @@ outer_colors = [
 ];
 
 inner_colors = [
-    0.95 0.65 0.20
+    % 0.95 0.65 0.20
     0.90 0.35 0.30
 ];
 

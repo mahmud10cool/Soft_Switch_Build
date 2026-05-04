@@ -14,16 +14,18 @@ param.beta = 1.8e9;
 param.rho = 870;
 
 % Air content in fluid
-param.air = 5/100;
+param.air = 1/100;
 param.gamma = 1.4;
 param.P_FD = 0.8*param.P_H;
 
 % Linear Actuator Chamber
 param.V1_0 = 150e-6;
 param.Acap = pi*(2.54)^2*1e-4;
+param.piston_freq = 100;
 
 % Linear Actuator Piston Dynamics
 param.xdot = 0;
+param.xddot = 0;
 
 % Intermediary volumes
 % param.V3_0 = 20e-6;
@@ -39,10 +41,11 @@ param.ResistHose = 128*param.mu*param.L_hose/(pi*param.D_hose^4);
 param.InertHose = (4*param.rho*param.L_hose)/(pi*param.D_hose^2);
 
 % Hose volumes
-param.VA_0 = 0.25*pi*param.D_hose^2*param.L_hose;
-param.VB_0 = 0.25*pi*param.D_hose^2*param.L_hose;
-param.VP_0 = 0.25*pi*param.D_hose^2*param.L_hose;
-param.VT_0 = 0.25*pi*param.D_hose^2*param.L_hose;
+param.multiplier = 0.25;
+param.VA_0 = param.multiplier*0.25*pi*param.D_hose^2*param.L_hose;
+param.VB_0 = param.multiplier*0.25*pi*param.D_hose^2*param.L_hose;
+param.VP_0 = param.multiplier*0.25*pi*param.D_hose^2*param.L_hose;
+param.VT_0 = param.multiplier*0.25*pi*param.D_hose^2*param.L_hose;
 
 % Valve
 param.max_Avt = 4.9160e-06;
@@ -52,27 +55,28 @@ param.stroke = 1;
 param.wn = 1000;
 param.zeta = 1;
 param.delay_switch = 5e-3;
-param.valve_buffer = 0.02;
+param.valve_buffer = 0.01;
+param.open_ratio = 1;
 
 % Hydraulic Pump/Motor
 param.J_hyd = 3000e-7;
-param.D = 1.0e-6;    % In cc/rev
+param.D = 0.8e-6;    % In cc/rev
 
 % Volumetric Efficiency Stuff
-param.eta_v_nom = 1;  
+param.eta_v_nom = 0.98;  
 param.omega_nom = 3000;      
 param.dp_nom = 21e6;     
 
 % Mechanical Efficiency Stuff
-param.eta_m_nom = 1;
+param.eta_m_nom = 0.98;
 param.tau0 = 0.01;
 
 % Electric Motor/Generator
 param.J_elec = 3060e-7;
 param.Kt = 109e-3;
 param.Kv = (87.6082*pi)/30; % In rads^-1/Volt
-%param.B  = 1.16e-4;    % Nm*s/rad
-param.B = 0;
+param.B  = 1.16e-4;    % Nm*s/rad
+% param.B = 0;
 
 % Damping
 param.damping = 0;
@@ -86,7 +90,7 @@ param.damping = 5e-4;
 
 % Initial speed
 param.start_final_velocity = 600*(2*pi/60);
-param.max_speed = 650*(2*pi/60);
+param.max_speed = 600*(2*pi/60);
 
 % param.start_final_velocity = 100;
 % param.max_speed = 125;

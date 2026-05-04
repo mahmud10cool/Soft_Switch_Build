@@ -1,6 +1,6 @@
 clc; clear; close all;
 
-T_sim = 0.25;
+T_sim = 0.5;
 
 soft_sim = sim("soft_switch_new_simulation.slx");
 t_soft = soft_sim.tout;
@@ -125,15 +125,13 @@ yyaxis right
 h_right = plot(t_soft, regen_torque, 'r--', 'LineWidth', 2);
 ylabel('Torque (Nm)')
 
-ylim([min(prv_open) 1.2*max(prv_open)])
-
 all_handles = [h_left(:); h_right(:)];
-labels = {'Chamber', 'Desired', 'PRV Opening', 'SSV Opening'};
+labels = {'Speed', 'Torque'};
 legend(all_handles, labels, 'Location', 'best')
 
 xlabel('Time (s)')
 grid on
-title('Pressure vs. Time')
+title('Speed and Torque vs. Time')
 hold off
 
 
