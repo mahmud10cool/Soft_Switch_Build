@@ -1,6 +1,6 @@
 clc; clear; %close all;
 
-run param_file.m
+run param_file_loss_vs_freq.m
 
 T_sim = 0.25;
 

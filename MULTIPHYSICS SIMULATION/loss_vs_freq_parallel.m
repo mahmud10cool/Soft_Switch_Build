@@ -1,6 +1,6 @@
 clc; clear; % close all;
 
-run param_file.m
+run param_file_loss_vs_freq.m
 
 %% Simulation setup
 
@@ -12,10 +12,10 @@ load_system(model)
 param.zeta = 1;
 
 wn_size = 30;
-wn = logspace(2,5,wn_size);
+wn = logspace(1.4,5,wn_size);
 
 xdot_size = 5;
-xdot = linspace(0,8e-2,xdot_size);
+xdot = linspace(0,4e-2,xdot_size);
 
 open_ratio_array = [100];
 open_ratio_size = length(open_ratio_array);
@@ -92,7 +92,7 @@ open_ratio_index = 1;
 figure(1)
 h = plot(switching_time, squeeze(Loss(:,:,open_ratio_index)), LineWidth=2);
 
-yticks([2, 2.363, 4, 6, 8, 10 , 12, 14])
+yticks([2, 2.363, 3, 4, 5, 6, 7])
 
 xlabel('Switching Time (s)')
 ylabel('Loss (J)')
@@ -115,4 +115,9 @@ set(findobj(some_fig,'type','axes'),'FontName','Arial','FontSize',15,...
 'FontWeight','Bold', 'LineWidth', 2);
 
 ax = gca;
-ax.YTickLabel{2} = ['\color{red}' ax.YTickLabel{2}]; % Changes the second label to red
+
+ylab = string(ax.YTickLabel);
+ylab(2) = "\color{red}" + ylab(2);
+
+ax.YTickLabel = ylab;
+ax.TickLabelInterpreter = 'tex';
