@@ -121,3 +121,5 @@ ylab(2) = "\color{red}" + ylab(2);
 
 ax.YTickLabel = ylab;
 ax.TickLabelInterpreter = 'tex';
+
+saveas(gcf, 'loss_vs_freq.png')
