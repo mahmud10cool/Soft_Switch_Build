@@ -32,8 +32,51 @@ prv_open_norm = normal_sim.PRV_Opening.Data;
 %% Plots
 figure(1)
 
+subplot(4,1,1)
+yyaxis left
+h_left = plot(t_soft, Px_chamber, 'b-', ...
+              t_soft, Pdesired, 'r-', ...
+              'LineWidth', 2);
+ylabel('Pressure (Pa)')
+
+
+% yyaxis right
+% h_right = plot(t_soft, prv_open, 'c--', ...
+%                t_soft, ssv_open, 'm--', ...
+%                'LineWidth', 2);
+% ylabel('Valve Opening')
+% 
+% ylim([min(prv_open) 1.2*max(prv_open)])
+% 
+all_handles = [h_left(:)];
+labels = {'Chamber', 'Desired'};
+legend(all_handles, labels, 'Location', 'best')
+% 
+% xlabel('Time (s)')
+grid on
+title('Pressure vs. Time')
+hold off
+
+subplot(4,1,2)
+% yyaxis left
+h_left = plot(t_soft, omega_rot, 'b-', 'LineWidth', 2);
+ylabel('Rotational Speed (rads^{-1})')
+
+% yyaxis right
+% h_right = plot(t_soft, regen_torque, 'r--', 'LineWidth', 2);
+% ylabel('Torque (Nm)')
+% 
+all_handles = [h_left(:)];
+labels = {'Speed'};
+legend(all_handles, labels, 'Location', 'best')
+
+% xlabel('Time (s)')
+grid on
+title('Speed and Torque vs. Time')
+hold off
+
 % Subplot 1: Input Energy
-subplot(2,2,1)
+subplot(4,1,3)
 hold on
 
 % yyaxis left
@@ -56,13 +99,13 @@ all_handles = [h_left(:)];
 labels = {'Soft-Switch', 'Normal'};
 legend(all_handles, labels, 'Location', 'best')
 
-xlabel('Time (s)')
+% xlabel('Time (s)')
 grid on
 title('Input Energy vs. Time')
 hold off
 
-% Subplot 2: Throttling Loss
-subplot(2,2,2)
+% Subplot 4: Throttling Loss
+subplot(4,1,4)
 hold on
 
 % yyaxis left
@@ -83,7 +126,7 @@ ylim([min(throttling_loss_norm) 1.2*max(throttling_loss_norm)])
 % ylim([min(prv_open) 1.2*max(prv_open)])
 
 all_handles = [h_left(:)];
-labels = {'Soft-Switch', 'Normal','Kinetic Energy'};
+% labels = {'Soft-Switch', 'Normal','Kinetic Energy'};
 labels = {'Soft-Switch', 'Normal','Kinetic Energy'};
 legend(all_handles, labels, 'Location', 'best')
 
@@ -92,48 +135,7 @@ grid on
 title('Throttling Loss vs. Time')
 hold off
 
-subplot(2,2,3)
-yyaxis left
-h_left = plot(t_soft, Px_chamber, 'b-', ...
-              t_soft, Pdesired, 'r-', ...
-              'LineWidth', 2);
-ylabel('Pressure (Pa)')
 
-
-% yyaxis right
-% h_right = plot(t_soft, prv_open, 'c--', ...
-%                t_soft, ssv_open, 'm--', ...
-%                'LineWidth', 2);
-% ylabel('Valve Opening')
-% 
-% ylim([min(prv_open) 1.2*max(prv_open)])
-% 
-all_handles = [h_left(:)];
-labels = {'Chamber', 'Desired'};
-legend(all_handles, labels, 'Location', 'best')
-% 
-xlabel('Time (s)')
-grid on
-title('Pressure vs. Time')
-hold off
-
-subplot(2,2,4)
-% yyaxis left
-h_left = plot(t_soft, omega_rot, 'b-', 'LineWidth', 2);
-ylabel('Rotational Speed (rads^{-1})')
-
-% yyaxis right
-% h_right = plot(t_soft, regen_torque, 'r--', 'LineWidth', 2);
-% ylabel('Torque (Nm)')
-% 
-all_handles = [h_left(:)];
-labels = {'Speed'};
-legend(all_handles, labels, 'Location', 'best')
-
-xlabel('Time (s)')
-grid on
-title('Speed and Torque vs. Time')
-hold off
 
 
 sgtitle('Soft-Switch vs. Normal System Energy Comparison for One Switch', ...
@@ -152,6 +154,14 @@ all_legends = findall(gcf, 'Type', 'legend');
 set(all_legends, ...
     'FontSize', 10, ...
     'FontWeight', 'bold');
+
+x0 = 50;
+y0 = 50;
+width = 900;
+height = 900;
+set(gcf,'position',[x0,y0,width,height])
+
+saveas(gcf, 'parameters_vs_time.png')
 
 
 % %% Pie Charts

@@ -41,7 +41,7 @@ param.ResistHose = 128*param.mu*param.L_hose/(pi*param.D_hose^4);
 param.InertHose = (4*param.rho*param.L_hose)/(pi*param.D_hose^2);
 
 % Hose volumes
-param.multiplier = 0.1;
+param.multiplier = 0.05;
 param.VA_0 = param.multiplier*0.25*pi*param.D_hose^2*param.L_hose;
 param.VB_0 = param.multiplier*0.25*pi*param.D_hose^2*param.L_hose;
 param.VP_0 = param.multiplier*0.25*pi*param.D_hose^2*param.L_hose;
