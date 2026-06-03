@@ -32,7 +32,7 @@ prv_open_norm = normal_sim.PRV_Opening.Data;
 %% Plots
 figure(1)
 
-subplot(4,1,1)
+subplot(5,1,1)
 yyaxis left
 h_left = plot(t_soft, Px_chamber, 'b-', ...
               t_soft, Pdesired, 'r-', ...
@@ -40,24 +40,24 @@ h_left = plot(t_soft, Px_chamber, 'b-', ...
 ylabel('Pressure (Pa)')
 
 
-yyaxis right
-h_right = plot(t_soft, prv_open, 'c--', ...
-               t_soft, ssv_open, 'm--', ...
-               'LineWidth', 2);
-ylabel('Valve Opening')
+% yyaxis right
+% h_right = plot(t_soft, prv_open, 'c--', ...
+%                t_soft, ssv_open, 'm--', ...
+%                'LineWidth', 2);
+% ylabel('Valve Opening')
+% 
+% ylim([min(prv_open) 1.2*max(prv_open)])
 
-ylim([min(prv_open) 1.2*max(prv_open)])
-
-all_handles = [h_left(:), h_right(:)];
-labels = {'Chamber', 'Desired', 'PRV Opening', 'SSV Opening'};
+all_handles = [h_left(:)];
+labels = {'Chamber', 'Desired'};
 legend(all_handles, labels, 'Location', 'best')
 % 
 % xlabel('Time (s)')
 grid on
-title('Pressure vs. Time')
+% title('Pressure vs. Time')
 hold off
 
-subplot(4,1,2)
+subplot(5,1,2)
 % yyaxis left
 h_left_2 = plot(t_soft, omega_rot, 'b-', 'LineWidth', 2);
 ylabel('Rotational Speed (rads^{-1})')
@@ -72,11 +72,11 @@ legend(all_handles_2, labels, 'Location', 'best')
 
 % xlabel('Time (s)')
 grid on
-title('Speed and Torque vs. Time')
+% title('Speed and Torque vs. Time')
 hold off
 
 % Subplot 1: Input Energy
-subplot(4,1,3)
+subplot(5,1,3)
 hold on
 
 % yyaxis left
@@ -101,11 +101,11 @@ legend(all_handles, labels, 'Location', 'best')
 
 % xlabel('Time (s)')
 grid on
-title('Input Energy vs. Time')
+% title('Input Energy vs. Time')
 hold off
 
 % Subplot 4: Throttling Loss
-subplot(4,1,4)
+subplot(5,1,4)
 hold on
 
 % yyaxis left
@@ -137,10 +137,24 @@ all_handles = [h_left(:)];
 labels = {'Soft-Switch', 'Normal','Regen', 'Pump + Motor Losses'};
 legend(all_handles, labels, 'Location', 'best')
 
-xlabel('Time (s)')
 grid on
-title('Throttling Loss vs. Time')
+% title('Throttling Loss vs. Time')
 hold off
+
+subplot(5,1,5)
+h_right = plot(t_soft, prv_open, 'k-', ...
+               t_soft, ssv_open, 'k--', ...
+               'LineWidth', 2);
+ylabel('Valve Position')
+
+ylim([min(prv_open) 1.2*max(prv_open)])
+
+all_handles = [h_right(:)];
+labels = {'PRV', 'SSV'};
+legend(all_handles, labels, 'Location', 'best')
+
+grid on
+xlabel('Time (s)')
 
 sgtitle('Soft-Switch vs. Normal System Energy Comparison for One Switch', ...
         'FontSize', 14, ...
