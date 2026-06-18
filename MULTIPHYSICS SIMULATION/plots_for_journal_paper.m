@@ -1,6 +1,6 @@
 clc; clear; close all;
 
-T_sim = 0.5;
+T_sim = 0.25;
 
 soft_sim = sim("soft_switch_new_simulation.slx");
 t_soft = soft_sim.tout;
@@ -28,15 +28,20 @@ output_energy_norm = normal_sim.Output_Energy.Data;
 work_norm = normal_sim.Work.Data;
 throttling_loss_norm = normal_sim.Throttling_Loss.Data;
 prv_open_norm = normal_sim.PRV_Opening.Data;
+Px_chamber_norm = normal_sim.Px.Data;
 
 %% Plots
 figure(1)
 
 subplot(5,1,1)
 yyaxis left
+hold on
 h_left = plot(t_soft, Px_chamber, 'b-', ...
-              t_soft, Pdesired, 'r-', ...
+              t_soft, Pdesired, 'c-', ...
               'LineWidth', 2);
+h_left_norm = plot(t_norm, Px_chamber_norm, 'r-', ...
+     'LineWidth', 2);
+hold off
 ylabel('Pressure (Pa)')
 
 
@@ -48,8 +53,8 @@ ylabel('Pressure (Pa)')
 % 
 % ylim([min(prv_open) 1.2*max(prv_open)])
 
-all_handles = [h_left(:)];
-labels = {'Chamber', 'Desired'};
+all_handles = [h_left(:); h_left_norm(:)];
+labels = {'Chamber', 'Desired', 'Normal'};
 legend(all_handles, labels, 'Location', 'best')
 % 
 % xlabel('Time (s)')
@@ -150,13 +155,13 @@ ylabel('Valve Position')
 ylim([min(prv_open) 1.2*max(prv_open)])
 
 all_handles = [h_right(:)];
-labels = {'PRV', 'SSV'};
+labels = {'PSV', 'SSV'};
 legend(all_handles, labels, 'Location', 'best')
 
 grid on
 xlabel('Time (s)')
 
-sgtitle('Soft-Switch vs. Normal System Energy Comparison for One Switch', ...
+sgtitle('Soft-Switch vs. Normal System Energy Comparison for Two Switches', ...
         'FontSize', 14, ...
         'FontWeight', 'bold')
 
@@ -284,7 +289,7 @@ outer_colors = [
 ];
 
 inner_colors = [
-    % 0.95 0.65 0.20
+    0.95 0.65 0.20
     0.90 0.35 0.30
 ];
 
