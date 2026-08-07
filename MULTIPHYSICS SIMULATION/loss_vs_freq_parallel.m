@@ -17,7 +17,7 @@ wn = logspace(1.4,5,wn_size);
 xdot_size = 5;
 xdot = linspace(0,4e-2,xdot_size);
 
-open_ratio_array = [100];
+open_ratio_array = [500];
 open_ratio_size = length(open_ratio_array);
 
 total_cases = wn_size * xdot_size * open_ratio_size;
