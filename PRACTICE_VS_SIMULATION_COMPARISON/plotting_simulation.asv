@@ -1,0 +1,89 @@
+clc; clear; close all;
+
+T_sim = 1.2;
+
+soft_sim = sim("simulation.slx");
+t_soft = soft_sim.tout;
+input_energy = soft_sim.Input_Energy.Data;
+hyd_in_energy = soft_sim.Hydraulic_Input.Data;
+output_energy = soft_sim.Output_Energy.Data;
+pump_loss = soft_sim.Pump_Losses.Data;
+regen = soft_sim.Regen.Data;
+kinetic_energy = soft_sim.Kinetic_Energy.Data;
+elec_loss = soft_sim.Elec_Losses.Data;
+throttling_loss = soft_sim.Throttling_Loss.Data;
+work = soft_sim.Work.Data;
+stored_energy = soft_sim.Stored_Energy.Data;
+prv_open = soft_sim.PRV_Opening.Data;
+ssv_open = soft_sim.SSV_Opening.Data;
+Px_chamber = soft_sim.Px.Data;
+Pdesired = soft_sim.Pdes.Data;
+omega_rot = soft_sim.omega.Data;
+regen_torque = soft_sim.regen_torque.Data;
+
+%% Plots
+figure(1)
+
+% Pressure
+subplot(6,1,1)
+plot(t_soft, Px_chamber*0.000145038, 'b-', 'LineWidth', 2);
+ylabel('Pressure (PSI)')
+grid on
+
+% Speed
+subplot(6,1,2)
+plot(t_soft, omega_rot*(60/(2*pi)), 'b-', 'LineWidth', 2);
+ylabel('Speed (RPM)')
+grid on
+
+% Torque
+subplot(6,1,3)
+plot(t_soft, regen_torque, 'r-', 'LineWidth', 2);
+ylabel('Torque (Nm)')
+grid on
+
+% Power
+subplot(6,1,5)
+plot(t_soft, regen_torque.*omega_rot,'LineWidth',2);
+ylabel('Power (W)')
+
+% Energy
+subplot(6,1,6)
+plot(t_soft, throttling_loss, 'b-', ...
+              t_soft, -regen, 'g-', ...
+              t_soft, (pump_loss+elec_loss), 'm-', ...
+              'LineWidth', 2);
+ylabel('Energy (J)')
+legend('Soft-Switch','Regen', 'Pump + Motor Losses');
+grid on
+
+xlabel('Time (s)')
+
+% Figure Format
+some_fig = gcf;
+
+sgtitle('Simulation Results','FontName','Arial','FontSize',15,'FontWeight','Bold', 'LineWidth', 2)
+set(findobj(some_fig,'type','axes'),'FontName','Arial','FontSize',12,'FontWeight','Bold', 'LineWidth', 2);
+
+set(some_fig, 'position', [0, 0, 840, 1920])
+
+% Input Energy
+% subplot(6,1,4)
+% hold on
+% plot(t_soft, input_energy, 'b-', 'LineWidth', 2);
+% ylabel('Input Energy (J)')
+% grid on
+
+% Switch Timing
+% subplot(6,1,6)
+% h_right = plot(t_soft, prv_open, 'k-', ...
+%                t_soft, ssv_open, 'k--', ...
+%                'LineWidth', 2);
+% ylabel('Valve Position')
+% ylim([min(prv_open) 1.2*max(prv_open)])
+% all_handles = [h_right(:)];
+% labels = {'PSV', 'SSV'};
+% legend(all_handles, labels, 'Location', 'best')
+% grid on
+
+
