@@ -1,0 +1,56 @@
+%% Run Simple Turbine Model and Plot Efficiency
+clear; clc; close all;
+
+%% Load parameters
+param_file_turbine;
+
+%% Flow rate
+param.Q0 = 0.001e-5;     % [m^3/s]
+
+%% Model name
+modelName = "rahcel_pump_vs_pd_pump";
+
+%% Simulation time
+Tstop = 1;
+
+%% Run simulation
+out = sim(modelName, "StopTime", num2str(Tstop));
+
+%% Extract Simulink data
+% These names should match your To Workspace blocks
+
+omega_ts          = out.omega;
+tau_turbine_ts   = out.tau_turbine;
+tau_friction_ts  = out.friction;
+DeltaP_total_ts  = out.DeltaP_total;
+DeltaP_inlet_ts  = out.DeltaP_inlet;
+DeltaP_center_ts = out.DeltaP_center;
+hydraulic_power = out.hydraulic_power;
+mechanical_power = out.mechanical_power;
+friction_power = out.friction_power;
+
+net_mech_power = mechanical_power - friction_power;
+
+% The time
+t = out.tout;
+
+% Plotting the speed 
+figure(1);
+plot(t, omega_ts.data);
+xlabel('Time (s)');
+ylabel('Angular Speed (rad/s)');
+title('Turbine Angular Speed vs Time');
+grid on;
+
+% Plotting the pressure differences
+figure(2)
+plot(t, DeltaP_total_ts.data, 'r', t, DeltaP_inlet_ts.data, 'g', t, DeltaP_center_ts.data, 'b');
+xlabel('Time (s)');
+ylabel('Pressure Difference (Pa)');
+title('Pressure Differences vs Time');
+legend('Total Pressure Difference', 'Inlet Pressure Difference', 'Center Pressure Difference');
+grid on;
+
+% Plotting efficiency
+figure(3)
+efficiency = net_mech_power/hydraulic_power

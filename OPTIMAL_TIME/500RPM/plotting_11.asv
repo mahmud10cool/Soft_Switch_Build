@@ -123,7 +123,6 @@ torque_fric_3 = current(friction_index(262:322))-friction(friction_index(262:322
 
 torque_fric_4 = current(friction_index(323:763))-friction(friction_index(323:763));
 torque_fric_4 = torque_fric_4 - mean(torque_fric_4);
-torque_fric_4 = torque_fric_4 + 0.015;
 torque_fric_5 = current(friction_index(764:906))-friction(friction_index(764:906));
 torque_fric_6 = current(friction_index(907:end))-friction(friction_index(907:end));
 torque_fric_6 = torque_fric_6 - mean(torque_fric_6);
@@ -133,39 +132,33 @@ torque_fric = [torque_fric_1,torque_fric_2,torque_fric_3,torque_fric_4,torque_fr
 
 
 figure(1)
-subplot(6,1,1)
+subplot(5,1,1)
 plot(t_pressure(friction_index)-t_friction(1),pressure(friction_index)+100,LineWidth=2);
 xlabel('Time (ms)')
 ylabel('Pressure (PSI)')
 grid on
 
-subplot(6,1,2)
+subplot(5,1,2)
 speed_fric = speed_(friction_index);
 plot(t_speed_(friction_index)-t_friction(1),speed_fric,LineWidth=2);
 xlabel('Time (ms)')
 ylabel('Speed (RPM)')
 grid on
 
-subplot(6,1,3)
-plot(t_current(friction_index)-t_friction(1),current(friction_index),LineWidth=2);
-xlabel('Time (ms)')
-ylabel('Torque (Nm)')
-grid on
-
-subplot(6,1,4)
+subplot(5,1,3)
 plot(t_current(friction_index)-t_friction(1),torque_fric,LineWidth=2);
 xlabel('Time (ms)')
 ylabel('FL Torque (Nm)')
 grid on
 
-subplot(6,1,5)
+subplot(5,1,4)
 power_fric = (speed_fric*((2*pi)/60)).*torque_fric;
 plot(t_pressure(friction_index)-t_friction(1),power_fric,LineWidth=2);
 xlabel('Time (ms)')
 ylabel('Power (W)')
 grid on
 
-subplot(6,1,6)
+subplot(5,1,5)
 energy_fric = cumsum(power_fric*1e-3);
 t_energy = t_pressure(friction_index)-t_friction(1);
 plot(t_energy, energy_fric,LineWidth=2);
