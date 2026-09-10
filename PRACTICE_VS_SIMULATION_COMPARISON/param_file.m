@@ -20,7 +20,7 @@ param.P_FD = 0.8*param.P_H;
 
 % Linear Actuator Chamber
 % param.V1_0 = 150e-6;
-param.V1_0 = 250e-6;
+param.V1_0 = 275e-6;
 param.Acap = pi*(2.54)^2*1e-4;
 param.piston_freq = 100;
 
