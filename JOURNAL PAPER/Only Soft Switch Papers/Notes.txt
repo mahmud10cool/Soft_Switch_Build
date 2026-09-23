@@ -1,0 +1,5 @@
+| Approach   | How it tries to reduce switching loss                                                                     |
+| ---------- | --------------------------------------------------------------------------------------------------------- |
+| **Yudell** | Use hydraulic resonance to make \(\Delta p_{\text{valve}}\) very small before switching                   |
+| **Rannow** | Give compressed fluid a temporary alternate path using a piston accumulator                               |
+| **Zeng**   | Use mechanical inertia to suppress the sudden \(Q\) increase and mechanically recover/transfer the energy |
