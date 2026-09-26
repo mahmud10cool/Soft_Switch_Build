@@ -1,0 +1,479 @@
+LIBRARY:
+  MATERIAL: Hydraulic Oil
+    Material Group = User
+    Option = Pure Substance
+    PROPERTIES:
+      Option = General Material
+      EQUATION OF STATE:
+        Density = 850 [kg m^-3]
+        Molar Mass = 1.0 [kg kmol^-1]
+        Option = Value
+      END
+      DYNAMIC VISCOSITY:
+        Dynamic Viscosity = 0.04 [Pa s]
+        Option = Value
+      END
+    END
+  END
+END
+FLOW: Flow Analysis 1
+  SOLUTION UNITS:
+    Angle Units = [rad]
+    Length Units = [m]
+    Mass Units = [kg]
+    Solid Angle Units = [sr]
+    Temperature Units = [K]
+    Time Units = [s]
+  END
+  ANALYSIS TYPE:
+    Option = Steady State
+    EXTERNAL SOLVER COUPLING:
+      Option = None
+    END
+  END
+  DOMAIN: R1
+    Coord Frame = Coord 0
+    Domain Type = Fluid
+    Location = Primitive 3D
+    BOUNDARY: R1 Blade
+      Boundary Type = WALL
+      Frame Type = Rotating
+      Location = BLADE
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = No Slip Wall
+        END
+        WALL ROUGHNESS:
+          Option = Smooth Wall
+        END
+      END
+    END
+    BOUNDARY: R1 Hub
+      Boundary Type = WALL
+      Coord Frame = Coord 0
+      Frame Type = Rotating
+      Location = HUB
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = No Slip Wall
+        END
+        WALL ROUGHNESS:
+          Option = Smooth Wall
+        END
+      END
+    END
+    BOUNDARY: R1 Outlet
+      Boundary Type = OUTLET
+      Frame Type = Stationary
+      Location = OUTFLOW
+      BOUNDARY CONDITIONS:
+        FLOW REGIME:
+          Option = Subsonic
+        END
+        MASS AND MOMENTUM:
+          Option = Average Static Pressure
+          Pressure Profile Blend = 0.05
+          Relative Pressure = 1 [bar]
+        END
+        PRESSURE AVERAGING:
+          Option = Average Over Whole Outlet
+        END
+      END
+    END
+    BOUNDARY: R1 Shroud
+      Boundary Type = WALL
+      Coord Frame = Coord 0
+      Frame Type = Rotating
+      Location = SHROUD
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = No Slip Wall
+          WALL VELOCITY:
+            Option = Counter Rotating Wall
+          END
+        END
+        WALL ROUGHNESS:
+          Option = Smooth Wall
+        END
+      END
+    END
+    BOUNDARY: R1 to R1 Periodic 1 Side 1
+      Boundary Type = INTERFACE
+      Location = PER1
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = Conservative Interface Flux
+        END
+        TURBULENCE:
+          Option = Conservative Interface Flux
+        END
+      END
+    END
+    BOUNDARY: R1 to R1 Periodic 1 Side 2
+      Boundary Type = INTERFACE
+      Location = PER2
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = Conservative Interface Flux
+        END
+        TURBULENCE:
+          Option = Conservative Interface Flux
+        END
+      END
+    END
+    BOUNDARY: R1 to S1 Side 1
+      Boundary Type = INTERFACE
+      Location = INFLOW
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = Conservative Interface Flux
+        END
+        TURBULENCE:
+          Option = Conservative Interface Flux
+        END
+      END
+    END
+    DOMAIN MODELS:
+      BUOYANCY MODEL:
+        Option = Non Buoyant
+      END
+      DOMAIN MOTION:
+        Alternate Rotation Model = true
+        Angular Velocity = 523.6 [radian s^-1]
+        Option = Rotating
+        AXIS DEFINITION:
+          Option = Coordinate Axis
+          Rotation Axis = Coord 0.3
+        END
+      END
+      MESH DEFORMATION:
+        Option = None
+      END
+      REFERENCE PRESSURE:
+        Reference Pressure = 1 [atm]
+      END
+    END
+    FLUID DEFINITION: Hydraulic Oil
+      Material = Hydraulic Oil
+      Option = Material Library
+      MORPHOLOGY:
+        Option = Continuous Fluid
+      END
+    END
+    FLUID MODELS:
+      COMBUSTION MODEL:
+        Option = None
+      END
+      HEAT TRANSFER MODEL:
+        Option = None
+      END
+      THERMAL RADIATION MODEL:
+        Option = None
+      END
+      TURBULENCE MODEL:
+        Option = SST
+      END
+      TURBULENT WALL FUNCTIONS:
+        Option = Automatic
+      END
+    END
+  END
+  DOMAIN: S1
+    Coord Frame = Coord 0
+    Domain Type = Fluid
+    Location = B364
+    BOUNDARY: R1 to S1 Side 2
+      Boundary Type = INTERFACE
+      Location = out
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = Conservative Interface Flux
+        END
+        TURBULENCE:
+          Option = Conservative Interface Flux
+        END
+      END
+    END
+    BOUNDARY: S1 Blade
+      Boundary Type = WALL
+      Location = blade
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = No Slip Wall
+        END
+        WALL ROUGHNESS:
+          Option = Smooth Wall
+        END
+      END
+    END
+    BOUNDARY: S1 Hub
+      Boundary Type = WALL
+      Location = hub
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = No Slip Wall
+        END
+        WALL ROUGHNESS:
+          Option = Smooth Wall
+        END
+      END
+    END
+    BOUNDARY: S1 Inlet
+      Boundary Type = INLET
+      Location = in
+      BOUNDARY CONDITIONS:
+        FLOW DIRECTION:
+          Option = Normal to Boundary Condition
+        END
+        FLOW REGIME:
+          Option = Subsonic
+        END
+        MASS AND MOMENTUM:
+          Option = Total Pressure
+          Relative Pressure = 2 [bar]
+        END
+        TURBULENCE:
+          Option = Medium Intensity and Eddy Viscosity Ratio
+        END
+      END
+    END
+    BOUNDARY: S1 Shroud
+      Boundary Type = WALL
+      Location = shroud
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = No Slip Wall
+        END
+        WALL ROUGHNESS:
+          Option = Smooth Wall
+        END
+      END
+    END
+    BOUNDARY: S1 to S1 Periodic 1 Side 1
+      Boundary Type = INTERFACE
+      Location = periodic1
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = Conservative Interface Flux
+        END
+        TURBULENCE:
+          Option = Conservative Interface Flux
+        END
+      END
+    END
+    BOUNDARY: S1 to S1 Periodic 1 Side 2
+      Boundary Type = INTERFACE
+      Location = periodic2
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = Conservative Interface Flux
+        END
+        TURBULENCE:
+          Option = Conservative Interface Flux
+        END
+      END
+    END
+    DOMAIN MODELS:
+      BUOYANCY MODEL:
+        Option = Non Buoyant
+      END
+      DOMAIN MOTION:
+        Option = Stationary
+      END
+      MESH DEFORMATION:
+        Option = None
+      END
+      REFERENCE PRESSURE:
+        Reference Pressure = 1 [atm]
+      END
+    END
+    FLUID DEFINITION: Hydraulic Oil
+      Material = Hydraulic Oil
+      Option = Material Library
+      MORPHOLOGY:
+        Option = Continuous Fluid
+      END
+    END
+    FLUID MODELS:
+      COMBUSTION MODEL:
+        Option = None
+      END
+      HEAT TRANSFER MODEL:
+        Option = None
+      END
+      THERMAL RADIATION MODEL:
+        Option = None
+      END
+      TURBULENCE MODEL:
+        Option = SST
+      END
+      TURBULENT WALL FUNCTIONS:
+        Option = Automatic
+      END
+    END
+  END
+  DOMAIN INTERFACE: R1 to R1 Periodic 1
+    Boundary List1 = R1 to R1 Periodic 1 Side 1
+    Boundary List2 = R1 to R1 Periodic 1 Side 2
+    Interface Type = Fluid Fluid
+    INTERFACE MODELS:
+      Option = Rotational Periodicity
+      AXIS DEFINITION:
+        Option = Coordinate Axis
+        Rotation Axis = Coord 0.3
+      END
+    END
+    MESH CONNECTION:
+      Option = Automatic
+    END
+  END
+  DOMAIN INTERFACE: R1 to S1
+    Boundary List1 = R1 to S1 Side 1
+    Boundary List2 = R1 to S1 Side 2
+    Interface Type = Fluid Fluid
+    INTERFACE MODELS:
+      Option = General Connection
+      FRAME CHANGE:
+        Option = Stage
+        DOWNSTREAM VELOCITY CONSTRAINT:
+          Frame Type = Rotating
+          Option = Constant Total Pressure
+        END
+      END
+      PITCH CHANGE:
+        Option = Specified Pitch Angles
+        Pitch Angle Side1 = 6.37168 [degree]
+        Pitch Angle Side2 = 6.00000 [degree]
+      END
+    END
+    MESH CONNECTION:
+      Option = GGI
+    END
+  END
+  DOMAIN INTERFACE: S1 to S1 Periodic 1
+    Boundary List1 = S1 to S1 Periodic 1 Side 1
+    Boundary List2 = S1 to S1 Periodic 1 Side 2
+    Interface Type = Fluid Fluid
+    INTERFACE MODELS:
+      Option = Rotational Periodicity
+      AXIS DEFINITION:
+        Option = Coordinate Axis
+        Rotation Axis = Coord 0.3
+      END
+    END
+    MESH CONNECTION:
+      Option = Automatic
+    END
+  END
+  OUTPUT CONTROL:
+    RESULTS:
+      File Compression Level = Default
+      Option = Standard
+    END
+  END
+  SOLVER CONTROL:
+    Turbulence Numerics = First Order
+    ADVECTION SCHEME:
+      Option = High Resolution
+    END
+    CONVERGENCE CONTROL:
+      Maximum Number of Iterations = 100
+      Minimum Number of Iterations = 1
+      Physical Timescale = 0.002 [s]
+      Timescale Control = Physical Timescale
+    END
+    CONVERGENCE CRITERIA:
+      Residual Target = 1.E-4
+      Residual Type = RMS
+    END
+    DYNAMIC MODEL CONTROL:
+      Global Dynamic Model Control = On
+    END
+    INTERRUPT CONTROL:
+      Option = Any Interrupt
+      CONVERGENCE CONDITIONS:
+        Option = Default Conditions
+      END
+    END
+  END
+END
+COMMAND FILE:
+  Version = 26.1
+  Results Version = 26.1
+END
+SIMULATION CONTROL:
+  EXECUTION CONTROL:
+    EXECUTABLE SELECTION:
+      Double Precision = No
+      Large Problem = No
+    END
+    INTERPOLATOR STEP CONTROL:
+      Runtime Priority = Standard
+      MEMORY CONTROL:
+        Memory Allocation Factor = 1.0
+        Option = Model Based
+      END
+    END
+    LICENSE CONTROL:
+      Capability Level = Automatic
+      HPC License = Automatic
+    END
+    PARALLEL HOST LIBRARY:
+      HOST DEFINITION: msi
+        Installation Root = C:\Program Files\ANSYS Inc\ANSYS Student\v%v\CFX
+        Host Architecture String = winnt-amd64
+      END
+    END
+    PARTITIONER STEP CONTROL:
+      Multidomain Option = Automatic
+      Option = Spatial Partitioning
+      Runtime Priority = Standard
+      MEMORY CONTROL:
+        Memory Allocation Factor = 1.0
+        Option = Model Based
+      END
+      PARTITION SMOOTHING:
+        Maximum Partition Smoothing Sweeps = 100
+        Option = Smooth
+      END
+      PARTITIONING TYPE:
+        MeTiS Type = k-way
+        Option = MeTiS
+        Partition Size Rule = Automatic
+        Partition Weight Factors = 0.50000, 0.50000
+      END
+      SPATIAL PARTITIONING:
+        Option = Automatic
+      END
+    END
+    RUN DEFINITION:
+      Run Mode = Full
+      Solver Input File = Turbomachinery Fluid Flow.def
+      Solver Results File = \
+        C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/ANSYS_SIMULATION/tu\
+        rbo_sim_1_pending/dp0_TFF_Solution/Turbomachinery Fluid Flow_004.res
+      INITIAL VALUES SPECIFICATION:
+        INITIAL VALUES CONTROL:
+          Use Mesh From = Solver Input File
+          Continue History From = Workbench Initial Values
+        END
+        INITIAL VALUES: Workbench Initial Values
+          Option = Results File
+          File Name = Turbomachinery Fluid Flow_003.res
+        END
+      END
+    END
+    SOLVER STEP CONTROL:
+      Runtime Priority = Standard
+      MEMORY CONTROL:
+        Memory Allocation Factor = 1.0
+        Option = Model Based
+      END
+      PARALLEL ENVIRONMENT:
+        Maximum Number of Processes = 2
+        Start Method = Microsoft MPI Local Parallel
+        Parallel Host List = msi*2
+      END
+    END
+  END
+END

@@ -1,0 +1,12 @@
+GUI INFORMATION:
+  RUN SETUP INFORMATION:
+    Run Name = Turbomachinery Fluid Flow_004
+    Object Name = Run Turbomachinery Fluid Flow 004
+    Full Run Prefix = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION\turbo_sim_1_pending\dp0_TFF_Solution\Turbomachinery Fluid Flow_004
+    Working Directory = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION\turbo_sim_1_pending\dp0_TFF_Solution\Turbomachinery Fluid Flow_004.dir
+    Output File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION\turbo_sim_1_pending\dp0_TFF_Solution\Turbomachinery Fluid Flow_004.out
+    Solver Input File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION\turbo_sim_1_pending\dp0_TFF_Solution\Turbomachinery Fluid Flow.def
+    Initial Values File = Turbomachinery Fluid Flow_003.res
+    Messages File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION\turbo_sim_1_pending\dp0_TFF_Solution\Turbomachinery Fluid Flow_004.dir\gui-err.txt
+  END
+END

@@ -1,0 +1,1725 @@
+# encoding: utf-8
+# 2026 R1
+SetScriptVersion(Version="26.1.174")
+template1 = GetTemplate(TemplateName="TurboFluidFlow")
+system1 = template1.CreateSystem()
+template2 = GetTemplate(TemplateName="BladeGen")
+system2 = template2.CreateSystem(
+    Position="Right",
+    RelativeTo=system1)
+template3 = GetTemplate(TemplateName="BladeBuilderSystemTemplate")
+system3 = template3.CreateSystem(
+    Position="Right",
+    RelativeTo=system2)
+Save(Overwrite=True)
+template4 = GetTemplate(
+    TemplateName="Fluid Flow",
+    Solver="CFX")
+system4 = template4.CreateSystem(
+    Position="Below",
+    RelativeTo=system1)
+setup1 = system1.GetContainer(ComponentName="Setup")
+setup1.Edit()
+setup1.Exit()
+setup1.Edit()
+setup1.Exit()
+setup2 = system4.GetContainer(ComponentName="Setup")
+setup2.Edit()
+setup2.Exit()
+setup1.Edit()
+setup1.SendCommand(Command="""VIEW:View 1
+  Light Angle = 50, 110
+END
+
+> update
+> gtmImport filename=C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/ANSYS_SIMULATION/stator.gtm, type=GTM, units=m, nameStrategy= Assembly""")
+setup1.SendCommand(Command="""VIEW:View 1
+  Camera Mode = User Specified
+  CAMERA:
+    Option = Pivot Point and Quaternion
+    Pivot Point = 0.415138, 0.0270373, 0.00120588
+    Scale = 11.2702
+    Pan = 0, 0
+    Rotation Quaternion = 0.217471, -0.227024, -0.112543, 0.942604
+    
+  END
+
+END
+
+> update
+> gtmImport filename=C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/ANSYS_SIMULATION/rotor.grd, type=GRD, units=m, genOpt= -n, specOpt= -3 -p, nameStrategy= Assembly""")
+setup1.SendCommand(Command="""VIEW:View 1
+  Camera Mode = User Specified
+  CAMERA:
+    Option = Pivot Point and Quaternion
+    Pivot Point = 0.415138, 0.0270373, 0.00120588
+    Scale = 5.06144
+    Pan = 0, 0
+    Rotation Quaternion = 0.173186, -0.695961, -0.0231943, 0.696497
+    
+  END
+
+END
+
+> update
+ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,shroud
+  Rotation Speed = 3600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""AXIS: TurboPre
+  Option = Coord Frame
+  Visibility = true
+  Reference Coord Frame = Coord 0
+  Axis of Rotation = Z
+END""")
+setup1.SendCommand(Command="> gtmImport filename=C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/ANSYS_SIMULATION/stator.gtm, type=GTM, units=m, nameStrategy= Assembly")
+setup1.SendCommand(Command="> gtmImport filename=C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/ANSYS_SIMULATION/rotor.grd, type=GRD, units=m, genOpt= -n, specOpt= -3 -p, nameStrategy= Assembly")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD 2
+  Rotation Speed = 3600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD 2
+  Rotation Speed = 3600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD 2
+  Rotation Speed = 3600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD 2
+  Rotation Speed = 3600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD 2
+  Rotation Speed = 3600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command=">delete /AXIS:TurboPre")
+setup1.SendCommand(Command=">delete /ROTATION MARKER:Marker R1")
+setup1.SendCommand(Command="""LIBRARY: 
+&replace   MATERIAL: Hydraulic Oil
+    Material Group = User
+    Object Origin = User
+    Option = Pure Substance
+    PROPERTIES: 
+      Option = General Material
+      DYNAMIC VISCOSITY: 
+        Dynamic Viscosity = 0.04 [Pa s]
+        Option = Value
+      END # DYNAMIC VISCOSITY:
+      EQUATION OF STATE: 
+        Density = 850 [kg m^-3]
+        Molar Mass = 1.0 [kg kmol^-1]
+        Option = Value
+      END # EQUATION OF STATE:
+    END # PROPERTIES:
+  END # MATERIAL:Hydraulic Oil
+END # LIBRARY:
+
+
+PARAMETERIZATION:
+END""")
+setup1.SendCommand(Command="""LIBRARY: 
+&replace   MATERIAL: Hydraulic Oil
+    Material Group = User
+    Object Origin = User
+    Option = Pure Substance
+    PROPERTIES: 
+      Option = General Material
+      DYNAMIC VISCOSITY: 
+        Dynamic Viscosity = 0.04 [Pa s]
+        Option = Value
+      END # DYNAMIC VISCOSITY:
+      EQUATION OF STATE: 
+        Density = 850 [kg m^-3]
+        Molar Mass = 1.0 [kg kmol^-1]
+        Option = Value
+      END # EQUATION OF STATE:
+    END # PROPERTIES:
+  END # MATERIAL:Hydraulic Oil
+END # LIBRARY:
+
+
+PARAMETERIZATION:
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,shroud,shroud 2
+  Rotation Speed = 3600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""AXIS: TurboPre
+  Option = Coord Frame
+  Visibility = true
+  Reference Coord Frame = Coord 0
+  Axis of Rotation = Z
+END""")
+setup1.SendCommand(Command=r">reload , option=filename, filename=C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION\stator.gtm, preservenames=true, replacement=C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/ANSYS_SIMULATION/rotor.grd, notransform=false, replacetype=GRD, replacespecargs=-3 -p, replacegenargs=-n, replacensargs=, replaceunits=m")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,SHROUD 3,shroud 2
+  Rotation Speed = 3600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""VIEW:View 1
+  Camera Mode = User Specified
+  CAMERA:
+    Option = Pivot Point and Quaternion
+    Pivot Point = 0.448445, 0.0884996, 0.069169
+    Scale = 4.76007
+    Pan = 0, 0
+    Rotation Quaternion = 0.173186, -0.695961, -0.0231943, 0.696497
+    
+  END
+
+END
+
+> update
+ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,SHROUD 3,shroud 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,SHROUD 3,shroud 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,SHROUD 3,shroud 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,SHROUD 3,shroud 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,SHROUD 3,shroud 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,SHROUD 3,shroud 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="> gtmImport filename=C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/ANSYS_SIMULATION/stator.gtm, type=GTM, units=m, nameStrategy= Assembly")
+setup1.SendCommand(Command=r">reload , option=filename, filename=C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION\rotor.grd, preservenames=true, replacement=C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/ANSYS_SIMULATION/rotor.grd, notransform=false, replacetype=GRD, replacespecargs=-3 -p, replacegenargs=-n, replacensargs=, replaceunits=m")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,SHROUD 3,shroud 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,SHROUD 3,shroud 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,SHROUD 3,shroud 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,SHROUD 3,shroud 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,SHROUD 3,shroud 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,SHROUD 3,shroud 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,SHROUD 3,shroud 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,SHROUD 3,shroud 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,SHROUD 3,shroud 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,SHROUD 3,shroud 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD,SHROUD 2,SHROUD 3,shroud 2
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""AXIS: TurboPre
+  Option = Coord Frame
+  Visibility = true
+  Reference Coord Frame = Coord 0
+  Axis of Rotation = Z
+END""")
+setup1.SendCommand(Command=">delete /AXIS:TurboPre")
+setup1.SendCommand(Command=">delete /ROTATION MARKER:Marker R1")
+setup1.SendCommand(Command=""">gtmAction, op=deleteComposite, BLADE,blade,hub,in,out,periodic1,periodic2,shroud
+>gtmAction, op=deleteAssembly, Assembly 2,Assembly 5""")
+setup1.SendCommand(Command=""">gtmAction, op=deleteComposite, BLADE 2
+>gtmAction, op=deleteAssembly, Assembly 4""")
+setup1.SendCommand(Command=""">gtmAction, op=deleteComposite, BLADE 3,blade 2,hub 2,in 2,out 2,periodic1 2,periodic2 2,shroud 2
+>gtmAction, op=deleteAssembly, Assembly,Assembly 3""")
+setup1.SendCommand(Command="""AXIS: TurboPre
+  Option = Coord Frame
+  Visibility = true
+  Reference Coord Frame = Coord 0
+  Axis of Rotation = Z
+END""")
+setup1.SendCommand(Command="> gtmImport filename=C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/ANSYS_SIMULATION/rotor.grd, type=GRD, units=m, genOpt= -n, specOpt= -3 -p, nameStrategy= Assembly")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""VIEW:View 1
+  Camera Mode = User Specified
+  CAMERA:
+    Option = Pivot Point and Quaternion
+    Pivot Point = 0, 0, 0.5
+    Scale = 2.2787
+    Pan = 0, 0
+    Rotation Quaternion = 0.173186, -0.695961, -0.0231943, 0.696497
+    
+  END
+
+END
+
+> update
+ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="> gtmImport filename=C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/ANSYS_SIMULATION/stator.gtm, type=GTM, units=m, nameStrategy= Assembly")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command=r">reload , option=filename, filename=C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION\rotor.grd, preservenames=true, replacement=C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/ANSYS_SIMULATION/stator.gtm, notransform=false, replacetype=GTM, replacespecargs=, replacegenargs=, replacensargs=, replaceunits=m")
+setup1.SendCommand(Command=">reload , option=filename, filename=C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/ANSYS_SIMULATION/stator.gtm, preservenames=true, replacement=C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/ANSYS_SIMULATION/rotor.grd, notransform=false, replacetype=GTM, replacespecargs=, replacegenargs=, replacensargs=, replaceunits=m")
+setup1.SendCommand(Command=">delete /ROTATION MARKER:Marker R1")
+setup1.SendCommand(Command=">delete /AXIS:TurboPre")
+setup1.SendCommand(Command=""">gtmAction, op=deleteComposite, blade,blade 2,hub,hub 2,in,in 2,out,out 2,periodic1,periodic1 2,periodic2,periodic2 2,shroud,shroud 2
+>gtmAction, op=deleteAssembly, Assembly,Assembly 2""")
+setup1.SendCommand(Command="""AXIS: TurboPre
+  Option = Coord Frame
+  Visibility = true
+  Reference Coord Frame = Coord 0
+  Axis of Rotation = Z
+END""")
+setup1.SendCommand(Command="> gtmImport filename=C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/ANSYS_SIMULATION/turbo_sim_1_files/user_files/stator.gtm, type=GTM, units=m, nameStrategy= Assembly")
+setup1.SendCommand(Command="> gtmImport filename=C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/ANSYS_SIMULATION/turbo_sim_1_files/user_files/rotor.grd, type=GRD, units=m, genOpt= -n, specOpt= -3 -p, nameStrategy= Assembly")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command=""">delete /FLOW:Flow Analysis 1/DOMAIN:Default Domain,/FLOW:Flow Analysis 1/ANALYSIS TYPE,/FLOW:Flow Analysis 1/OUTPUT CONTROL/MONITOR OBJECTS/EFFICIENCY OUTPUT,/FLOW:Flow Analysis 1/OUTPUT CONTROL/EFFICIENCY OUTPUT,/TURBO POST DATA,/FLOW:Flow Analysis 1/TRANSIENT BLADE ROW MODELS,/FLOW:Flow Analysis 1/OUTPUT CONTROL/TRANSIENT BLADE ROW OUTPUT
+FLOW: Flow Analysis 1
+  &replace OUTPUT CONTROL:
+    RESULTS:
+      File Compression Level = Default
+      Option = Standard
+    END
+  END
+  &replace SOLUTION UNITS:
+    Angle Units = [rad]
+    Length Units = [m]
+    Mass Units = [kg]
+    Solid Angle Units = [sr]
+    Temperature Units = [K]
+    Time Units = [s]
+  END
+  &replace SOLVER CONTROL:
+    Turbulence Numerics = First Order
+    ADVECTION SCHEME:
+      Option = High Resolution
+    END
+    CONVERGENCE CONTROL:
+      Length Scale Option = Conservative
+      Maximum Number of Iterations = 100
+      Minimum Number of Iterations = 1
+      Timescale Control = Auto Timescale
+      Timescale Factor = 1.0
+    END
+    CONVERGENCE CRITERIA:
+      Residual Target = 1.E-4
+      Residual Type = RMS
+    END
+    DYNAMIC MODEL CONTROL:
+      Global Dynamic Model Control = On
+    END
+    INTERRUPT CONTROL:
+      Option = Any Interrupt
+      CONVERGENCE CONDITIONS:
+        Option = Default Conditions
+      END
+    END
+  END
+  &replace ANALYSIS TYPE:
+    Option = Steady State
+    EXTERNAL SOLVER COUPLING:
+      Option = None
+    END
+  END
+  &replace DOMAIN: S1
+    Coord Frame = Coord 0
+    Domain Type = Fluid
+    Location = B364
+    Number of Passages in 360 = 60
+    Number of Passages in Component = 1
+    DOMAIN MODELS:
+      BUOYANCY MODEL:
+        Option = Non Buoyant
+      END
+      DOMAIN MOTION:
+        Option = Stationary
+      END
+      MESH DEFORMATION:
+        Option = None
+      END
+      REFERENCE PRESSURE:
+        Reference Pressure = 1 [atm]
+      END
+    END
+    FLUID DEFINITION: Hydraulic Oil
+      Material = Hydraulic Oil
+      Option = Material Library
+      MORPHOLOGY:
+        Option = Continuous Fluid
+      END
+    END
+    FLUID MODELS:
+      COMBUSTION MODEL:
+        Option = None
+      END
+      HEAT TRANSFER MODEL:
+        Option = None
+      END
+      THERMAL RADIATION MODEL:
+        Option = None
+      END
+      TURBULENCE MODEL:
+        Option = SST
+      END
+      TURBULENT WALL FUNCTIONS:
+        Option = Automatic
+      END
+    END
+    BOUNDARY: S1 Blade
+      Boundary Type = WALL
+      Create Other Side = Off
+      Interface Boundary = Off
+      Location = blade
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = No Slip Wall
+        END
+        WALL ROUGHNESS:
+          Option = Smooth Wall
+        END
+      END
+    END
+    BOUNDARY: S1 Hub
+      Boundary Type = WALL
+      Create Other Side = Off
+      Interface Boundary = Off
+      Location = hub
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = No Slip Wall
+        END
+        WALL ROUGHNESS:
+          Option = Smooth Wall
+        END
+      END
+    END
+    BOUNDARY: S1 Inlet
+      Boundary Type = INLET
+      Interface Boundary = Off
+      Location = in
+      BOUNDARY CONDITIONS:
+        FLOW DIRECTION:
+          Option = Normal to Boundary Condition
+        END
+        FLOW REGIME:
+          Option = Subsonic
+        END
+        MASS AND MOMENTUM:
+          Option = Total Pressure
+          Relative Pressure = 2 [bar]
+        END
+        TURBULENCE:
+          Option = Medium Intensity and Eddy Viscosity Ratio
+        END
+      END
+    END
+    BOUNDARY: S1 Shroud
+      Boundary Type = WALL
+      Create Other Side = Off
+      Interface Boundary = Off
+      Location = shroud
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = No Slip Wall
+        END
+        WALL ROUGHNESS:
+          Option = Smooth Wall
+        END
+      END
+    END
+  END
+  &replace DOMAIN: R1
+    Coord Frame = Coord 0
+    Domain Type = Fluid
+    Location = Primitive 3D
+    Number of Passages in 360 = 57
+    Number of Passages in Component = 1
+    BOUNDARY: R1 Hub
+      Boundary Type = WALL
+      Coord Frame = Coord 0
+      Create Other Side = Off
+      Frame Type = Rotating
+      Interface Boundary = Off
+      Location = HUB
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = No Slip Wall
+        END
+        WALL ROUGHNESS:
+          Option = Smooth Wall
+        END
+      END
+    END
+    BOUNDARY: R1 Shroud
+      Boundary Type = WALL
+      Coord Frame = Coord 0
+      Create Other Side = Off
+      Frame Type = Rotating
+      Interface Boundary = Off
+      Location = SHROUD
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = No Slip Wall
+          WALL VELOCITY:
+            Option = Counter Rotating Wall
+          END
+        END
+        WALL ROUGHNESS:
+          Option = Smooth Wall
+        END
+      END
+    END
+    DOMAIN MODELS:
+      BUOYANCY MODEL:
+        Option = Non Buoyant
+      END
+      DOMAIN MOTION:
+        Alternate Rotation Model = true
+        Angular Velocity = 600 [rev min^-1]
+        Option = Rotating
+        AXIS DEFINITION:
+          Option = Coordinate Axis
+          Rotation Axis = Coord 0.3
+        END
+      END
+      MESH DEFORMATION:
+        Option = None
+      END
+      REFERENCE PRESSURE:
+        Reference Pressure = 1 [atm]
+      END
+    END
+    FLUID DEFINITION: Hydraulic Oil
+      Material = Hydraulic Oil
+      Option = Material Library
+      MORPHOLOGY:
+        Option = Continuous Fluid
+      END
+    END
+    FLUID MODELS:
+      COMBUSTION MODEL:
+        Option = None
+      END
+      HEAT TRANSFER MODEL:
+        Option = None
+      END
+      THERMAL RADIATION MODEL:
+        Option = None
+      END
+      TURBULENCE MODEL:
+        Option = SST
+      END
+      TURBULENT WALL FUNCTIONS:
+        Option = Automatic
+      END
+    END
+    BOUNDARY: R1 Blade
+      Boundary Type = WALL
+      Create Other Side = Off
+      Frame Type = Rotating
+      Interface Boundary = Off
+      Location = BLADE
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = No Slip Wall
+        END
+        WALL ROUGHNESS:
+          Option = Smooth Wall
+        END
+      END
+    END
+    BOUNDARY: R1 Outlet
+      Boundary Type = OUTLET
+      Frame Type = Stationary
+      Interface Boundary = Off
+      Location = OUTFLOW
+      BOUNDARY CONDITIONS:
+        FLOW REGIME:
+          Option = Subsonic
+        END
+        MASS AND MOMENTUM:
+          Option = Average Static Pressure
+          Pressure Profile Blend = 0.05
+          Relative Pressure = 1 [bar]
+        END
+        PRESSURE AVERAGING:
+          Option = Average Over Whole Outlet
+        END
+      END
+    END
+  END
+  &replace DOMAIN INTERFACE: R1 to R1 Periodic 1
+    Filter Domain List1 = R1
+    Filter Domain List2 = R1
+    Interface Region List1 = PER1
+    Interface Region List2 = PER2
+    Interface Type = Fluid Fluid
+    INTERFACE MODELS:
+      Option = Rotational Periodicity
+      AXIS DEFINITION:
+        Option = Coordinate Axis
+        Rotation Axis = Coord 0.3
+      END
+    END
+    MESH CONNECTION:
+      Option = Automatic
+    END
+  END
+  &replace DOMAIN INTERFACE: S1 to S1 Periodic 1
+    Filter Domain List1 = S1
+    Filter Domain List2 = S1
+    Interface Region List1 = periodic1
+    Interface Region List2 = periodic2
+    Interface Type = Fluid Fluid
+    INTERFACE MODELS:
+      Option = Rotational Periodicity
+      AXIS DEFINITION:
+        Option = Coordinate Axis
+        Rotation Axis = Coord 0.3
+      END
+    END
+    MESH CONNECTION:
+      Option = Automatic
+    END
+  END
+  &replace DOMAIN INTERFACE: R1 to S1
+    Filter Domain List1 = R1
+    Filter Domain List2 = S1
+    Interface Region List1 = INFLOW
+    Interface Region List2 = out
+    Interface Type = Fluid Fluid
+    INTERFACE MODELS:
+      Option = General Connection
+      FRAME CHANGE:
+        Option = Stage
+        DOWNSTREAM VELOCITY CONSTRAINT:
+          Frame Type = Rotating
+          Option = Constant Total Pressure
+        END
+      END
+      PITCH CHANGE:
+        Option = Automatic
+      END
+    END
+    MESH CONNECTION:
+      Option = GGI
+    END
+  END
+END
+
+>physicsupdate
+TURBO POST DATA:
+  Machine Type = Axial Turbine
+  Component Order = S1, R1
+  Flow Type = Incompressible
+  Reference Pressure = 1 [atm]
+  Rotation Axis From = 0 [m], 0 [m], 0 [m]
+  Rotation Axis To = 0 [m], 0 [m], 1 [m]
+  TURBO POST COMPONENT: S1
+    Domain Name = S1
+    Domain Motion = Stationary
+    Number of Components in 360 = 60
+    Number of Passages in 360 = 60
+    Number of Passages in Component = 1
+    Complete Component = False
+    Blade Region = blade
+    Hub Region = hub
+    Inlet Region = in
+    Shroud Region = shroud
+    Outlet Region = out
+    Periodic 1 Region = periodic1
+    Periodic 2 Region = periodic2
+  END
+  TURBO POST COMPONENT: R1
+    Domain Name = R1
+    Domain Motion = Rotating
+    Number of Components in 360 = 57
+    Number of Passages in 360 = 57
+    Number of Passages in Component = 1
+    Complete Component = False
+    Hub Region = HUB
+    Shroud Region = SHROUD
+    Blade Region = BLADE
+    Outlet Region = OUTFLOW
+    Inlet Region = INFLOW
+    Periodic 1 Region = PER1
+    Periodic 2 Region = PER2
+  END
+END""")
+setup1.SendCommand(Command=">delete /AXIS:TurboPre")
+setup1.SendCommand(Command=">delete /ROTATION MARKER:Marker R1")
+setup1.SendCommand(Command="""VIEW:View 1
+  Camera Mode = User Specified
+  CAMERA:
+    Option = Pivot Point and Quaternion
+    Pivot Point = 0.228587, 0.0270373, 0.00120588
+    Scale = 6.84231
+    Pan = 0, 0
+    Rotation Quaternion = 0.224159, -0.624172, 0.267916, 0.69882
+    
+  END
+
+END
+
+> update
+ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 600 [rev min^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""AXIS: TurboPre
+  Option = Coord Frame
+  Visibility = true
+  Reference Coord Frame = Coord 0
+  Axis of Rotation = Z
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""ROTATION MARKER: Marker R1
+  Visibility = true
+  Location = SHROUD
+  Rotation Speed = 523.6 [radian s^-1]
+  AXIS DEFINITION:
+    Option = Coordinate Axis
+    Rotation Axis = Coord 0.3
+  END
+END""")
+setup1.SendCommand(Command="""MESH TRANSFORMATION:
+  Angle End = 0 , 0 , 0
+  Angle Start = 0 , 0 , 0
+  Delete Original = Off
+  Delete Reflected = Off
+  Glue Copied = True
+  Glue Reflected = Off
+  Nonuniform Scale = 1 , 1 , 1
+  Normal = 0 , 0 , 0
+  Number of Copies = 0
+  Option = Rotation
+  Point = 0 , 0 , 0
+  Point 1 = 0 , 0 , 0
+  Point 2 = 0 , 0 , 0
+  Point 3 = 0 , 0 , 0
+  Principal Axis = Z
+  Reference Coord Frame = Coord 0
+  Reflection Option = YZ Plane
+  Rotation Angle = 0 [degree]
+  Rotation Angle Option = Specified
+  Rotation Axis Begin = 0 , 0 , 0
+  Rotation Axis End = 0 , 0 , 0
+  Rotation Offset Angle = 0 [degree]
+  Rotation Option = Principal Axis
+  Scale Option = Uniform
+  Scale Origin = 0 , 0 , 0
+  Target Location = Assembly
+  Translation Deltas = 0 , 0 , 0
+  Translation Option = Deltas
+  Translation Root = 0 , 0 , 0
+  Translation Tip = 0 , 0 , 0
+  Uniform Scale = 1.0
+  Use Coord Frame = Off
+  Use Multiple Copy = Off
+END
+
+>gtmTransform Assembly""")
+setup1.SendCommand(Command=">centerview")
+setup1.SendCommand(Command=""">delete /FLOW:Flow Analysis 1/DOMAIN:R1,/FLOW:Flow Analysis 1/DOMAIN:S1,/FLOW:Flow Analysis 1/DOMAIN INTERFACE:R1 to R1 Periodic 1,/FLOW:Flow Analysis 1/DOMAIN INTERFACE:R1 to S1,/FLOW:Flow Analysis 1/DOMAIN INTERFACE:S1 to S1 Periodic 1,/FLOW:Flow Analysis 1/ANALYSIS TYPE,/FLOW:Flow Analysis 1/OUTPUT CONTROL/MONITOR OBJECTS/EFFICIENCY OUTPUT,/FLOW:Flow Analysis 1/OUTPUT CONTROL/EFFICIENCY OUTPUT,/TURBO POST DATA,/FLOW:Flow Analysis 1/TRANSIENT BLADE ROW MODELS,/FLOW:Flow Analysis 1/OUTPUT CONTROL/TRANSIENT BLADE ROW OUTPUT
+FLOW: Flow Analysis 1
+  &replace DOMAIN INTERFACE: R1 to R1 Periodic 1
+    Filter Domain List1 = R1
+    Filter Domain List2 = R1
+    Interface Region List1 = PER1
+    Interface Region List2 = PER2
+    Interface Type = Fluid Fluid
+    INTERFACE MODELS:
+      Option = Rotational Periodicity
+      AXIS DEFINITION:
+        Option = Coordinate Axis
+        Rotation Axis = Coord 0.3
+      END
+    END
+    MESH CONNECTION:
+      Option = Automatic
+    END
+  END
+  &replace DOMAIN INTERFACE: R1 to S1
+    Filter Domain List1 = R1
+    Filter Domain List2 = S1
+    Interface Region List1 = INFLOW
+    Interface Region List2 = out
+    Interface Type = Fluid Fluid
+    INTERFACE MODELS:
+      Option = General Connection
+      FRAME CHANGE:
+        Option = Stage
+        DOWNSTREAM VELOCITY CONSTRAINT:
+          Frame Type = Rotating
+          Option = Constant Total Pressure
+        END
+      END
+      PITCH CHANGE:
+        Option = Automatic
+      END
+    END
+    MESH CONNECTION:
+      Option = GGI
+    END
+  END
+  &replace DOMAIN INTERFACE: S1 to S1 Periodic 1
+    Filter Domain List1 = S1
+    Filter Domain List2 = S1
+    Interface Region List1 = periodic1
+    Interface Region List2 = periodic2
+    Interface Type = Fluid Fluid
+    INTERFACE MODELS:
+      Option = Rotational Periodicity
+      AXIS DEFINITION:
+        Option = Coordinate Axis
+        Rotation Axis = Coord 0.3
+      END
+    END
+    MESH CONNECTION:
+      Option = Automatic
+    END
+  END
+  &replace OUTPUT CONTROL:
+    RESULTS:
+      File Compression Level = Default
+      Option = Standard
+    END
+  END
+  &replace SOLUTION UNITS:
+    Angle Units = [rad]
+    Length Units = [m]
+    Mass Units = [kg]
+    Solid Angle Units = [sr]
+    Temperature Units = [K]
+    Time Units = [s]
+  END
+  &replace SOLVER CONTROL:
+    Turbulence Numerics = First Order
+    ADVECTION SCHEME:
+      Option = High Resolution
+    END
+    CONVERGENCE CONTROL:
+      Length Scale Option = Conservative
+      Maximum Number of Iterations = 100
+      Minimum Number of Iterations = 1
+      Timescale Control = Auto Timescale
+      Timescale Factor = 1.0
+    END
+    CONVERGENCE CRITERIA:
+      Residual Target = 1.E-4
+      Residual Type = RMS
+    END
+    DYNAMIC MODEL CONTROL:
+      Global Dynamic Model Control = On
+    END
+    INTERRUPT CONTROL:
+      Option = Any Interrupt
+      CONVERGENCE CONDITIONS:
+        Option = Default Conditions
+      END
+    END
+  END
+  &replace ANALYSIS TYPE:
+    Option = Steady State
+    EXTERNAL SOLVER COUPLING:
+      Option = None
+    END
+  END
+  &replace DOMAIN: R1
+    Coord Frame = Coord 0
+    Domain Type = Fluid
+    Location = Primitive 3D
+    Number of Passages in 360 = 113
+    Number of Passages in Component = 2
+    BOUNDARY: R1 Blade
+      Boundary Type = WALL
+      Create Other Side = Off
+      Frame Type = Rotating
+      Interface Boundary = Off
+      Location = BLADE
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = No Slip Wall
+        END
+        WALL ROUGHNESS:
+          Option = Smooth Wall
+        END
+      END
+    END
+    BOUNDARY: R1 Hub
+      Boundary Type = WALL
+      Coord Frame = Coord 0
+      Create Other Side = Off
+      Frame Type = Rotating
+      Interface Boundary = Off
+      Location = HUB
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = No Slip Wall
+        END
+        WALL ROUGHNESS:
+          Option = Smooth Wall
+        END
+      END
+    END
+    BOUNDARY: R1 Shroud
+      Boundary Type = WALL
+      Coord Frame = Coord 0
+      Create Other Side = Off
+      Frame Type = Rotating
+      Interface Boundary = Off
+      Location = SHROUD
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = No Slip Wall
+          WALL VELOCITY:
+            Option = Counter Rotating Wall
+          END
+        END
+        WALL ROUGHNESS:
+          Option = Smooth Wall
+        END
+      END
+    END
+    DOMAIN MODELS:
+      BUOYANCY MODEL:
+        Option = Non Buoyant
+      END
+      DOMAIN MOTION:
+        Alternate Rotation Model = true
+        Angular Velocity = 523.6 [radian s^-1]
+        Option = Rotating
+        AXIS DEFINITION:
+          Option = Coordinate Axis
+          Rotation Axis = Coord 0.3
+        END
+      END
+      MESH DEFORMATION:
+        Option = None
+      END
+      REFERENCE PRESSURE:
+        Reference Pressure = 1 [atm]
+      END
+    END
+    FLUID DEFINITION: Hydraulic Oil
+      Material = Hydraulic Oil
+      Option = Material Library
+      MORPHOLOGY:
+        Option = Continuous Fluid
+      END
+    END
+    FLUID MODELS:
+      COMBUSTION MODEL:
+        Option = None
+      END
+      HEAT TRANSFER MODEL:
+        Option = None
+      END
+      THERMAL RADIATION MODEL:
+        Option = None
+      END
+      TURBULENCE MODEL:
+        Option = SST
+      END
+      TURBULENT WALL FUNCTIONS:
+        Option = Automatic
+      END
+    END
+    BOUNDARY: R1 Outlet
+      Boundary Type = OUTLET
+      Frame Type = Stationary
+      Interface Boundary = Off
+      Location = OUTFLOW
+      BOUNDARY CONDITIONS:
+        FLOW REGIME:
+          Option = Subsonic
+        END
+        MASS AND MOMENTUM:
+          Option = Average Static Pressure
+          Pressure Profile Blend = 0.05
+          Relative Pressure = 1 [bar]
+        END
+        PRESSURE AVERAGING:
+          Option = Average Over Whole Outlet
+        END
+      END
+    END
+  END
+  &replace DOMAIN: S1
+    Coord Frame = Coord 0
+    Domain Type = Fluid
+    Location = B364
+    Number of Passages in 360 = 60
+    Number of Passages in Component = 1
+    BOUNDARY: S1 Blade
+      Boundary Type = WALL
+      Create Other Side = Off
+      Interface Boundary = Off
+      Location = blade
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = No Slip Wall
+        END
+        WALL ROUGHNESS:
+          Option = Smooth Wall
+        END
+      END
+    END
+    BOUNDARY: S1 Hub
+      Boundary Type = WALL
+      Create Other Side = Off
+      Interface Boundary = Off
+      Location = hub
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = No Slip Wall
+        END
+        WALL ROUGHNESS:
+          Option = Smooth Wall
+        END
+      END
+    END
+    BOUNDARY: S1 Shroud
+      Boundary Type = WALL
+      Create Other Side = Off
+      Interface Boundary = Off
+      Location = shroud
+      BOUNDARY CONDITIONS:
+        MASS AND MOMENTUM:
+          Option = No Slip Wall
+        END
+        WALL ROUGHNESS:
+          Option = Smooth Wall
+        END
+      END
+    END
+    DOMAIN MODELS:
+      BUOYANCY MODEL:
+        Option = Non Buoyant
+      END
+      DOMAIN MOTION:
+        Option = Stationary
+      END
+      MESH DEFORMATION:
+        Option = None
+      END
+      REFERENCE PRESSURE:
+        Reference Pressure = 1 [atm]
+      END
+    END
+    FLUID DEFINITION: Hydraulic Oil
+      Material = Hydraulic Oil
+      Option = Material Library
+      MORPHOLOGY:
+        Option = Continuous Fluid
+      END
+    END
+    FLUID MODELS:
+      COMBUSTION MODEL:
+        Option = None
+      END
+      HEAT TRANSFER MODEL:
+        Option = None
+      END
+      THERMAL RADIATION MODEL:
+        Option = None
+      END
+      TURBULENCE MODEL:
+        Option = SST
+      END
+      TURBULENT WALL FUNCTIONS:
+        Option = Automatic
+      END
+    END
+    BOUNDARY: S1 Inlet
+      Boundary Type = INLET
+      Interface Boundary = Off
+      Location = in
+      BOUNDARY CONDITIONS:
+        FLOW DIRECTION:
+          Option = Normal to Boundary Condition
+        END
+        FLOW REGIME:
+          Option = Subsonic
+        END
+        MASS AND MOMENTUM:
+          Option = Total Pressure
+          Relative Pressure = 2 [bar]
+        END
+        TURBULENCE:
+          Option = Medium Intensity and Eddy Viscosity Ratio
+        END
+      END
+    END
+  END
+END
+
+>physicsupdate
+TURBO POST DATA:
+  Machine Type = Axial Turbine
+  Component Order = S1, R1
+  Flow Type = Incompressible
+  Reference Pressure = 1 [atm]
+  Rotation Axis From = 0 [m], 0 [m], 0 [m]
+  Rotation Axis To = 0 [m], 0 [m], 1 [m]
+  TURBO POST COMPONENT: S1
+    Domain Name = S1
+    Domain Motion = Stationary
+    Number of Components in 360 = 60
+    Number of Passages in 360 = 60
+    Number of Passages in Component = 1
+    Complete Component = False
+    Blade Region = blade
+    Hub Region = hub
+    Shroud Region = shroud
+    Inlet Region = in
+    Outlet Region = out
+    Periodic 1 Region = periodic1
+    Periodic 2 Region = periodic2
+  END
+  TURBO POST COMPONENT: R1
+    Domain Name = R1
+    Domain Motion = Rotating
+    Number of Components in 360 = 56.5
+    Number of Passages in 360 = 113
+    Number of Passages in Component = 2
+    Complete Component = False
+    Blade Region = BLADE
+    Hub Region = HUB
+    Shroud Region = SHROUD
+    Outlet Region = OUTFLOW
+    Inlet Region = INFLOW
+    Periodic 1 Region = PER1
+    Periodic 2 Region = PER2
+  END
+END""")
+setup1.SendCommand(Command=">delete /AXIS:TurboPre")
+setup1.SendCommand(Command=">delete /ROTATION MARKER:Marker R1")
+setup1.SendCommand(Command="""VIEW:View 1
+  Camera Mode = User Specified
+  CAMERA:
+    Option = Pivot Point and Quaternion
+    Pivot Point = 0.272579, 0.0663587, 0.0536147
+    Scale = 3.96311
+    Pan = 0, 0
+    Rotation Quaternion = 0.482047, -0.84826, -0.0707862, 0.207463
+    
+  END
+
+END
+
+> update
+>centerview 1""")
+setup1.SendCommand(Command="""FLOW: Flow Analysis 1
+&replace   DOMAIN INTERFACE: R1 to S1
+    Boundary List1 = R1 to S1 Side 1
+    Boundary List2 = R1 to S1 Side 2
+    Filter Domain List1 = R1
+    Filter Domain List2 = S1
+    Interface Region List1 = INFLOW
+    Interface Region List2 = out
+    Interface Type = Fluid Fluid
+    INTERFACE MODELS: 
+      Option = General Connection
+      FRAME CHANGE: 
+        Option = Stage
+        DOWNSTREAM VELOCITY CONSTRAINT: 
+          Frame Type = Rotating
+          Option = Constant Total Pressure
+        END # DOWNSTREAM VELOCITY CONSTRAINT:
+      END # FRAME CHANGE:
+      PITCH CHANGE: 
+        Option = Specified Pitch Angles
+        Pitch Angle Side1 = 6.37168 [degree]
+        Pitch Angle Side2 = 6.00000 [degree]
+      END # PITCH CHANGE:
+    END # INTERFACE MODELS:
+    MESH CONNECTION: 
+      Option = GGI
+    END # MESH CONNECTION:
+  END # DOMAIN INTERFACE:R1 to S1
+END # FLOW:Flow Analysis 1
+
+
+PARAMETERIZATION:
+END""")
+setup1.SendCommand(Command="""FLOW: Flow Analysis 1
+&replace   DOMAIN INTERFACE: R1 to S1
+    Boundary List1 = R1 to S1 Side 1
+    Boundary List2 = R1 to S1 Side 2
+    Filter Domain List1 = R1
+    Filter Domain List2 = S1
+    Interface Region List1 = INFLOW
+    Interface Region List2 = out
+    Interface Type = Fluid Fluid
+    INTERFACE MODELS: 
+      Option = General Connection
+      FRAME CHANGE: 
+        Option = Stage
+        DOWNSTREAM VELOCITY CONSTRAINT: 
+          Frame Type = Rotating
+          Option = Constant Total Pressure
+        END # DOWNSTREAM VELOCITY CONSTRAINT:
+      END # FRAME CHANGE:
+      PITCH CHANGE: 
+        Option = Specified Pitch Angles
+        Pitch Angle Side1 = 6.37168 [degree]
+        Pitch Angle Side2 = 6.00000 [degree]
+      END # PITCH CHANGE:
+    END # INTERFACE MODELS:
+    MESH CONNECTION: 
+      Option = GGI
+    END # MESH CONNECTION:
+  END # DOMAIN INTERFACE:R1 to S1
+END # FLOW:Flow Analysis 1
+
+
+PARAMETERIZATION:
+END""")
+setup1.SendCommand(Command="""FLOW: Flow Analysis 1
+&replace   SOLVER CONTROL: 
+    Turbulence Numerics = First Order
+    ADVECTION SCHEME: 
+      Option = High Resolution
+    END # ADVECTION SCHEME:
+    CONVERGENCE CONTROL: 
+      Maximum Number of Iterations = 100
+      Minimum Number of Iterations = 1
+      Physical Timescale = 0.002 [s]
+      Timescale Control = Physical Timescale
+    END # CONVERGENCE CONTROL:
+    CONVERGENCE CRITERIA: 
+      Residual Target = 1.E-4
+      Residual Type = RMS
+    END # CONVERGENCE CRITERIA:
+    DYNAMIC MODEL CONTROL: 
+      Global Dynamic Model Control = On
+    END # DYNAMIC MODEL CONTROL:
+    INTERRUPT CONTROL: 
+      Option = Any Interrupt
+      CONVERGENCE CONDITIONS: 
+        Option = Default Conditions
+      END # CONVERGENCE CONDITIONS:
+    END # INTERRUPT CONTROL:
+  END # SOLVER CONTROL:
+END # FLOW:Flow Analysis 1
+
+
+PARAMETERIZATION:
+END""")
+setup1.SendCommand(Command="""FLOW: Flow Analysis 1
+&replace   SOLVER CONTROL: 
+    Turbulence Numerics = First Order
+    ADVECTION SCHEME: 
+      Option = High Resolution
+    END # ADVECTION SCHEME:
+    CONVERGENCE CONTROL: 
+      Maximum Number of Iterations = 100
+      Minimum Number of Iterations = 1
+      Physical Timescale = 0.002 [s]
+      Timescale Control = Physical Timescale
+    END # CONVERGENCE CONTROL:
+    CONVERGENCE CRITERIA: 
+      Residual Target = 1.E-4
+      Residual Type = RMS
+    END # CONVERGENCE CRITERIA:
+    DYNAMIC MODEL CONTROL: 
+      Global Dynamic Model Control = On
+    END # DYNAMIC MODEL CONTROL:
+    INTERRUPT CONTROL: 
+      Option = Any Interrupt
+      CONVERGENCE CONDITIONS: 
+        Option = Default Conditions
+      END # CONVERGENCE CONDITIONS:
+    END # INTERRUPT CONTROL:
+  END # SOLVER CONTROL:
+END # FLOW:Flow Analysis 1
+
+
+PARAMETERIZATION:
+END""")
+Save(Overwrite=True)
+setupComponent1 = system1.GetComponent(Name="Setup")
+setupComponent1.Refresh()
+setup1.Exit()
+Save(Overwrite=True)

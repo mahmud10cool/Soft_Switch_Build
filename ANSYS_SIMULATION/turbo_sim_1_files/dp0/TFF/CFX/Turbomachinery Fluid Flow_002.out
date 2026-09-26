@@ -1,0 +1,2661 @@
+ This run of the CFX 2026 R1 Solver started at 23:32:45 on 25 Sep 2026
+ by user mahmu on MSI (intel_xeon64.sse2_winnt) using the command:
+ 
+  "C:\Program Files\ANSYS Inc\ANSYS Student\v261\CFX\bin\perllib\cfx5solve.pl"
+    -batch -ccl runInput.ccl -fullname "Turbomachinery Fluid Flow_002"
+ 
+ 2026 R1
+ 
+  Point Releases and Patches installed:
+  Ansys, Inc. License Manager 2026 R1
+  Discovery (full install) 2026 R1
+  Core WB Files 2026 R1
+  optiSLang Core UI 2026 R1
+  CFX (includes CFD-Post) 2026 R1
+  Chemkin 2026 R1
+  EnSight 2026 R1
+  FENSAP-ICE 2026 R1
+  Fluent (includes CFD-Post) 2026 R1
+  Polyflow (includes CFD-Post) 2026 R1
+  Forte (includes EnSight) 2026 R1
+  Rocky 2026 R1
+  TurboGrid 2026 R1
+  ACIS Geometry Interface 2026 R1
+  AutoCAD Geometry Interface 2026 R1
+  Catia, Version 4 Geometry Interface 2026 R1
+  Catia, Version 5 Geometry Interface 2026 R1
+  Catia, Version 6 Geometry Interface 2026 R1
+  Creo Elements/Direct Modeling Geometry Interface 2026 R1
+  Creo Parametric Geometry Interface 2026 R1
+  Inventor Geometry Interface 2026 R1
+  JTOpen Geometry Interface 2026 R1
+  NX Geometry Interface 2026 R1
+  Parasolid Geometry Interface  2026 R1
+  Solid Edge Geometry Interface 2026 R1
+  SOLIDWORKS Geometry Interface 2026 R1
+  Speos 2026 R1
+  SpaceClaim 2026 R1
+  Speos RPC 2026 R1
+  Zemax OpticStudio 2026 R1
+  Dynamic Reporting 2026 R1
+  Aqwa 2026 R1
+  Autodyn 2026 R1
+  Material Calibration App 2026 R1
+  Mechanical Products 2026 R1
+  Motion 2026 R1
+  Academic Student 2026 R1
+ 
+ Setting up CFX Solver run ...
+ 
+ 
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                    CFX Command Language for Run                    |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+ 
+ LIBRARY:
+   MATERIAL: Hydraulic Oil
+     Material Group = User
+     Option = Pure Substance
+     PROPERTIES:
+       Option = General Material
+       EQUATION OF STATE:
+         Density = 850 [kg m^-3]
+         Molar Mass = 1.0 [kg kmol^-1]
+         Option = Value
+       END
+       DYNAMIC VISCOSITY:
+         Dynamic Viscosity = 0.04 [Pa s]
+         Option = Value
+       END
+     END
+   END
+ END
+ FLOW: Flow Analysis 1
+   SOLUTION UNITS:
+     Angle Units = [rad]
+     Length Units = [m]
+     Mass Units = [kg]
+     Solid Angle Units = [sr]
+     Temperature Units = [K]
+     Time Units = [s]
+   END
+   ANALYSIS TYPE:
+     Option = Steady State
+     EXTERNAL SOLVER COUPLING:
+       Option = None
+     END
+   END
+   DOMAIN: R1
+     Coord Frame = Coord 0
+     Domain Type = Fluid
+     Location = Primitive 3D
+     BOUNDARY: R1 Blade
+       Boundary Type = WALL
+       Frame Type = Rotating
+       Location = BLADE
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: R1 Hub
+       Boundary Type = WALL
+       Coord Frame = Coord 0
+       Frame Type = Rotating
+       Location = HUB
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: R1 Outlet
+       Boundary Type = OUTLET
+       Frame Type = Stationary
+       Location = OUTFLOW
+       BOUNDARY CONDITIONS:
+         FLOW REGIME:
+           Option = Subsonic
+         END
+         MASS AND MOMENTUM:
+           Option = Average Static Pressure
+           Pressure Profile Blend = 0.05
+           Relative Pressure = 1 [bar]
+         END
+         PRESSURE AVERAGING:
+           Option = Average Over Whole Outlet
+         END
+       END
+     END
+     BOUNDARY: R1 Shroud
+       Boundary Type = WALL
+       Coord Frame = Coord 0
+       Frame Type = Rotating
+       Location = SHROUD
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+           WALL VELOCITY:
+             Option = Counter Rotating Wall
+           END
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: R1 to R1 Periodic 1 Side 1
+       Boundary Type = INTERFACE
+       Location = PER1
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     BOUNDARY: R1 to R1 Periodic 1 Side 2
+       Boundary Type = INTERFACE
+       Location = PER2
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     BOUNDARY: R1 to S1 Side 1
+       Boundary Type = INTERFACE
+       Location = INFLOW
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     DOMAIN MODELS:
+       BUOYANCY MODEL:
+         Option = Non Buoyant
+       END
+       DOMAIN MOTION:
+         Alternate Rotation Model = true
+         Angular Velocity = 523.6 [radian s^-1]
+         Option = Rotating
+         AXIS DEFINITION:
+           Option = Coordinate Axis
+           Rotation Axis = Coord 0.3
+         END
+       END
+       MESH DEFORMATION:
+         Option = None
+       END
+       REFERENCE PRESSURE:
+         Reference Pressure = 1 [atm]
+       END
+     END
+     FLUID DEFINITION: Hydraulic Oil
+       Material = Hydraulic Oil
+       Option = Material Library
+       MORPHOLOGY:
+         Option = Continuous Fluid
+       END
+     END
+     FLUID MODELS:
+       COMBUSTION MODEL:
+         Option = None
+       END
+       HEAT TRANSFER MODEL:
+         Option = None
+       END
+       THERMAL RADIATION MODEL:
+         Option = None
+       END
+       TURBULENCE MODEL:
+         Option = SST
+       END
+       TURBULENT WALL FUNCTIONS:
+         Option = Automatic
+       END
+     END
+   END
+   DOMAIN: S1
+     Coord Frame = Coord 0
+     Domain Type = Fluid
+     Location = B364
+     BOUNDARY: R1 to S1 Side 2
+       Boundary Type = INTERFACE
+       Location = out
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     BOUNDARY: S1 Blade
+       Boundary Type = WALL
+       Location = blade
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: S1 Hub
+       Boundary Type = WALL
+       Location = hub
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: S1 Inlet
+       Boundary Type = INLET
+       Location = in
+       BOUNDARY CONDITIONS:
+         FLOW DIRECTION:
+           Option = Normal to Boundary Condition
+         END
+         FLOW REGIME:
+           Option = Subsonic
+         END
+         MASS AND MOMENTUM:
+           Option = Total Pressure
+           Relative Pressure = 2 [bar]
+         END
+         TURBULENCE:
+           Option = Medium Intensity and Eddy Viscosity Ratio
+         END
+       END
+     END
+     BOUNDARY: S1 Shroud
+       Boundary Type = WALL
+       Location = shroud
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: S1 to S1 Periodic 1 Side 1
+       Boundary Type = INTERFACE
+       Location = periodic1
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     BOUNDARY: S1 to S1 Periodic 1 Side 2
+       Boundary Type = INTERFACE
+       Location = periodic2
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     DOMAIN MODELS:
+       BUOYANCY MODEL:
+         Option = Non Buoyant
+       END
+       DOMAIN MOTION:
+         Option = Stationary
+       END
+       MESH DEFORMATION:
+         Option = None
+       END
+       REFERENCE PRESSURE:
+         Reference Pressure = 1 [atm]
+       END
+     END
+     FLUID DEFINITION: Hydraulic Oil
+       Material = Hydraulic Oil
+       Option = Material Library
+       MORPHOLOGY:
+         Option = Continuous Fluid
+       END
+     END
+     FLUID MODELS:
+       COMBUSTION MODEL:
+         Option = None
+       END
+       HEAT TRANSFER MODEL:
+         Option = None
+       END
+       THERMAL RADIATION MODEL:
+         Option = None
+       END
+       TURBULENCE MODEL:
+         Option = SST
+       END
+       TURBULENT WALL FUNCTIONS:
+         Option = Automatic
+       END
+     END
+   END
+   DOMAIN INTERFACE: R1 to R1 Periodic 1
+     Boundary List1 = R1 to R1 Periodic 1 Side 1
+     Boundary List2 = R1 to R1 Periodic 1 Side 2
+     Interface Type = Fluid Fluid
+     INTERFACE MODELS:
+       Option = Rotational Periodicity
+       AXIS DEFINITION:
+         Option = Coordinate Axis
+         Rotation Axis = Coord 0.3
+       END
+     END
+     MESH CONNECTION:
+       Option = Automatic
+     END
+   END
+   DOMAIN INTERFACE: R1 to S1
+     Boundary List1 = R1 to S1 Side 1
+     Boundary List2 = R1 to S1 Side 2
+     Interface Type = Fluid Fluid
+     INTERFACE MODELS:
+       Option = General Connection
+       FRAME CHANGE:
+         Option = Stage
+         DOWNSTREAM VELOCITY CONSTRAINT:
+           Frame Type = Rotating
+           Option = Constant Total Pressure
+         END
+       END
+       PITCH CHANGE:
+         Option = Specified Pitch Angles
+         Pitch Angle Side1 = 6.37168 [degree]
+         Pitch Angle Side2 = 6.00000 [degree]
+       END
+     END
+     MESH CONNECTION:
+       Option = GGI
+     END
+   END
+   DOMAIN INTERFACE: S1 to S1 Periodic 1
+     Boundary List1 = S1 to S1 Periodic 1 Side 1
+     Boundary List2 = S1 to S1 Periodic 1 Side 2
+     Interface Type = Fluid Fluid
+     INTERFACE MODELS:
+       Option = Rotational Periodicity
+       AXIS DEFINITION:
+         Option = Coordinate Axis
+         Rotation Axis = Coord 0.3
+       END
+     END
+     MESH CONNECTION:
+       Option = Automatic
+     END
+   END
+   OUTPUT CONTROL:
+     RESULTS:
+       File Compression Level = Default
+       Option = Standard
+     END
+   END
+   SOLVER CONTROL:
+     Turbulence Numerics = First Order
+     ADVECTION SCHEME:
+       Option = High Resolution
+     END
+     CONVERGENCE CONTROL:
+       Maximum Number of Iterations = 100
+       Minimum Number of Iterations = 1
+       Physical Timescale = 0.002 [s]
+       Timescale Control = Physical Timescale
+     END
+     CONVERGENCE CRITERIA:
+       Residual Target = 1.E-4
+       Residual Type = RMS
+     END
+     DYNAMIC MODEL CONTROL:
+       Global Dynamic Model Control = On
+     END
+     INTERRUPT CONTROL:
+       Option = Any Interrupt
+       CONVERGENCE CONDITIONS:
+         Option = Default Conditions
+       END
+     END
+   END
+ END
+ COMMAND FILE:
+   Version = 26.1
+   Results Version = 26.1
+ END
+ SIMULATION CONTROL:
+   EXECUTION CONTROL:
+     EXECUTABLE SELECTION:
+       Double Precision = No
+       Large Problem = No
+     END
+     INTERPOLATOR STEP CONTROL:
+       Runtime Priority = Standard
+       MEMORY CONTROL:
+         Memory Allocation Factor = 1.0
+         Option = Model Based
+       END
+     END
+     LICENSE CONTROL:
+       Capability Level = Automatic
+       HPC License = Automatic
+     END
+     PARALLEL HOST LIBRARY:
+       HOST DEFINITION: msi
+         Installation Root = C:\Program Files\ANSYS Inc\ANSYS Student\v%v\CFX
+         Host Architecture String = winnt-amd64
+       END
+     END
+     RUN DEFINITION:
+       Run Mode = Full
+       Solver Input File = Turbomachinery Fluid Flow.def
+       Solver Results File = \
+         C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/ANSYS_SIMULATION/tu\
+         rbo_sim_1_pending/dp0_TFF_Solution/Turbomachinery Fluid Flow_002.res
+     END
+     SOLVER STEP CONTROL:
+       Runtime Priority = Standard
+       MEMORY CONTROL:
+         Memory Allocation Factor = 1.0
+         Option = Model Based
+       END
+       PARALLEL ENVIRONMENT:
+         Maximum Number of Processes = 1
+         Start Method = Serial
+       END
+     END
+   END
+ END
+ 
+ 
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                               Solver                               |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+ 
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                       ANSYS(R) CFX(R) Solver                       |
+ |                                                                    |
+ | 2026 R1                                                            |
+ | Build 26.1 2026-01-12T11:19:59.221722                              |
+ | Mon Jan 12 11:54:10 PST 2026                                       |
+ |                                                                    |
+ |                        Executable Attributes                       |
+ |                                                                    |
+ |           single-64bit-int32-archfort-optimised-std-lcomp          |
+ |                                                                    |
+ | Copyright (C) 1996-2026 Synopsys, Inc. and ANSYS, Inc.             |
+ |                                                                    |
+ | All rights reserved. Unauthorized use, distribution or duplication |
+ | is prohibited. This product is subject to U.S. laws governing      |
+ | export and re-export. For full Legal Notice, see documentation.    |
+ +--------------------------------------------------------------------+
+
+
+
+
+ +--------------------------------------------------------------------+
+ |                  Job Information at Start of Run                   |
+ +--------------------------------------------------------------------+
+
+ Run mode:       serial run
+
+ Host computer:  MSI (PID:17772)
+
+ Job started:    Fri Sep 25 23:32:47 2026
+
+ +--------------------------------------------------------------------+
+ |                        License Information                         |
+ +--------------------------------------------------------------------+
+
+ License Cap:    ANSYS CFD Solver
+ License ID:     MSI-mahmu-11516-000577
+
+ INFO: You are using an academic student license which enables meshes 
+       up to 1000000 vertices.
+
+ INFO: Your license enables 4-way parallel execution.
+       For faster simulations, please start the application with the
+       appropriate parallel options.
+
+
+ +--------------------------------------------------------------------+
+ |         Initial Memory Allocation  (Actual usage may vary)         |
+ +--------------------------------------------------------------------+
+
+           | Real       | Integer    | Character | Logical  | Double
+ ----------+------------+------------+-----------+----------+----------
+ Mwords    |      33.45 |      10.15 |      9.59 |     0.12 |     1.21
+ Mbytes    |     127.62 |      38.73 |      9.14 |     0.46 |     9.22
+ ----------+------------+------------+-----------+----------+----------
+
+
+ +--------------------------------------------------------------------+
+ |            Host Memory Information (Mbytes): Solver                |
+ +--------------------------------------------------------------------+
+ |          Host           |     System     |   Allocated    |   %    |
+ +-------------------------+----------------+----------------+--------+
+ | MSI                     |     32244.80   |       185.16   |   0.57 |
+ +-------------------------+----------------+----------------+--------+
+
+ +--------------------------------------------------------------------+
+ |                      Topology Simplification                       |
+ +--------------------------------------------------------------------+
+
+ +--------------------------------------------------------------------+
+ |                       ****** Warning ******                        |
+ |                                                                    |
+ | Topology simplification is activated with the following            |
+ | restrictions:                                                      |
+ |                                                                    |
+ | - Mesh regions referenced only within User Fortran and NOT         |
+ |   in the command file will cause the solver to stop.               |
+ | - The solver will stop during any "Edit Run in Progress" step      |
+ |   if new 2D regions are referenced.                                |
+ +--------------------------------------------------------------------+
+
+ +--------------------------------------------------------------------+
+ |                          Mesh Statistics                           |
+ +--------------------------------------------------------------------+
+ | Domain Name          | Orthog. Angle | Exp. Factor  | Aspect Ratio |
+ +----------------------+---------------+--------------+--------------+
+ |                      | Minimum [deg] |   Maximum    |    Maximum   |
+ +----------------------+---------------+--------------+--------------+
+ | R1                   |       30.1 ok |        42  ! |       383 ok |
+ | S1                   |       31.4 ok |       196  ! |        12 OK |
+ | Global               |       30.1 ok |       196  ! |       383 ok |
+ +----------------------+---------------+--------------+--------------+
+ |                      |  %!  %ok  %OK | %!  %ok  %OK | %!  %ok  %OK |
+ +----------------------+---------------+--------------+--------------+
+ | R1                   |   0   14   86 | <1    2   98 |  0    2   98 |
+ | S1                   |   0    3   97 |  1   18   81 |  0    0  100 |
+ | Global               |   0    9   91 |  1   10   89 |  0    1   99 |
+ +----------------------+---------------+--------------+--------------+
+
+ Domain Name : R1
+
+     Total Number of Nodes                                =       38360
+
+     Total Number of Elements                             =       33202
+         Total Number of Hexahedrons                      =       33202
+
+     Total Number of Faces                                =        9970
+
+ Domain Name : S1
+
+     Total Number of Nodes                                =       36768
+
+     Total Number of Elements                             =      136297
+         Total Number of Tetrahedrons                     =      108534
+         Total Number of Prisms                           =       27163
+         Total Number of Pyramids                         =         600
+
+     Total Number of Faces                                =       16517
+ 
+ Global Statistics :
+
+     Global Number of Nodes                               =       75128
+
+     Global Number of Elements                            =      169499
+         Total Number of Tetrahedrons                     =      108534
+         Total Number of Prisms                           =       27163
+         Total Number of Hexahedrons                      =       33202
+         Total Number of Pyramids                         =         600
+
+     Global Number of Faces                               =       26487
+
+ Domain Interface Name : R1 to R1 Periodic 1
+
+     Discretization type                                  =         1:1
+     Pitch angle  [degrees]                               =       6.372
+
+ Domain Interface Name : R1 to S1
+
+     Discretization type                                  =         GGI
+     Intersection type                                    =      Direct
+     Non-overlap area fraction on side 1                  =    1.07E-02
+     Non-overlap area fraction on side 2                  =    1.17E-03
+     Pitch ratio ( pitch side 1 / pitch side 2 )          =       1.062
+     Pitch angle for side 1 [degrees]                     =       6.372
+     Pitch angle for side 2 [degrees]                     =       6.000
+     Number of stage groups                               =          20
+
+ Domain Interface Name : S1 to S1 Periodic 1
+
+     Discretization type                                  =         GGI
+     Intersection type                                    =      Direct
+     Non-overlap area fraction on side 1                  =    2.68E-07
+     Non-overlap area fraction on side 2                  =    2.66E-05
+     Pitch angle  [degrees]                               =       6.000
+
+ +--------------------------------------------------------------------+
+ |                     Average Scale Information                      |
+ +--------------------------------------------------------------------+
+
+ Domain Name : R1
+     Global Length                                         = 6.9704E-02
+     Minimum Extent                                        = 8.6285E-02
+     Maximum Extent                                        = 1.0482E-01
+     Density                                               = 8.5000E+02
+     Dynamic Viscosity                                     = 4.0000E-02
+     Velocity                                              = 2.4543E+02
+     Advection Time                                        = 2.8401E-04
+     Reynolds Number                                       = 3.6353E+05
+
+ Domain Name : S1
+     Global Length                                         = 6.7344E-02
+     Minimum Extent                                        = 8.4073E-02
+     Maximum Extent                                        = 1.0413E-01
+     Density                                               = 8.5000E+02
+     Dynamic Viscosity                                     = 4.0000E-02
+     Velocity                                              = 1.0982E+02
+     Advection Time                                        = 6.1323E-04
+     Reynolds Number                                       = 1.5716E+05
+
+ +--------------------------------------------------------------------+
+ |                Checking for Isolated Fluid Regions                 |
+ +--------------------------------------------------------------------+
+ 
+ No isolated fluid regions were found.
+
+ +--------------------------------------------------------------------+
+ |              The Equations Solved in This Calculation              |
+ +--------------------------------------------------------------------+
+ 
+ Equations are given two labels: the individual name and a combined 
+ name used for combining residuals together.  Residuals for multidomain 
+ problems are combined provided the domains are connected together and 
+ have the same domain type (solid or fluid/porous).  If there are 
+ multiple groups of the same domain type, then the group residual is 
+ identified by the name of the first domain in the connected group. 
+ 
+ The individual and combined equation names are given below.
+
+ Subsystem : Wall Scale
+
+   Wallscale-R1                              --> Wallscale
+   Wallscale-S1                              --> Wallscale
+
+ Subsystem : Momentum and Mass
+
+   U-Mom-R1                                  --> U-Mom
+   V-Mom-R1                                  --> V-Mom
+   W-Mom-R1                                  --> W-Mom
+   P-Mass-R1                                 --> P-Mass
+   U-Mom-S1                                  --> U-Mom
+   V-Mom-S1                                  --> V-Mom
+   W-Mom-S1                                  --> W-Mom
+   P-Mass-S1                                 --> P-Mass
+
+ Subsystem : TurbKE and TurbFreq
+
+   K-TurbKE-R1                               --> K-TurbKE
+   O-TurbFreq-R1                             --> O-TurbFreq
+   K-TurbKE-S1                               --> K-TurbKE
+   O-TurbFreq-S1                             --> O-TurbFreq
+                   
+ CFD Solver started: Fri Sep 25 23:32:49 2026
+
+
+ +--------------------------------------------------------------------+
+ |                       Convergence History                          |
+ +--------------------------------------------------------------------+
+
+ ======================================================================
+ |                        Timescale Information                       |
+ ----------------------------------------------------------------------
+ |       Equation       |         Type          |      Timescale      |
+ +----------------------+-----------------------+---------------------+
+ | U-Mom-R1             | Physical Timescale    |     2.00000E-03     |
+ | V-Mom-R1             | Physical Timescale    |     2.00000E-03     |
+ | W-Mom-R1             | Physical Timescale    |     2.00000E-03     |
+ | U-Mom-S1             | Physical Timescale    |     2.00000E-03     |
+ | V-Mom-S1             | Physical Timescale    |     2.00000E-03     |
+ | W-Mom-S1             | Physical Timescale    |     2.00000E-03     |
+ +----------------------+-----------------------+---------------------+
+ | K-TurbKE-R1          | Physical Timescale    |     2.00000E-03     |
+ | O-TurbFreq-R1        | Physical Timescale    |     2.00000E-03     |
+ | K-TurbKE-S1          | Physical Timescale    |     2.00000E-03     |
+ | O-TurbFreq-S1        | Physical Timescale    |     2.00000E-03     |
+ +----------------------+-----------------------+---------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =    1                    CPU SECONDS = 1.778E+00
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | Wallscale            | 0.00 | 1.4E-03 | 6.4E-03 | 24.9  9.6E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.00 | 2.2E-04 | 3.2E-03 |       5.7E+00  ok|
+ | V-Mom                | 0.00 | 3.8E-04 | 2.1E-02 |       1.2E+01  ok|
+ | W-Mom                | 0.00 | 1.0E-02 | 1.5E-01 |       2.2E-01  ok|
+ | P-Mass               | 0.00 | 4.4E-02 | 3.9E-01 |  9.5  3.7E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.00 | 5.1E-02 | 2.7E-01 |  5.7  1.2E-02  OK|
+ | O-TurbFreq           | 0.00 | 6.0E-02 | 9.9E-01 |  8.0  7.0E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =    2                    CPU SECONDS = 3.601E+00
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | Wallscale            | 0.90 | 1.2E-03 | 5.1E-02 | 10.6  7.7E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                |42.34 | 9.2E-03 | 1.3E-01 |       1.3E-02  OK|
+ | V-Mom                |91.64 | 3.5E-02 | 3.6E-01 |       9.2E-03  OK|
+ | W-Mom                | 3.17 | 3.2E-02 | 2.8E-01 |       1.8E-02  OK|
+ | P-Mass               | 0.20 | 8.6E-03 | 1.5E-01 | 13.7  5.1E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.76 | 3.9E-02 | 3.7E-01 |  5.7  1.1E-02  OK|
+ | O-TurbFreq           | 0.51 | 3.1E-02 | 5.2E-01 |  8.0  6.0E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =    3                    CPU SECONDS = 5.361E+00
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | Wallscale            | 0.46 | 5.7E-04 | 2.4E-02 | 15.3  8.0E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 1.63 | 1.5E-02 | 2.7E-01 |       5.1E-02  OK|
+ | V-Mom                | 1.36 | 4.8E-02 | 7.3E-01 |       5.9E-02  OK|
+ | W-Mom                | 1.43 | 4.6E-02 | 3.5E-01 |       9.2E-02  OK|
+ | P-Mass               | 0.71 | 6.1E-03 | 6.3E-02 |  5.2  6.0E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  23.8% of the faces,  17.3% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 1.31 | 5.1E-02 | 6.0E-01 |  5.7  2.9E-03  OK|
+ | O-TurbFreq           | 1.15 | 3.5E-02 | 6.7E-01 |  8.0  7.6E-04  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =    4                    CPU SECONDS = 6.904E+00
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | Wallscale            | 0.53 | 3.0E-04 | 1.1E-02 | 15.3  7.8E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.72 | 1.1E-02 | 2.2E-01 |       9.7E-02  OK|
+ | V-Mom                | 0.75 | 3.6E-02 | 7.6E-01 |       8.5E-02  OK|
+ | W-Mom                | 0.85 | 3.9E-02 | 5.2E-01 |       1.2E-01  ok|
+ | P-Mass               | 1.50 | 9.2E-03 | 8.9E-02 |  5.2  3.2E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  46.2% of the faces,  41.9% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an INLET                  |
+ |  boundary condition (at   0.3% of the faces,   0.1% of the area)   |
+ |  to prevent fluid from flowing out of the domain.                  |
+ |  The boundary condition name is: S1 Inlet.                         |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 1.13 | 5.8E-02 | 8.5E-01 |  5.7  9.9E-04  OK|
+ | O-TurbFreq           | 0.95 | 3.3E-02 | 5.2E-01 |  8.0  7.4E-05  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =    5                    CPU SECONDS = 8.338E+00
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | Wallscale            | 0.55 | 1.7E-04 | 5.2E-03 | 15.3  7.4E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.88 | 9.4E-03 | 2.2E-01 |       1.4E-01  ok|
+ | V-Mom                | 0.89 | 3.2E-02 | 6.2E-01 |       9.5E-02  OK|
+ | W-Mom                | 0.78 | 3.0E-02 | 3.9E-01 |       1.3E-01  ok|
+ | P-Mass               | 1.09 | 1.0E-02 | 1.3E-01 |  5.2  4.4E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  53.8% of the faces,  53.7% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an INLET                  |
+ |  boundary condition (at   0.8% of the faces,   0.6% of the area)   |
+ |  to prevent fluid from flowing out of the domain.                  |
+ |  The boundary condition name is: S1 Inlet.                         |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 1.54 | 9.0E-02 | 2.2E+00 |  5.7  1.2E-03  OK|
+ | O-TurbFreq           | 1.03 | 3.4E-02 | 5.6E-01 |  8.0  1.8E-04  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =    6                    CPU SECONDS = 9.772E+00
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | Wallscale            | 0.56 | 9.3E-05 | 2.7E-03 | 15.3  6.9E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.80 | 7.5E-03 | 1.7E-01 |       5.1E-02  OK|
+ | V-Mom                | 0.85 | 2.7E-02 | 4.8E-01 |       5.0E-02  OK|
+ | W-Mom                | 0.77 | 2.3E-02 | 3.7E-01 |       4.2E-02  OK|
+ | P-Mass               | 1.28 | 1.3E-02 | 1.8E-01 |  9.5  4.3E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  61.5% of the faces,  65.9% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an INLET                  |
+ |  boundary condition (at   0.3% of the faces,   0.1% of the area)   |
+ |  to prevent fluid from flowing out of the domain.                  |
+ |  The boundary condition name is: S1 Inlet.                         |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.67 | 6.0E-02 | 7.4E-01 |  5.7  3.4E-03  OK|
+ | O-TurbFreq           | 1.00 | 3.4E-02 | 5.6E-01 |  8.0  3.7E-04  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =    7                    CPU SECONDS = 1.120E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.76 | 5.7E-03 | 1.2E-01 |       1.5E-01  ok|
+ | V-Mom                | 0.79 | 2.2E-02 | 3.8E-01 |       1.3E-01  ok|
+ | W-Mom                | 0.74 | 1.7E-02 | 2.5E-01 |       1.4E-01  ok|
+ | P-Mass               | 0.71 | 9.2E-03 | 1.3E-01 |  5.2  6.7E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  61.5% of the faces,  65.9% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an INLET                  |
+ |  boundary condition (at   0.7% of the faces,   0.5% of the area)   |
+ |  to prevent fluid from flowing out of the domain.                  |
+ |  The boundary condition name is: S1 Inlet.                         |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.54 | 3.3E-02 | 4.4E-01 |  5.7  6.3E-03  OK|
+ | O-TurbFreq           | 0.98 | 3.3E-02 | 5.0E-01 |  8.0  4.2E-04  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =    8                    CPU SECONDS = 1.240E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.68 | 3.9E-03 | 7.9E-02 |       8.0E-02  OK|
+ | V-Mom                | 0.70 | 1.5E-02 | 2.5E-01 |       1.0E-01  ok|
+ | W-Mom                | 0.85 | 1.5E-02 | 2.8E-01 |       6.1E-02  OK|
+ | P-Mass               | 0.64 | 5.9E-03 | 1.0E-01 |  9.5  4.9E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  61.5% of the faces,  65.9% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an INLET                  |
+ |  boundary condition (at   0.3% of the faces,   0.1% of the area)   |
+ |  to prevent fluid from flowing out of the domain.                  |
+ |  The boundary condition name is: S1 Inlet.                         |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.44 | 1.4E-02 | 2.3E-01 |  5.7  1.3E-02  OK|
+ | O-TurbFreq           | 0.78 | 2.6E-02 | 4.3E-01 |  8.0  1.1E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =    9                    CPU SECONDS = 1.363E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.72 | 2.8E-03 | 8.5E-02 |       7.2E-02  OK|
+ | V-Mom                | 0.65 | 9.9E-03 | 1.5E-01 |       9.3E-02  OK|
+ | W-Mom                | 0.73 | 1.1E-02 | 2.6E-01 |       5.7E-02  OK|
+ | P-Mass               | 0.36 | 2.1E-03 | 4.1E-02 |  9.5  6.3E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an INLET                  |
+ |  boundary condition (at   2.7% of the faces,   2.2% of the area)   |
+ |  to prevent fluid from flowing out of the domain.                  |
+ |  The boundary condition name is: S1 Inlet.                         |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.55 | 7.9E-03 | 2.0E-01 |  5.7  2.3E-02  OK|
+ | O-TurbFreq           | 0.58 | 1.5E-02 | 2.3E-01 |  8.0  2.0E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   10                    CPU SECONDS = 1.488E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.87 | 2.4E-03 | 4.0E-02 |       4.9E-02  OK|
+ | V-Mom                | 0.87 | 8.5E-03 | 1.5E-01 |       8.8E-02  OK|
+ | W-Mom                | 0.78 | 8.4E-03 | 1.4E-01 |       6.2E-02  OK|
+ | P-Mass               | 0.77 | 1.6E-03 | 3.3E-02 |  9.5  9.3E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  76.9% of the faces,  88.4% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an INLET                  |
+ |  boundary condition (at  10.2% of the faces,  10.0% of the area)   |
+ |  to prevent fluid from flowing out of the domain.                  |
+ |  The boundary condition name is: S1 Inlet.                         |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.69 | 5.4E-03 | 1.4E-01 |  5.7  1.6E-02  OK|
+ | O-TurbFreq           | 0.63 | 9.6E-03 | 1.4E-01 |  8.0  3.9E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   11                    CPU SECONDS = 1.614E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.83 | 2.0E-03 | 3.8E-02 |       4.5E-02  OK|
+ | V-Mom                | 0.65 | 5.5E-03 | 1.6E-01 |       6.4E-02  OK|
+ | W-Mom                | 0.72 | 6.0E-03 | 1.4E-01 |       6.6E-02  OK|
+ | P-Mass               | 1.38 | 2.2E-03 | 7.0E-02 |  9.5  9.6E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  76.9% of the faces,  88.4% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an INLET                  |
+ |  boundary condition (at   9.0% of the faces,   8.6% of the area)   |
+ |  to prevent fluid from flowing out of the domain.                  |
+ |  The boundary condition name is: S1 Inlet.                         |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 1.11 | 6.0E-03 | 3.1E-01 |  5.7  1.7E-02  OK|
+ | O-TurbFreq           | 0.77 | 7.4E-03 | 1.1E-01 |  8.0  4.7E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   12                    CPU SECONDS = 1.741E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 1.01 | 2.0E-03 | 4.0E-02 |       4.8E-02  OK|
+ | V-Mom                | 0.82 | 4.5E-03 | 1.5E-01 |       6.6E-02  OK|
+ | W-Mom                | 1.05 | 6.3E-03 | 2.2E-01 |       7.0E-02  OK|
+ | P-Mass               | 0.87 | 1.9E-03 | 6.4E-02 |  9.5  9.3E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an INLET                  |
+ |  boundary condition (at   2.2% of the faces,   1.8% of the area)   |
+ |  to prevent fluid from flowing out of the domain.                  |
+ |  The boundary condition name is: S1 Inlet.                         |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.95 | 5.7E-03 | 2.0E-01 |  5.7  2.1E-02  OK|
+ | O-TurbFreq           | 0.79 | 5.9E-03 | 8.7E-02 |  8.0  1.1E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   13                    CPU SECONDS = 1.865E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.95 | 1.9E-03 | 3.5E-02 |       5.1E-02  OK|
+ | V-Mom                | 0.89 | 4.0E-03 | 1.0E-01 |       8.6E-02  OK|
+ | W-Mom                | 0.79 | 5.0E-03 | 1.5E-01 |       6.0E-02  OK|
+ | P-Mass               | 0.64 | 1.2E-03 | 4.1E-02 |  9.5  9.6E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an INLET                  |
+ |  boundary condition (at   0.3% of the faces,   0.1% of the area)   |
+ |  to prevent fluid from flowing out of the domain.                  |
+ |  The boundary condition name is: S1 Inlet.                         |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 1.00 | 5.7E-03 | 1.5E-01 |  5.7  2.0E-02  OK|
+ | O-TurbFreq           | 0.78 | 4.6E-03 | 8.8E-02 |  8.0  1.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   14                    CPU SECONDS = 1.990E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.92 | 1.8E-03 | 3.3E-02 |       2.7E-02  OK|
+ | V-Mom                | 0.82 | 3.3E-03 | 8.2E-02 |       8.3E-02  OK|
+ | W-Mom                | 0.71 | 3.5E-03 | 9.3E-02 |       3.4E-02  OK|
+ | P-Mass               | 0.60 | 7.4E-04 | 1.9E-02 | 13.7  8.3E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.63 | 3.6E-03 | 6.5E-02 |  5.7  2.3E-02  OK|
+ | O-TurbFreq           | 0.74 | 3.4E-03 | 6.8E-02 |  8.0  1.4E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   15                    CPU SECONDS = 2.130E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.88 | 1.5E-03 | 2.5E-02 |       2.3E-02  OK|
+ | V-Mom                | 0.75 | 2.5E-03 | 5.0E-02 |       7.6E-02  OK|
+ | W-Mom                | 0.68 | 2.4E-03 | 8.3E-02 |       3.6E-02  OK|
+ | P-Mass               | 0.73 | 5.4E-04 | 1.3E-02 | 13.7  8.3E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.68 | 2.4E-03 | 5.9E-02 |  5.7  2.6E-02  OK|
+ | O-TurbFreq           | 0.78 | 2.6E-03 | 5.8E-02 |  8.0  1.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   16                    CPU SECONDS = 2.289E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.86 | 1.3E-03 | 2.0E-02 |       2.6E-02  OK|
+ | V-Mom                | 0.74 | 1.8E-03 | 4.3E-02 |       9.1E-02  OK|
+ | W-Mom                | 0.70 | 1.7E-03 | 7.1E-02 |       3.7E-02  OK|
+ | P-Mass               | 0.78 | 4.2E-04 | 1.1E-02 | 13.7  8.6E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.83 | 2.0E-03 | 4.5E-02 |  5.7  2.3E-02  OK|
+ | O-TurbFreq           | 0.89 | 2.3E-03 | 5.0E-02 |  8.0  1.5E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   17                    CPU SECONDS = 2.446E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.91 | 1.2E-03 | 1.9E-02 |       2.4E-02  OK|
+ | V-Mom                | 0.80 | 1.5E-03 | 3.7E-02 |       8.6E-02  OK|
+ | W-Mom                | 0.70 | 1.2E-03 | 5.0E-02 |       3.8E-02  OK|
+ | P-Mass               | 0.89 | 3.8E-04 | 8.1E-03 | 13.7  8.8E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.94 | 1.9E-03 | 3.7E-02 |  5.7  2.2E-02  OK|
+ | O-TurbFreq           | 0.89 | 2.1E-03 | 4.7E-02 |  8.0  1.5E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   18                    CPU SECONDS = 2.586E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.85 | 1.0E-03 | 1.7E-02 |       2.0E-02  OK|
+ | V-Mom                | 0.84 | 1.2E-03 | 3.1E-02 |       7.0E-02  OK|
+ | W-Mom                | 0.75 | 8.9E-04 | 3.4E-02 |       3.8E-02  OK|
+ | P-Mass               | 0.96 | 3.6E-04 | 8.4E-03 | 13.7  7.8E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.89 | 1.7E-03 | 3.4E-02 |  5.7  2.4E-02  OK|
+ | O-TurbFreq           | 0.83 | 1.7E-03 | 3.1E-02 |  8.0  1.4E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   19                    CPU SECONDS = 2.729E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.80 | 8.2E-04 | 1.8E-02 |       1.7E-02  OK|
+ | V-Mom                | 0.85 | 1.0E-03 | 2.6E-02 |       5.5E-02  OK|
+ | W-Mom                | 0.78 | 7.0E-04 | 2.2E-02 |       3.6E-02  OK|
+ | P-Mass               | 0.82 | 3.0E-04 | 7.1E-03 | 13.7  6.1E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.83 | 1.4E-03 | 4.0E-02 |  5.7  2.4E-02  OK|
+ | O-TurbFreq           | 0.75 | 1.3E-03 | 2.8E-02 |  8.0  1.1E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   20                    CPU SECONDS = 2.883E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.83 | 6.9E-04 | 1.7E-02 |       3.2E-02  OK|
+ | V-Mom                | 0.86 | 9.1E-04 | 2.7E-02 |       6.9E-02  OK|
+ | W-Mom                | 0.80 | 5.5E-04 | 2.0E-02 |       7.7E-02  OK|
+ | P-Mass               | 0.73 | 2.2E-04 | 5.0E-03 |  9.5  9.7E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.81 | 1.1E-03 | 4.4E-02 |  5.7  2.4E-02  OK|
+ | O-TurbFreq           | 0.79 | 1.0E-03 | 2.2E-02 |  8.0  1.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   21                    CPU SECONDS = 3.046E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.83 | 5.7E-04 | 2.0E-02 |       2.2E-02  OK|
+ | V-Mom                | 0.88 | 8.0E-04 | 2.9E-02 |       7.5E-02  OK|
+ | W-Mom                | 0.81 | 4.5E-04 | 1.8E-02 |       4.2E-02  OK|
+ | P-Mass               | 0.74 | 1.6E-04 | 3.4E-03 | 13.7  8.5E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.87 | 1.0E-03 | 3.9E-02 |  5.7  2.3E-02  OK|
+ | O-TurbFreq           | 0.85 | 8.6E-04 | 2.0E-02 |  8.0  1.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   22                    CPU SECONDS = 3.233E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.84 | 4.8E-04 | 1.5E-02 |       3.4E-02  OK|
+ | V-Mom                | 0.90 | 7.2E-04 | 3.1E-02 |       5.6E-02  OK|
+ | W-Mom                | 0.86 | 3.9E-04 | 1.6E-02 |       8.0E-02  OK|
+ | P-Mass               | 0.79 | 1.3E-04 | 2.4E-03 |  9.5  9.6E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.97 | 9.7E-04 | 2.8E-02 |  5.7  2.3E-02  OK|
+ | O-TurbFreq           | 0.90 | 7.7E-04 | 1.8E-02 |  8.0  1.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   23                    CPU SECONDS = 3.414E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.82 | 3.9E-04 | 1.3E-02 |       2.2E-02  OK|
+ | V-Mom                | 0.90 | 6.4E-04 | 2.9E-02 |       5.7E-02  OK|
+ | W-Mom                | 0.88 | 3.4E-04 | 1.4E-02 |       4.2E-02  OK|
+ | P-Mass               | 0.89 | 1.1E-04 | 2.2E-03 | 13.7  8.2E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 1.04 | 1.0E-03 | 3.6E-02 |  5.7  2.5E-02  OK|
+ | O-TurbFreq           | 0.90 | 6.9E-04 | 1.4E-02 |  8.0  1.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   24                    CPU SECONDS = 3.607E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.84 | 3.3E-04 | 9.9E-03 |       3.5E-02  OK|
+ | V-Mom                | 0.90 | 5.8E-04 | 2.7E-02 |       5.3E-02  OK|
+ | W-Mom                | 0.90 | 3.1E-04 | 1.3E-02 |       7.7E-02  OK|
+ | P-Mass               | 0.95 | 1.1E-04 | 2.2E-03 |  9.5  9.2E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.98 | 9.9E-04 | 4.4E-02 |  5.7  2.5E-02  OK|
+ | O-TurbFreq           | 1.03 | 7.1E-04 | 1.6E-02 |  8.0  1.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   25                    CPU SECONDS = 3.810E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.88 | 2.9E-04 | 6.4E-03 |       3.8E-02  OK|
+ | V-Mom                | 0.91 | 5.3E-04 | 2.6E-02 |       7.0E-02  OK|
+ | W-Mom                | 0.89 | 2.7E-04 | 1.1E-02 |       8.8E-02  OK|
+ | P-Mass               | 0.94 | 1.0E-04 | 2.1E-03 |  9.5  9.9E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.90 | 8.9E-04 | 4.2E-02 |  5.7  2.5E-02  OK|
+ | O-TurbFreq           | 0.89 | 6.3E-04 | 1.5E-02 |  8.0  1.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   26                    CPU SECONDS = 3.982E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.87 | 2.5E-04 | 5.9E-03 |       2.4E-02  OK|
+ | V-Mom                | 0.91 | 4.8E-04 | 2.6E-02 |       6.7E-02  OK|
+ | W-Mom                | 0.88 | 2.4E-04 | 1.0E-02 |       4.1E-02  OK|
+ | P-Mass               | 0.87 | 8.8E-05 | 1.9E-03 | 18.0  9.2E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.92 | 8.2E-04 | 4.1E-02 |  5.7  2.6E-02  OK|
+ | O-TurbFreq           | 0.89 | 5.6E-04 | 1.4E-02 |  8.0  1.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   27                    CPU SECONDS = 4.173E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.88 | 2.2E-04 | 5.8E-03 |       2.4E-02  OK|
+ | V-Mom                | 0.93 | 4.5E-04 | 2.6E-02 |       6.3E-02  OK|
+ | W-Mom                | 0.88 | 2.1E-04 | 8.5E-03 |       4.0E-02  OK|
+ | P-Mass               | 0.83 | 7.3E-05 | 1.8E-03 | 18.0  9.6E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.90 | 7.4E-04 | 4.0E-02 |  5.7  2.5E-02  OK|
+ | O-TurbFreq           | 0.93 | 5.2E-04 | 1.4E-02 |  8.0  1.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   28                    CPU SECONDS = 4.406E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.91 | 2.0E-04 | 5.6E-03 |       2.5E-02  OK|
+ | V-Mom                | 0.94 | 4.2E-04 | 2.4E-02 |       6.2E-02  OK|
+ | W-Mom                | 0.90 | 1.9E-04 | 6.9E-03 |       3.9E-02  OK|
+ | P-Mass               | 0.85 | 6.1E-05 | 1.8E-03 | 18.0  9.7E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.93 | 6.9E-04 | 3.9E-02 |  5.7  2.5E-02  OK|
+ | O-TurbFreq           | 0.88 | 4.6E-04 | 1.5E-02 |  8.0  1.1E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   29                    CPU SECONDS = 4.608E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.89 | 1.8E-04 | 5.1E-03 |       2.6E-02  OK|
+ | V-Mom                | 0.92 | 3.9E-04 | 2.5E-02 |       6.3E-02  OK|
+ | W-Mom                | 0.91 | 1.7E-04 | 5.9E-03 |       3.7E-02  OK|
+ | P-Mass               | 0.89 | 5.5E-05 | 1.7E-03 | 18.0  9.9E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.91 | 6.2E-04 | 3.5E-02 |  5.7  2.5E-02  OK|
+ | O-TurbFreq           | 0.88 | 4.0E-04 | 1.4E-02 |  8.0  1.1E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   30                    CPU SECONDS = 4.809E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.88 | 1.6E-04 | 4.7E-03 |       2.5E-02  OK|
+ | V-Mom                | 0.92 | 3.5E-04 | 2.4E-02 |       5.4E-02  OK|
+ | W-Mom                | 0.93 | 1.6E-04 | 5.1E-03 |       2.7E-02  OK|
+ | P-Mass               | 0.94 | 5.1E-05 | 1.6E-03 | 22.2  9.2E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.89 | 5.6E-04 | 3.0E-02 |  5.7  2.6E-02  OK|
+ | O-TurbFreq           | 0.90 | 3.6E-04 | 1.3E-02 |  8.0  1.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   31                    CPU SECONDS = 5.056E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.90 | 1.4E-04 | 4.5E-03 |       4.7E-02  OK|
+ | V-Mom                | 0.93 | 3.3E-04 | 2.3E-02 |       5.7E-02  OK|
+ | W-Mom                | 0.94 | 1.5E-04 | 4.6E-03 |       5.9E-02  OK|
+ | P-Mass               | 0.94 | 4.8E-05 | 1.5E-03 |  9.5  9.4E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.90 | 5.0E-04 | 2.7E-02 |  5.7  2.5E-02  OK|
+ | O-TurbFreq           | 0.91 | 3.3E-04 | 1.3E-02 |  8.0  1.1E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   32                    CPU SECONDS = 5.312E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.90 | 1.3E-04 | 5.1E-03 |       4.2E-02  OK|
+ | V-Mom                | 0.94 | 3.1E-04 | 2.7E-02 |       6.5E-02  OK|
+ | W-Mom                | 0.93 | 1.4E-04 | 4.1E-03 |       3.3E-02  OK|
+ | P-Mass               | 0.91 | 4.4E-05 | 1.4E-03 | 13.7  9.3E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.94 | 4.7E-04 | 2.5E-02 |  5.7  2.9E-02  OK|
+ | O-TurbFreq           | 0.84 | 2.8E-04 | 1.2E-02 |  8.0  1.1E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   33                    CPU SECONDS = 5.636E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.90 | 1.1E-04 | 5.1E-03 |       5.0E-02  OK|
+ | V-Mom                | 0.95 | 3.0E-04 | 2.7E-02 |       4.8E-02  OK|
+ | W-Mom                | 0.93 | 1.3E-04 | 3.8E-03 |       5.2E-02  OK|
+ | P-Mass               | 0.90 | 3.9E-05 | 1.3E-03 |  9.5  8.6E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.94 | 4.4E-04 | 2.4E-02 |  5.7  2.7E-02  OK|
+ | O-TurbFreq           | 0.99 | 2.7E-04 | 1.1E-02 |  8.0  1.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   34                    CPU SECONDS = 5.945E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.92 | 1.0E-04 | 4.7E-03 |       4.2E-02  OK|
+ | V-Mom                | 0.96 | 2.8E-04 | 2.5E-02 |       6.0E-02  OK|
+ | W-Mom                | 0.94 | 1.2E-04 | 3.4E-03 |       3.2E-02  OK|
+ | P-Mass               | 0.92 | 3.6E-05 | 1.1E-03 | 13.7  8.7E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.98 | 4.3E-04 | 2.7E-02 |  5.7  2.8E-02  OK|
+ | O-TurbFreq           | 0.90 | 2.4E-04 | 1.0E-02 |  8.0  1.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   35                    CPU SECONDS = 6.217E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.92 | 9.6E-05 | 4.6E-03 |       4.9E-02  OK|
+ | V-Mom                | 0.96 | 2.7E-04 | 2.4E-02 |       4.5E-02  OK|
+ | W-Mom                | 0.94 | 1.2E-04 | 3.4E-03 |       5.0E-02  OK|
+ | P-Mass               | 0.93 | 3.4E-05 | 1.0E-03 |  9.5  8.3E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.98 | 4.3E-04 | 2.5E-02 |  5.7  2.7E-02  OK|
+ | O-TurbFreq           | 0.98 | 2.4E-04 | 9.5E-03 |  8.0  1.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   36                    CPU SECONDS = 6.449E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.93 | 8.9E-05 | 5.1E-03 |       5.5E-02  OK|
+ | V-Mom                | 0.98 | 2.7E-04 | 2.7E-02 |       6.3E-02  OK|
+ | W-Mom                | 0.95 | 1.1E-04 | 3.4E-03 |       6.1E-02  OK|
+ | P-Mass               | 0.95 | 3.2E-05 | 9.5E-04 |  9.5  9.7E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.99 | 4.2E-04 | 2.4E-02 |  5.7  2.7E-02  OK|
+ | O-TurbFreq           | 0.87 | 2.1E-04 | 8.8E-03 |  8.0  1.1E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   37                    CPU SECONDS = 6.717E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.93 | 8.2E-05 | 5.0E-03 |       2.9E-02  OK|
+ | V-Mom                | 0.97 | 2.6E-04 | 2.6E-02 |       5.5E-02  OK|
+ | W-Mom                | 0.94 | 1.0E-04 | 3.5E-03 |       2.4E-02  OK|
+ | P-Mass               | 0.95 | 3.0E-05 | 8.6E-04 | 22.2  9.2E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.98 | 4.1E-04 | 2.4E-02 |  5.7  2.8E-02  OK|
+ | O-TurbFreq           | 0.94 | 2.0E-04 | 7.7E-03 |  8.0  1.1E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   38                    CPU SECONDS = 7.006E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.94 | 7.7E-05 | 4.6E-03 |       4.9E-02  OK|
+ | V-Mom                | 0.97 | 2.5E-04 | 2.4E-02 |       4.6E-02  OK|
+ | W-Mom                | 0.96 | 9.9E-05 | 3.4E-03 |       4.9E-02  OK|
+ | P-Mass               | 0.96 | 2.9E-05 | 7.8E-04 |  9.5  8.6E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.95 | 3.9E-04 | 2.4E-02 |  5.7  2.6E-02  OK|
+ | O-TurbFreq           | 1.00 | 2.0E-04 | 7.1E-03 |  8.0  1.1E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   39                    CPU SECONDS = 7.249E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.94 | 7.3E-05 | 4.1E-03 |       5.6E-02  OK|
+ | V-Mom                | 0.98 | 2.4E-04 | 2.1E-02 |       6.0E-02  OK|
+ | W-Mom                | 0.95 | 9.4E-05 | 3.5E-03 |       5.4E-02  OK|
+ | P-Mass               | 0.95 | 2.8E-05 | 8.1E-04 |  9.5  8.7E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.96 | 3.8E-04 | 2.3E-02 |  5.7  2.6E-02  OK|
+ | O-TurbFreq           | 0.85 | 1.7E-04 | 6.4E-03 |  8.0  1.0E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   40                    CPU SECONDS = 7.544E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.95 | 6.9E-05 | 4.7E-03 |       4.9E-02  OK|
+ | V-Mom                | 0.98 | 2.4E-04 | 2.3E-02 |       6.9E-02  OK|
+ | W-Mom                | 0.95 | 9.0E-05 | 3.5E-03 |       3.2E-02  OK|
+ | P-Mass               | 0.96 | 2.7E-05 | 8.5E-04 | 13.7  9.9E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.96 | 3.6E-04 | 2.2E-02 |  5.7  2.7E-02  OK|
+ | O-TurbFreq           | 0.93 | 1.6E-04 | 6.7E-03 |  8.0  1.1E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   41                    CPU SECONDS = 7.847E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.95 | 6.5E-05 | 4.6E-03 |       5.0E-02  OK|
+ | V-Mom                | 0.96 | 2.3E-04 | 2.2E-02 |       4.5E-02  OK|
+ | W-Mom                | 0.96 | 8.6E-05 | 3.6E-03 |       4.2E-02  OK|
+ | P-Mass               | 0.98 | 2.6E-05 | 8.7E-04 |  9.5  8.3E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.93 | 3.4E-04 | 2.1E-02 |  5.7  2.6E-02  OK|
+ | O-TurbFreq           | 0.97 | 1.5E-04 | 6.7E-03 |  8.0  1.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   42                    CPU SECONDS = 8.341E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.95 | 6.2E-05 | 4.3E-03 |       5.2E-02  OK|
+ | V-Mom                | 0.97 | 2.2E-04 | 2.1E-02 |       5.1E-02  OK|
+ | W-Mom                | 0.96 | 8.3E-05 | 3.5E-03 |       4.7E-02  OK|
+ | P-Mass               | 0.96 | 2.5E-05 | 8.8E-04 |  9.5  7.2E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.93 | 3.1E-04 | 1.9E-02 |  5.7  2.6E-02  OK|
+ | O-TurbFreq           | 0.89 | 1.4E-04 | 6.6E-03 |  8.0  1.1E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   43                    CPU SECONDS = 8.633E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.94 | 5.9E-05 | 3.7E-03 |       5.2E-02  OK|
+ | V-Mom                | 0.96 | 2.1E-04 | 1.8E-02 |       6.7E-02  OK|
+ | W-Mom                | 0.96 | 8.0E-05 | 3.6E-03 |       5.1E-02  OK|
+ | P-Mass               | 0.97 | 2.4E-05 | 8.7E-04 |  9.5  9.0E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.93 | 2.9E-04 | 1.9E-02 |  5.7  2.6E-02  OK|
+ | O-TurbFreq           | 0.94 | 1.3E-04 | 7.0E-03 |  8.0  1.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   44                    CPU SECONDS = 8.900E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.95 | 5.6E-05 | 3.4E-03 |       3.0E-02  OK|
+ | V-Mom                | 0.96 | 2.1E-04 | 1.5E-02 |       6.5E-02  OK|
+ | W-Mom                | 0.96 | 7.7E-05 | 3.6E-03 |       2.9E-02  OK|
+ | P-Mass               | 0.97 | 2.4E-05 | 8.7E-04 | 18.0  9.5E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.93 | 2.7E-04 | 1.8E-02 |  5.7  2.7E-02  OK|
+ | O-TurbFreq           | 0.94 | 1.2E-04 | 6.6E-03 |  8.0  1.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   45                    CPU SECONDS = 9.170E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.96 | 5.3E-05 | 3.1E-03 |       4.8E-02  OK|
+ | V-Mom                | 0.96 | 2.0E-04 | 1.4E-02 |       7.1E-02  OK|
+ | W-Mom                | 0.97 | 7.4E-05 | 3.9E-03 |       5.0E-02  OK|
+ | P-Mass               | 0.97 | 2.3E-05 | 9.2E-04 |  9.5  9.5E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.92 | 2.5E-04 | 1.8E-02 |  5.7  2.5E-02  OK|
+ | O-TurbFreq           | 0.95 | 1.1E-04 | 6.3E-03 |  8.0  1.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   46                    CPU SECONDS = 9.454E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.96 | 5.1E-05 | 3.3E-03 |       4.3E-02  OK|
+ | V-Mom                | 0.97 | 1.9E-04 | 1.5E-02 |       7.3E-02  OK|
+ | W-Mom                | 0.96 | 7.2E-05 | 4.5E-03 |       3.2E-02  OK|
+ | P-Mass               | 0.96 | 2.2E-05 | 9.4E-04 | 13.7  9.7E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.95 | 2.4E-04 | 1.6E-02 |  5.7  2.5E-02  OK|
+ | O-TurbFreq           | 0.92 | 1.1E-04 | 6.4E-03 |  8.0  1.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   47                    CPU SECONDS = 9.716E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.97 | 4.9E-05 | 3.9E-03 |       4.5E-02  OK|
+ | V-Mom                | 0.97 | 1.9E-04 | 1.7E-02 |       4.4E-02  OK|
+ | W-Mom                | 0.97 | 6.9E-05 | 4.9E-03 |       3.6E-02  OK|
+ | P-Mass               | 0.97 | 2.1E-05 | 9.6E-04 |  9.5  7.8E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.94 | 2.2E-04 | 1.7E-02 |  5.7  2.4E-02  OK|
+ | O-TurbFreq           | 0.94 | 9.9E-05 | 5.6E-03 |  8.0  1.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   48                    CPU SECONDS = 9.985E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.97 | 4.8E-05 | 4.7E-03 |       4.5E-02  OK|
+ | V-Mom                | 0.98 | 1.8E-04 | 2.1E-02 |       4.4E-02  OK|
+ | W-Mom                | 0.95 | 6.6E-05 | 4.9E-03 |       3.8E-02  OK|
+ | P-Mass               | 0.96 | 2.0E-05 | 9.6E-04 |  9.5  6.2E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.96 | 2.1E-04 | 1.8E-02 |  5.7  2.3E-02  OK|
+ | O-TurbFreq           | 0.93 | 9.2E-05 | 5.6E-03 |  8.0  1.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   49                    CPU SECONDS = 1.027E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.94 | 4.5E-05 | 3.9E-03 |       4.5E-02  OK|
+ | V-Mom                | 0.94 | 1.7E-04 | 1.8E-02 |       5.7E-02  OK|
+ | W-Mom                | 0.95 | 6.3E-05 | 4.6E-03 |       4.2E-02  OK|
+ | P-Mass               | 0.96 | 2.0E-05 | 9.4E-04 |  9.5  7.4E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.93 | 2.0E-04 | 1.8E-02 |  5.7  2.3E-02  OK|
+ | O-TurbFreq           | 0.94 | 8.7E-05 | 5.4E-03 |  8.0  1.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   50                    CPU SECONDS = 1.054E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.95 | 4.3E-05 | 3.3E-03 |       4.7E-02  OK|
+ | V-Mom                | 0.94 | 1.6E-04 | 1.3E-02 |       7.1E-02  OK|
+ | W-Mom                | 0.95 | 6.0E-05 | 4.1E-03 |       4.8E-02  OK|
+ | P-Mass               | 0.96 | 1.9E-05 | 9.1E-04 |  9.5  8.9E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.95 | 1.9E-04 | 1.6E-02 |  5.7  2.4E-02  OK|
+ | O-TurbFreq           | 0.96 | 8.3E-05 | 6.3E-03 |  8.0  1.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   51                    CPU SECONDS = 1.078E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.99 | 4.2E-05 | 4.1E-03 |       4.9E-02  OK|
+ | V-Mom                | 1.00 | 1.6E-04 | 1.8E-02 |       7.8E-02  OK|
+ | W-Mom                | 0.95 | 5.7E-05 | 3.6E-03 |       5.1E-02  OK|
+ | P-Mass               | 0.96 | 1.8E-05 | 8.5E-04 |  9.5  9.8E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 1.00 | 1.9E-04 | 1.5E-02 |  5.7  2.3E-02  OK|
+ | O-TurbFreq           | 0.98 | 8.2E-05 | 6.1E-03 |  8.0  1.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   52                    CPU SECONDS = 1.103E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 1.02 | 4.3E-05 | 5.0E-03 |       3.5E-02  OK|
+ | V-Mom                | 1.05 | 1.7E-04 | 2.2E-02 |       6.8E-02  OK|
+ | W-Mom                | 0.95 | 5.4E-05 | 3.8E-03 |       3.1E-02  OK|
+ | P-Mass               | 0.96 | 1.7E-05 | 8.0E-04 | 13.7  8.9E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 1.03 | 2.0E-04 | 1.5E-02 |  5.7  2.3E-02  OK|
+ | O-TurbFreq           | 1.01 | 8.3E-05 | 5.9E-03 |  8.0  1.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   53                    CPU SECONDS = 1.129E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.97 | 4.2E-05 | 5.2E-03 |       4.1E-02  OK|
+ | V-Mom                | 0.99 | 1.7E-04 | 2.3E-02 |       4.5E-02  OK|
+ | W-Mom                | 0.96 | 5.2E-05 | 3.9E-03 |       3.8E-02  OK|
+ | P-Mass               | 0.97 | 1.7E-05 | 7.5E-04 |  9.5  7.5E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.90 | 1.8E-04 | 1.4E-02 |  5.7  2.3E-02  OK|
+ | O-TurbFreq           | 0.97 | 8.0E-05 | 5.8E-03 |  8.0  1.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   54                    CPU SECONDS = 1.152E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.99 | 4.1E-05 | 5.4E-03 |       4.3E-02  OK|
+ | V-Mom                | 1.01 | 1.7E-04 | 2.4E-02 |       4.8E-02  OK|
+ | W-Mom                | 0.95 | 4.9E-05 | 3.8E-03 |       4.0E-02  OK|
+ | P-Mass               | 0.96 | 1.6E-05 | 7.0E-04 |  9.5  6.8E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.95 | 1.7E-04 | 1.3E-02 |  5.7  2.4E-02  OK|
+ | O-TurbFreq           | 0.99 | 7.9E-05 | 7.0E-03 |  8.0  1.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   55                    CPU SECONDS = 1.177E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.99 | 4.1E-05 | 5.4E-03 |       4.2E-02  OK|
+ | V-Mom                | 1.00 | 1.7E-04 | 2.5E-02 |       5.4E-02  OK|
+ | W-Mom                | 0.95 | 4.7E-05 | 3.6E-03 |       4.3E-02  OK|
+ | P-Mass               | 0.96 | 1.5E-05 | 6.6E-04 |  9.5  7.6E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.95 | 1.6E-04 | 1.7E-02 |  5.7  2.3E-02  OK|
+ | O-TurbFreq           | 1.00 | 7.9E-05 | 8.7E-03 |  8.0  1.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   56                    CPU SECONDS = 1.202E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.90 | 3.7E-05 | 3.8E-03 |       4.4E-02  OK|
+ | V-Mom                | 0.90 | 1.5E-04 | 1.7E-02 |       6.6E-02  OK|
+ | W-Mom                | 0.95 | 4.5E-05 | 3.2E-03 |       4.7E-02  OK|
+ | P-Mass               | 0.95 | 1.5E-05 | 6.2E-04 |  9.5  8.7E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.80 | 1.3E-04 | 1.5E-02 |  5.7  2.2E-02  OK|
+ | O-TurbFreq           | 0.89 | 7.0E-05 | 7.7E-03 |  8.0  1.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   57                    CPU SECONDS = 1.226E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.88 | 3.3E-05 | 3.3E-03 |       4.6E-02  OK|
+ | V-Mom                | 0.87 | 1.3E-04 | 1.6E-02 |       7.6E-02  OK|
+ | W-Mom                | 0.95 | 4.3E-05 | 2.7E-03 |       5.0E-02  OK|
+ | P-Mass               | 0.94 | 1.4E-05 | 5.7E-04 |  9.5  9.3E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.80 | 1.0E-04 | 1.2E-02 |  5.7  2.3E-02  OK|
+ | O-TurbFreq           | 0.88 | 6.2E-05 | 5.9E-03 |  8.0  1.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   58                    CPU SECONDS = 1.251E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.89 | 2.9E-05 | 2.1E-03 |       4.6E-02  OK|
+ | V-Mom                | 0.87 | 1.2E-04 | 1.1E-02 |       8.1E-02  OK|
+ | W-Mom                | 0.95 | 4.1E-05 | 2.2E-03 |       5.0E-02  OK|
+ | P-Mass               | 0.95 | 1.3E-05 | 5.1E-04 |  9.5  9.5E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.85 | 8.6E-05 | 8.0E-03 |  5.7  2.2E-02  OK|
+ | O-TurbFreq           | 0.89 | 5.5E-05 | 4.7E-03 |  8.0  1.4E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   59                    CPU SECONDS = 1.277E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.93 | 2.7E-05 | 2.1E-03 |       4.5E-02  OK|
+ | V-Mom                | 0.90 | 1.0E-04 | 1.0E-02 |       8.2E-02  OK|
+ | W-Mom                | 0.96 | 3.9E-05 | 2.2E-03 |       4.9E-02  OK|
+ | P-Mass               | 0.95 | 1.2E-05 | 4.5E-04 |  9.5  9.5E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.96 | 8.3E-05 | 7.0E-03 |  5.7  2.2E-02  OK|
+ | O-TurbFreq           | 0.92 | 5.0E-05 | 4.5E-03 |  8.0  1.5E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   60                    CPU SECONDS = 1.302E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.95 | 2.6E-05 | 2.0E-03 |       4.5E-02  OK|
+ | V-Mom                | 0.93 | 9.7E-05 | 1.0E-02 |       8.3E-02  OK|
+ | W-Mom                | 0.96 | 3.7E-05 | 2.1E-03 |       4.8E-02  OK|
+ | P-Mass               | 0.95 | 1.2E-05 | 4.3E-04 |  9.5  9.4E-02  OK|
+ +--------------------------------------------------------------------+
+ |                     ****** Notice ******                           |
+ |  A wall has been placed at portion(s) of an OUTLET                 |
+ |  boundary condition (at  69.2% of the faces,  78.2% of the area)   |
+ |  to prevent fluid from flowing into the domain.                    |
+ |  The boundary condition name is: R1 Outlet.                        |
+ |  The fluid name is: Hydraulic Oil.                                 |
+ |  If this situation persists, consider switching                    |
+ |  to an Opening type boundary condition instead.                    |
+ +--------------------------------------------------------------------+
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 1.06 | 8.8E-05 | 1.0E-02 |  5.7  2.2E-02  OK|
+ | O-TurbFreq           | 0.93 | 4.7E-05 | 4.3E-03 |  8.0  1.4E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+                   
+ CFD Solver finished: Fri Sep 25 23:35:00 2026
+ CFD Solver wall clock seconds: 1.3099E+02
+
+ ======================================================================
+              Termination and Interrupt Condition Summary
+ ======================================================================
+    
+ CFD Solver: All target criteria reached
+   (Equation residuals)
+
+ ======================================================================
+              Boundary Flow and Total Source Term Summary
+ ======================================================================
+
+ +--------------------------------------------------------------------+
+ |                              U-Mom-R1                              |
+ +--------------------------------------------------------------------+
+ Boundary         : R1 Blade                               -1.5744E+03
+ Boundary         : R1 Hub                                 -1.0914E+04
+ Boundary         : R1 Outlet                               1.7690E+02
+ Boundary         : R1 Shroud                              -1.3912E+04
+ Boundary         : Periodic                               -2.8769E+03
+ Domain Src (Pos) : R1                                      2.9414E+04
+ Domain Interface : R1 to S1 (Side 1)                      -3.1403E+02
+                                                           -----------
+ Domain Imbalance :                                        -2.1356E-01
+
+ +--------------------------------------------------------------------+
+ |                              V-Mom-R1                              |
+ +--------------------------------------------------------------------+
+ Boundary         : R1 Blade                                3.8963E+03
+ Boundary         : R1 Hub                                 -1.3287E+03
+ Boundary         : R1 Outlet                              -2.4216E+03
+ Boundary         : R1 Shroud                              -2.1840E+03
+ Boundary         : Periodic                               -3.2845E+02
+ Domain Src (Neg) : R1                                     -1.6984E+02
+ Domain Src (Pos) : R1                                      3.3655E+03
+ Domain Interface : R1 to S1 (Side 1)                      -8.1510E+02
+                                                           -----------
+ Domain Imbalance :                                         1.4038E+01
+
+ +--------------------------------------------------------------------+
+ |                              W-Mom-R1                              |
+ +--------------------------------------------------------------------+
+ Boundary         : R1 Blade                               -1.7773E+03
+ Boundary         : R1 Hub                                 -7.5602E+01
+ Boundary         : R1 Outlet                              -3.1113E+02
+ Boundary         : R1 Shroud                              -8.2112E+00
+ Boundary         : Periodic                               -3.3383E-01
+ Domain Interface : R1 to S1 (Side 1)                       2.1733E+03
+                                                           -----------
+ Domain Imbalance :                                         7.5024E-01
+
+ +--------------------------------------------------------------------+
+ |                             P-Mass-R1                              |
+ +--------------------------------------------------------------------+
+ Boundary         : R1 Outlet                              -1.2157E+01
+ Domain Interface : R1 to S1 (Side 1)                       1.2158E+01
+                                                           -----------
+ Domain Imbalance :                                         9.8610E-04
+
+ +--------------------------------------------------------------------+
+ |                              U-Mom-S1                              |
+ +--------------------------------------------------------------------+
+ Boundary         : S1 Blade                                4.1275E+01
+ Boundary         : S1 Hub                                  6.4476E+02
+ Boundary         : S1 Inlet                               -1.4843E+01
+ Boundary         : S1 Shroud                              -1.4967E+03
+ Domain Interface : R1 to S1 (Side 2)                       3.3874E+02
+ Domain Interface : S1 to S1 Periodic 1 (Side 1)           -5.4197E+02
+ Domain Interface : S1 to S1 Periodic 1 (Side 2)            1.0290E+03
+                                                           -----------
+ Domain Imbalance :                                         3.2898E-01
+
+ +--------------------------------------------------------------------+
+ |                              V-Mom-S1                              |
+ +--------------------------------------------------------------------+
+ Boundary         : S1 Blade                               -5.7089E+02
+ Boundary         : S1 Hub                                  1.4484E+01
+ Boundary         : S1 Inlet                               -2.7865E-01
+ Boundary         : S1 Shroud                              -9.6007E+01
+ Domain Interface : R1 to S1 (Side 2)                       5.8926E+02
+ Domain Interface : S1 to S1 Periodic 1 (Side 1)            4.6766E+03
+ Domain Interface : S1 to S1 Periodic 1 (Side 2)           -4.5987E+03
+                                                           -----------
+ Domain Imbalance :                                         1.4550E+01
+
+ +--------------------------------------------------------------------+
+ |                              W-Mom-S1                              |
+ +--------------------------------------------------------------------+
+ Boundary         : S1 Blade                                1.3815E+03
+ Boundary         : S1 Hub                                 -5.3623E-01
+ Boundary         : S1 Inlet                                6.9099E+02
+ Boundary         : S1 Shroud                               4.1228E-01
+ Domain Interface : R1 to S1 (Side 2)                      -2.0665E+03
+ Domain Interface : S1 to S1 Periodic 1 (Side 1)           -5.4741E+02
+ Domain Interface : S1 to S1 Periodic 1 (Side 2)            5.4255E+02
+                                                           -----------
+ Domain Imbalance :                                         1.0026E+00
+
+ +--------------------------------------------------------------------+
+ |                             P-Mass-S1                              |
+ +--------------------------------------------------------------------+
+ Boundary         : S1 Inlet                                1.1448E+01
+ Domain Interface : R1 to S1 (Side 2)                      -1.1449E+01
+ Domain Interface : S1 to S1 Periodic 1 (Side 1)            2.2791E+01
+ Domain Interface : S1 to S1 Periodic 1 (Side 2)           -2.2791E+01
+                                                           -----------
+ Domain Imbalance :                                        -9.2125E-04
+
+
+ +--------------------------------------------------------------------+
+ |                     Normalised Imbalance Summary                   |
+ +--------------------------------------------------------------------+
+ |       Equation       |      Maximum Flow     |     Imbalance (%)   |
+ +--------------------------------------------------------------------+
+ | U-Mom-R1             |       2.9414E+04      |       -0.0007       |
+ | V-Mom-R1             |       2.9414E+04      |        0.0477       |
+ | W-Mom-R1             |       2.9414E+04      |        0.0026       |
+ | P-Mass-R1            |       2.2791E+01      |        0.0043       |
+ | U-Mom-S1             |       2.9414E+04      |        0.0011       |
+ | V-Mom-S1             |       2.9414E+04      |        0.0495       |
+ | W-Mom-S1             |       2.9414E+04      |        0.0034       |
+ | P-Mass-S1            |       2.2791E+01      |       -0.0040       |
+ +----------------------+-----------------------+---------------------+
+
+ ======================================================================
+                     Wall Force and Moment Summary
+ ======================================================================
+                                                                          
+ Notes:
+ 1. Pressure integrals exclude the reference pressure.  To include
+    it, set the expert parameter 'include pref in forces = t'.
+ 2. These quantities are evaluated in a reference frame fixed to
+    the initial domain orientation and are not rotated if the orientation
+    changes (e.g. transient run or specified rotational offset).
+
+
+ +--------------------------------------------------------------------+
+ |                      Pressure Force On Walls                       |
+ +--------------------------------------------------------------------+
+                                    X-Comp.      Y-Comp.      Z-Comp.
+
+ Domain Group: R1
+
+ R1 Blade                         1.5155E+03  -3.9175E+03   1.6508E+03
+ R1 Hub                           1.0915E+04   1.3285E+03   8.4074E+00
+ R1 Shroud                        1.3967E+04   1.7511E+03  -2.3662E+01
+ S1 Blade                         1.9338E+01   5.5659E+02  -1.3843E+03
+ S1 Hub                          -6.4469E+02  -1.5154E+01   7.5597E-03
+ S1 Shroud                        1.4983E+03   8.1382E+01  -3.3480E-02
+                                  -----------  -----------  -----------
+ Domain Group Totals :            2.7270E+04  -2.1506E+02   2.5118E+02
+
+
+ +--------------------------------------------------------------------+
+ |                       Viscous Force On Walls                       |
+ +--------------------------------------------------------------------+
+                                    X-Comp.      Y-Comp.      Z-Comp.
+
+ Domain Group: R1
+
+ R1 Blade                         5.8825E+01   2.1174E+01   1.2655E+02
+ R1 Hub                          -7.1985E-01   2.4788E-01   6.7195E+01
+ R1 Shroud                       -5.4938E+01   4.3285E+02   3.1873E+01
+ S1 Blade                        -6.0613E+01   1.4297E+01   2.8139E+00
+ S1 Hub                          -6.5042E-02   6.6961E-01   5.2868E-01
+ S1 Shroud                       -1.6598E+00   1.4625E+01  -3.7880E-01
+                                  -----------  -----------  -----------
+ Domain Group Totals :           -5.9170E+01   4.8386E+02   2.2859E+02
+
+
+ +--------------------------------------------------------------------+
+ |                      Pressure Moment On Walls                      |
+ +--------------------------------------------------------------------+
+                                    X-Comp.      Y-Comp.      Z-Comp.
+
+ Domain Group: R1
+
+ R1 Blade                         3.7904E+02  -5.0165E+02  -1.6822E+03
+ R1 Hub                          -1.3377E+02   1.1471E+03  -8.0901E+00
+ R1 Shroud                       -1.6959E+02   1.4741E+03   4.1982E+00
+ S1 Blade                        -9.4366E+01   6.3211E+02   2.5202E+02
+ S1 Hub                           2.5431E-01   3.5957E+00  -1.9057E-03
+ S1 Shroud                       -3.5649E+00   3.3101E+01  -3.6102E-03
+                                  -----------  -----------  -----------
+ Domain Group Totals :           -2.2007E+01   2.7883E+03  -1.4341E+03
+
+
+ +--------------------------------------------------------------------+
+ |                       Viscous Moment On Walls                      |
+ +--------------------------------------------------------------------+
+                                    X-Comp.      Y-Comp.      Z-Comp.
+
+ Domain Group: R1
+
+ R1 Blade                         6.0698E+00  -4.0974E+01   5.7818E+00
+ R1 Hub                           4.1872E+00  -2.5210E+01   1.2427E-01
+ R1 Shroud                       -4.3866E+01  -1.9749E+01   1.9977E+02
+ S1 Blade                        -5.9977E-01  -3.8518E+00   8.3432E+00
+ S1 Hub                          -1.9004E-02  -2.0390E-01   2.5684E-01
+ S1 Shroud                       -7.7690E-01   8.6391E-02   6.7338E+00
+                                  -----------  -----------  -----------
+ Domain Group Totals :           -3.5004E+01  -8.9903E+01   2.2101E+02
+
+
+ +--------------------------------------------------------------------+
+ |                   Locations of Maximum Residuals                   |
+ +--------------------------------------------------------------------+
+ |       Equation       |      Domain Name      |     Node Number     |
+ +--------------------------------------------------------------------+
+ | U-Mom                | R1                    |          19571      |
+ | V-Mom                | R1                    |          19571      |
+ | W-Mom                | R1                    |          16861      |
+ | P-Mass               | R1                    |          19571      |
+ +----------------------+-----------------------+---------------------+
+ | K-TurbKE             | R1                    |          18252      |
+ | O-TurbFreq           | R1                    |          18252      |
+ +----------------------+-----------------------+---------------------+
+
+ ======================================================================
+ |                     False Transient Information                    |
+ +--------------------------------------------------------------------+
+ |       Equation       |         Type          | Elapsed Pseudo-Time |
+ +--------------------------------------------------------------------+
+ | U-Mom-R1             | Physical Timescale    |     1.20000E-01     |
+ | V-Mom-R1             | Physical Timescale    |     1.20000E-01     |
+ | W-Mom-R1             | Physical Timescale    |     1.20000E-01     |
+ | U-Mom-S1             | Physical Timescale    |     1.20000E-01     |
+ | V-Mom-S1             | Physical Timescale    |     1.20000E-01     |
+ | W-Mom-S1             | Physical Timescale    |     1.20000E-01     |
+ +----------------------+-----------------------+---------------------+
+ | K-TurbKE-R1          | Physical Timescale    |     1.20000E-01     |
+ | O-TurbFreq-R1        | Physical Timescale    |     1.20000E-01     |
+ | K-TurbKE-S1          | Physical Timescale    |     1.20000E-01     |
+ | O-TurbFreq-S1        | Physical Timescale    |     1.20000E-01     |
+ +----------------------+-----------------------+---------------------+
+
+ +--------------------------------------------------------------------+
+ |                     Average Scale Information                      |
+ +--------------------------------------------------------------------+
+
+ Domain Name : R1
+     Global Length                                         = 6.9704E-02
+     Minimum Extent                                        = 8.6285E-02
+     Maximum Extent                                        = 1.0482E-01
+     Density                                               = 8.5000E+02
+     Dynamic Viscosity                                     = 4.0000E-02
+     Velocity                                              = 6.7307E+01
+     Advection Time                                        = 1.0356E-03
+     Reynolds Number                                       = 9.9696E+04
+
+ Domain Name : S1
+     Global Length                                         = 6.7344E-02
+     Minimum Extent                                        = 8.4073E-02
+     Maximum Extent                                        = 1.0413E-01
+     Density                                               = 8.5000E+02
+     Dynamic Viscosity                                     = 4.0000E-02
+     Velocity                                              = 4.8259E+01
+     Advection Time                                        = 1.3955E-03
+     Reynolds Number                                       = 6.9061E+04
+
+ +--------------------------------------------------------------------+
+ |                     Variable Range Information                     |
+ +--------------------------------------------------------------------+
+
+ Domain Name : R1
+ +--------------------------------------------------------------------+
+ |      Variable Name                         |    min    |    max    |
+ +--------------------------------------------------------------------+
+ | Density                                    |  8.50E+02 |  8.50E+02 |
+ | Dynamic Viscosity                          |  4.00E-02 |  4.00E-02 |
+ | Velocity u                                 | -6.33E+01 |  6.10E+01 |
+ | Velocity v                                 | -1.96E+02 |  1.06E+02 |
+ | Velocity w                                 | -6.04E+01 |  1.36E+02 |
+ | Pressure                                   | -9.17E+06 |  9.45E+06 |
+ | Turbulence Kinetic Energy                  |  1.47E+01 |  1.16E+03 |
+ | Turbulence Eddy Frequency                  |  3.11E+03 |  7.18E+05 |
+ | Eddy Viscosity                             |  9.46E-02 |  1.70E+01 |
+ | Wall Scale                                 | -1.51E-06 |  4.95E-04 |
+ | Wall Distance                              |  0.00E+00 |  2.89E-02 |
+ +--------------------------------------------------------------------+
+
+ Domain Name : S1
+ +--------------------------------------------------------------------+
+ |      Variable Name                         |    min    |    max    |
+ +--------------------------------------------------------------------+
+ | Density                                    |  8.50E+02 |  8.50E+02 |
+ | Dynamic Viscosity                          |  4.00E-02 |  4.00E-02 |
+ | Velocity u                                 | -9.43E+01 |  1.14E+01 |
+ | Velocity v                                 | -6.68E+01 |  2.08E+02 |
+ | Velocity w                                 | -5.98E+01 |  5.54E+01 |
+ | Pressure                                   | -1.07E+07 |  7.62E+06 |
+ | Turbulence Kinetic Energy                  |  2.67E-04 |  6.79E+02 |
+ | Turbulence Eddy Frequency                  |  1.12E+02 |  5.56E+06 |
+ | Eddy Viscosity                             |  2.34E-07 |  1.03E+01 |
+ | Wall Scale                                 | -1.05E-06 |  5.61E-04 |
+ | Wall Distance                              |  0.00E+00 |  3.31E-02 |
+ +--------------------------------------------------------------------+
+
+
+ +--------------------------------------------------------------------+
+ |            Host Memory Information (Mbytes): Solver                |
+ +--------------------------------------------------------------------+
+ |          Host           |     System     |      Peak      |   %    |
+ +-------------------------+----------------+----------------+--------+
+ | MSI                     |     32244.80   |       223.07   |   0.69 |
+ +-------------------------+----------------+----------------+--------+
+
+ +--------------------------------------------------------------------+
+ |                  CPU Time Requirements of Solver                   |
+ +--------------------------------------------------------------------+
+ 
+ Subsystem Name                  Discretization       Linear Solution
+                                (secs.   %total)     (secs.   %total) 
+ ----------------------------------------------------------------------
+ Wall Scale                     7.73E-01   0.6 %     5.86E-01   0.4 %
+ Momentum and Mass              5.88E+01  43.5 %     1.72E+01  12.7 %
+ TurbKE and TurbFreq            2.62E+01  19.4 %     1.56E+01  11.6 %
+                                -------- -------     --------  ------
+ Subsystem Summary              8.58E+01  63.5 %     3.34E+01  24.7 %
+
+ GGI Intersection               6.30E-02    0.0 %
+ File Reading                   5.62E-01    0.4 %
+ Search Calculations            2.99E-03    0.0 %
+ Variable Updates               1.08E+01    8.0 %
+ File Writing                   2.28E+00    1.7 %
+ Miscellaneous                  2.20E+00    1.6 %
+                                --------
+ Total                          1.35E+02
+
+ +--------------------------------------------------------------------+
+ |                   Job Information at End of Run                    |
+ +--------------------------------------------------------------------+
+
+ Host computer:  MSI (PID:17772)
+
+ Job finished:   Fri Sep 25 23:35:02 2026
+
+ Total wall clock time: 1.348E+02 seconds
+             or: (          0:         0:         2:    14.827 )
+                 (       Days:     Hours:   Minutes:   Seconds )
+
+End of solution stage.
+
+ +--------------------------------------------------------------------+
+ | The results from this run of the ANSYS CFX Solver have been        |
+ | written to                                                         |
+ | C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/ANSYS_SIMULATIO- |
+ | N/turbo_sim_1_pending/dp0_TFF_Solution/Turbomachinery Fluid        |
+ | Flow_002.res                                                       |
+ +--------------------------------------------------------------------+
+
+
+ +--------------------------------------------------------------------+
+ | For CFX runs launched from Workbench, the final locations of       |
+ | directories and files generated may differ from those shown.       |
+ +--------------------------------------------------------------------+
+
+
+ +--------------------------------------------------------------------+
+ |                An error has occurred in cfx5solve:                 |
+ |                                                                    |
+ | After 3 attempts: Unable to remove working directory: Permission   |
+ | denied                                                             |
+ +--------------------------------------------------------------------+
+
+
+This run of the ANSYS CFX Solver has finished.
