@@ -1,0 +1,479 @@
+ This run of the CFX 2026 R1 Solver started at 13:45:26 on 07 Oct 2026
+ by user mahmu on MSI (intel_xeon64.sse2_winnt) using the command:
+ 
+  "C:\Program Files\ANSYS Inc\ANSYS Student\v261\CFX\bin\perllib\cfx5solve.pl"
+    -stdout-comms -batch -ccl -
+ 
+ 2026 R1
+ 
+  Point Releases and Patches installed:
+  Ansys, Inc. License Manager 2026 R1
+  Discovery (full install) 2026 R1
+  Core WB Files 2026 R1
+  optiSLang Core UI 2026 R1
+  CFX (includes CFD-Post) 2026 R1
+  Chemkin 2026 R1
+  EnSight 2026 R1
+  FENSAP-ICE 2026 R1
+  Fluent (includes CFD-Post) 2026 R1
+  Polyflow (includes CFD-Post) 2026 R1
+  Forte (includes EnSight) 2026 R1
+  Rocky 2026 R1
+  TurboGrid 2026 R1
+  ACIS Geometry Interface 2026 R1
+  AutoCAD Geometry Interface 2026 R1
+  Catia, Version 4 Geometry Interface 2026 R1
+  Catia, Version 5 Geometry Interface 2026 R1
+  Catia, Version 6 Geometry Interface 2026 R1
+  Creo Elements/Direct Modeling Geometry Interface 2026 R1
+  Creo Parametric Geometry Interface 2026 R1
+  Inventor Geometry Interface 2026 R1
+  JTOpen Geometry Interface 2026 R1
+  NX Geometry Interface 2026 R1
+  Parasolid Geometry Interface  2026 R1
+  Solid Edge Geometry Interface 2026 R1
+  SOLIDWORKS Geometry Interface 2026 R1
+  Speos 2026 R1
+  SpaceClaim 2026 R1
+  Speos RPC 2026 R1
+  Zemax OpticStudio 2026 R1
+  Dynamic Reporting 2026 R1
+  Aqwa 2026 R1
+  Autodyn 2026 R1
+  Material Calibration App 2026 R1
+  Mechanical Products 2026 R1
+  Motion 2026 R1
+  Academic Student 2026 R1
+ 
+ Setting up CFX Solver run ...
+ 
+ 
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                    CFX Command Language for Run                    |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+ 
+ LIBRARY:
+   MATERIAL: Hydraulic Oil
+     Material Description = Generic Hydraulic Oil
+     Material Group = User
+     Option = Pure Substance
+     Thermodynamic State = Liquid
+     PROPERTIES:
+       Option = General Material
+       EQUATION OF STATE:
+         Density = 850 [kg m^-3]
+         Molar Mass = 500 [kg kmol^-1]
+         Option = Value
+       END
+       SPECIFIC HEAT CAPACITY:
+         Option = Value
+         Specific Heat Capacity = 2000 [J kg^-1 K^-1]
+         Specific Heat Type = Constant Pressure
+       END
+       DYNAMIC VISCOSITY:
+         Dynamic Viscosity = 0.04 [Pa s]
+         Option = Value
+       END
+       THERMAL CONDUCTIVITY:
+         Option = Value
+         Thermal Conductivity = 0.13 [W m^-1 K^-1]
+       END
+     END
+   END
+ END
+ FLOW: Flow Analysis 1
+   SOLUTION UNITS:
+     Angle Units = [rad]
+     Length Units = [m]
+     Mass Units = [kg]
+     Solid Angle Units = [sr]
+     Temperature Units = [K]
+     Time Units = [s]
+   END
+   ANALYSIS TYPE:
+     Option = Steady State
+     EXTERNAL SOLVER COUPLING:
+       Option = None
+     END
+   END
+   DOMAIN: Rotor
+     Coord Frame = Coord 0
+     Domain Type = Fluid
+     Location = Primitive 3D
+     BOUNDARY: Oil Outlet
+       Boundary Type = OUTLET
+       Frame Type = Stationary
+       Location = OUTFLOW
+       BOUNDARY CONDITIONS:
+         FLOW REGIME:
+           Option = Subsonic
+         END
+         MASS AND MOMENTUM:
+           Option = Static Pressure
+           Relative Pressure = 3.45 [MPa]
+         END
+       END
+     END
+     BOUNDARY: Rotor Default
+       Boundary Type = WALL
+       Frame Type = Rotating
+       Location = HUB,PER1,PER2,Primitive 2D,Primitive 2D A,SHROUD
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: StatorRotor Interface Side 2
+       Boundary Type = INTERFACE
+       Location = INFLOW
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     DOMAIN MODELS:
+       BUOYANCY MODEL:
+         Option = Non Buoyant
+       END
+       DOMAIN MOTION:
+         Angular Velocity = 5000 [rev min^-1]
+         Option = Rotating
+         AXIS DEFINITION:
+           Option = Coordinate Axis
+           Rotation Axis = Coord 0.3
+         END
+       END
+       MESH DEFORMATION:
+         Option = None
+       END
+       REFERENCE PRESSURE:
+         Reference Pressure = 1 [atm]
+       END
+     END
+     FLUID DEFINITION: Fluid 1
+       Material = Hydraulic Oil
+       Option = Material Library
+       MORPHOLOGY:
+         Option = Continuous Fluid
+       END
+     END
+     FLUID MODELS:
+       COMBUSTION MODEL:
+         Option = None
+       END
+       HEAT TRANSFER MODEL:
+         Fluid Temperature = 25 [C]
+         Option = Isothermal
+       END
+       THERMAL RADIATION MODEL:
+         Option = None
+       END
+       TURBULENCE MODEL:
+         Option = SST
+       END
+       TURBULENT WALL FUNCTIONS:
+         Option = Automatic
+       END
+     END
+   END
+   DOMAIN: Stator
+     Coord Frame = Coord 0
+     Domain Type = Fluid
+     Location = B364
+     BOUNDARY: Oil Inlet
+       Boundary Type = INLET
+       Location = in
+       BOUNDARY CONDITIONS:
+         FLOW DIRECTION:
+           Option = Normal to Boundary Condition
+         END
+         FLOW REGIME:
+           Option = Subsonic
+         END
+         MASS AND MOMENTUM:
+           Option = Total Pressure
+           Relative Pressure = 10.34 [MPa]
+         END
+         TURBULENCE:
+           Option = Low Intensity and Eddy Viscosity Ratio
+         END
+       END
+     END
+     BOUNDARY: Stator Default
+       Boundary Type = WALL
+       Location = \
+         F365.364,F366.364,F623.364,F624.364,F626.364,F627.364,F628.364,F629.3\
+         64
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: StatorRotor Interface Side 1
+       Boundary Type = INTERFACE
+       Location = out
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     DOMAIN MODELS:
+       BUOYANCY MODEL:
+         Option = Non Buoyant
+       END
+       DOMAIN MOTION:
+         Option = Stationary
+       END
+       MESH DEFORMATION:
+         Option = None
+       END
+       REFERENCE PRESSURE:
+         Reference Pressure = 1 [atm]
+       END
+     END
+     FLUID DEFINITION: Fluid 1
+       Material = Hydraulic Oil
+       Option = Material Library
+       MORPHOLOGY:
+         Option = Continuous Fluid
+       END
+     END
+     FLUID MODELS:
+       COMBUSTION MODEL:
+         Option = None
+       END
+       HEAT TRANSFER MODEL:
+         Fluid Temperature = 25 [C]
+         Option = Isothermal
+       END
+       THERMAL RADIATION MODEL:
+         Option = None
+       END
+       TURBULENCE MODEL:
+         Option = SST
+       END
+       TURBULENT WALL FUNCTIONS:
+         Option = Automatic
+       END
+     END
+   END
+   DOMAIN INTERFACE: StatorRotor Interface
+     Boundary List1 = StatorRotor Interface Side 1
+     Boundary List2 = StatorRotor Interface Side 2
+     Interface Type = Fluid Fluid
+     INTERFACE MODELS:
+       Option = General Connection
+       FRAME CHANGE:
+         Option = Frozen Rotor
+       END
+       MASS AND MOMENTUM:
+         Option = Conservative Interface Flux
+         MOMENTUM INTERFACE MODEL:
+           Option = None
+         END
+       END
+       PITCH CHANGE:
+         Option = Specified Pitch Angles
+         Pitch Angle Side1 = 6 [degree]
+         Pitch Angle Side2 = 6.372 [degree]
+       END
+     END
+     MESH CONNECTION:
+       Option = GGI
+     END
+   END
+   OUTPUT CONTROL:
+     RESULTS:
+       File Compression Level = Default
+       Option = Standard
+     END
+   END
+   SOLVER CONTROL:
+     Turbulence Numerics = First Order
+     ADVECTION SCHEME:
+       Option = High Resolution
+     END
+     CONVERGENCE CONTROL:
+       Length Scale Option = Conservative
+       Maximum Number of Iterations = 500
+       Minimum Number of Iterations = 1
+       Timescale Control = Auto Timescale
+       Timescale Factor = 1.0
+     END
+     CONVERGENCE CRITERIA:
+       Residual Target = 1.E-4
+       Residual Type = RMS
+     END
+     DYNAMIC MODEL CONTROL:
+       Global Dynamic Model Control = On
+     END
+     INTERRUPT CONTROL:
+       Option = Any Interrupt
+       CONVERGENCE CONDITIONS:
+         Option = Default Conditions
+       END
+     END
+   END
+ END
+ COMMAND FILE:
+   Version = 26.1
+   Results Version = 26.1
+ END
+ SIMULATION CONTROL:
+   EXECUTION CONTROL:
+     EXECUTABLE SELECTION:
+       Double Precision = No
+       Large Problem = No
+     END
+     INTERPOLATOR STEP CONTROL:
+       Runtime Priority = Standard
+       MEMORY CONTROL:
+         Memory Allocation Factor = 1.0
+         Option = Model Based
+       END
+     END
+     LICENSE CONTROL:
+       Capability Level = Automatic
+       HPC License = Automatic
+     END
+     PARALLEL HOST LIBRARY:
+       HOST DEFINITION: msi
+         Installation Root = C:\Program Files\ANSYS Inc\ANSYS Student\v%v\CFX
+         Host Architecture String = winnt-amd64
+       END
+     END
+     RUN DEFINITION:
+       Run Mode = Full
+       Solver Input File = \
+         C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\\
+         hydraulic_oil_trial.def
+       Solver Results File = \
+         C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\\
+         hydraulic_oil_trial_002.res
+     END
+     SOLVER STEP CONTROL:
+       Runtime Priority = Standard
+       MEMORY CONTROL:
+         Memory Allocation Factor = 1.0
+         Option = Model Based
+       END
+       PARALLEL ENVIRONMENT:
+         Maximum Number of Processes = 1
+         Start Method = Serial
+       END
+     END
+   END
+ END
+ 
+ 
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                               Solver                               |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+ 
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                       ANSYS(R) CFX(R) Solver                       |
+ |                                                                    |
+ | 2026 R1                                                            |
+ | Build 26.1 2026-01-12T11:19:59.221722                              |
+ | Mon Jan 12 11:54:10 PST 2026                                       |
+ |                                                                    |
+ |                        Executable Attributes                       |
+ |                                                                    |
+ |           single-64bit-int32-archfort-optimised-std-lcomp          |
+ |                                                                    |
+ | Copyright (C) 1996-2026 Synopsys, Inc. and ANSYS, Inc.             |
+ |                                                                    |
+ | All rights reserved. Unauthorized use, distribution or duplication |
+ | is prohibited. This product is subject to U.S. laws governing      |
+ | export and re-export. For full Legal Notice, see documentation.    |
+ +--------------------------------------------------------------------+
+
+
+
+
+ +--------------------------------------------------------------------+
+ |                  Job Information at Start of Run                   |
+ +--------------------------------------------------------------------+
+
+ Run mode:       serial run
+
+ Host computer:  MSI (PID:24740)
+
+ Job started:    Wed Oct  7 13:45:28 2026
+
+ +--------------------------------------------------------------------+
+ |                        License Information                         |
+ +--------------------------------------------------------------------+
+
+ANSYS LICENSE MANAGER ERROR
+
+Maximum licensed number of demo users already reached.
+
+
+
+ License Cap:    ANSYS CFD Solver
+ License ID:     License checkout failed (CFD SOLVER).
+
+ANSYS LICENSE MANAGER ERROR
+
+Maximum licensed number of demo users already reached.
+
+
+ 
+ +--------------------------------------------------------------------+
+ | ERROR #001100247 has occurred in subroutine .                      |
+ | Message:                                                           |
+ |                                                                    |
+ | The solver is unable to continue because of licensing problems.    |
+ |                                                                    |
+ | A license for the following capability level could not be checked  |
+ | out:                                                               |
+ |                                                                    |
+ | ANSYS CFD Solver                                                   |
+ |                                                                    |
+ | Please carefully examine the error message output above and check  |
+ | that:                                                              |
+ |                                                                    |
+ | 1) The license server is specified correctly and is running.       |
+ |                                                                    |
+ | 2) An appropriate license is available for checking out.           |
+ |                                                                    |
+ | These problems can be checked using the Ansys Client ANSLIC_ADMIN  |
+ | utility.  For further troubleshooting information please consult   |
+ | Ansys, Inc. Licensing Guide.                                       |
+ +--------------------------------------------------------------------+
+
+ +--------------------------------------------------------------------+
+ |                An error has occurred in cfx5solve:                 |
+ |                                                                    |
+ | The ANSYS CFX solver exited with return code 1.   No results file  |
+ | has been created.                                                  |
+ +--------------------------------------------------------------------+
+
+End of solution stage.
+
+This run of the ANSYS CFX Solver has finished.
