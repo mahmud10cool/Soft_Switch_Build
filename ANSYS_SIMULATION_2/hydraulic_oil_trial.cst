@@ -1,12 +1,12 @@
-# State file created:  2026/10/07 13:45:43
+# State file created:  2026/10/08 23:40:16
 # CFX-26.1
 
 CALCULATOR:
-  Case Name = Case hydraulic_oil_trial_001
+  Case Name = Case hydraulic_oil_trial_003
   Expression = Pressure
   Fluid = All Fluids
   Function = massFlow
-  Location = StatorRotor Interface Side 2
+  Location = StatorRotor Interface Side 1
   Verbose = Off
 END
 COMMENT:User Data
@@ -14,70 +14,19 @@ COMMENT:User Data
   Comment Heading = User Data
   Heading Level = 1
 END
-CONTOUR:Static Pressure
-  Apply Instancing Transform = On
-  Clip Contour = Off
-  Colour Map = Default Colour Map
-  Colour Scale = Linear
-  Colour Variable = Pressure
-  Colour Variable Boundary Values = Hybrid
-  Constant Contour Colour = Off
-  Contour Range = Local
-  Culling Mode = No Culling
-  Domain List = /DOMAIN GROUP:All Domains
-  Draw Contours = On
-  Font = Sans Serif
-  Fringe Fill = On
-  Instancing Transform = /DEFAULT INSTANCE TRANSFORM:Default Transform
-  Lighting = On
-  Line Colour = 0, 0, 0
-  Line Colour Mode = Default
-  Line Width = 1
-  Location List = Oil Outlet
-  Max = 0.0 [Pa]
-  Min = 0.0 [Pa]
-  Number of Contours = 11
-  Show Numbers = Off
-  Specular Lighting = On
-  Surface Drawing = Smooth Shading
-  Text Colour = 0, 0, 0
-  Text Colour Mode = Default
-  Text Height = 0.024
-  Transparency = 0.0
-  Use Face Values = Off
-  Value List = 0 [Pa],1 [Pa]
-  Visibility = On
-  OBJECT VIEW TRANSFORM:
-    Apply Reflection = Off
-    Apply Rotation = Off
-    Apply Scale = Off
-    Apply Translation = Off
-    Principal Axis = Z
-    Reflection Plane Option = XY Plane
-    Rotation Angle = 0.0 [degree]
-    Rotation Axis From = 0 [m], 0 [m], 0 [m]
-    Rotation Axis To = 0 [m], 0 [m], 0 [m]
-    Rotation Axis Type = Principal Axis
-    Scale Vector = 1 , 1 , 1
-    Translation Vector = 0 [m], 0 [m], 0 [m]
-    X = 0.0 [m]
-    Y = 0.0 [m]
-    Z = 0.0 [m]
-  END
-END
 DATA READER:
-  Active Case Name = Case hydraulic_oil_trial_001
+  Active Case Name = Case hydraulic_oil_trial_003
   Append Results = False
   Apply X Offset = false
   Apply Y Offset = false
   Apply Z Offset = false
   Clear All Objects = False
   Construct Variables From Fourier Coefficients = true
-  Current Case List = Case hydraulic_oil_trial_001
+  Current Case List = Case hydraulic_oil_trial_003
   Current Case Name = C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/\
-ANSYS_SIMULATION_2/hydraulic_oil_trial_001.res
+ANSYS_SIMULATION_2/hydraulic_oil_trial_003.res
   Current Results File = C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/\
-ANSYS_SIMULATION_2/hydraulic_oil_trial_001.res
+ANSYS_SIMULATION_2/hydraulic_oil_trial_003.res
   Current Timestep = -1
   Current Timevalue = 0
   Edit Case Names = false
@@ -103,12 +52,12 @@ ANSYS_SIMULATION_2/hydraulic_oil_trial_001.res
   Timestep Match Criterion = Same Step
   Timestep Sync Mode = By Time Value
   Timevalue Match Criterion = Same Value
-  CASE:Case hydraulic_oil_trial_001
+  CASE:Case hydraulic_oil_trial_003
     Construct Variables From Fourier Coefficients = true
     Current Case Name = C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/\
-ANSYS_SIMULATION_2/hydraulic_oil_trial_001.res
+ANSYS_SIMULATION_2/hydraulic_oil_trial_003.res
     Current Results File = C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/\
-ANSYS_SIMULATION_2/hydraulic_oil_trial_001.res
+ANSYS_SIMULATION_2/hydraulic_oil_trial_003.res
     Current Timestep = -1
     Current Timevalue = 0
     Domains to Load = Rotor, Stator
@@ -405,17 +354,17 @@ ANSYS_SIMULATION_2/hydraulic_oil_trial_001.res
       Background Mesh Density = 2000
       Background Mesh Generation Method = Quasi Orthogonal
       Blade Aligned Variable Available = false
-      Blade Region = /DATA READER/CASE:Case hydraulic_oil_trial_001/\
+      Blade Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
 COMPOSITE:BLADE
       Create Additional Turbo Variables = false
       Do Cylindrical Initialization = True
       Domain Type = Normal
       Full Circle = Off
       Hub Curve Mode = From Turbo Region
-      Hub Region = /DATA READER/CASE:Case hydraulic_oil_trial_001/\
+      Hub Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
 PRIMITIVE2D:HUB
       Inlet Curve Mode = From Turbo Region
-      Inlet Region = /DATA READER/CASE:Case hydraulic_oil_trial_001/\
+      Inlet Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
 BOUNDARY:StatorRotor Interface Side 2
       Instance Definition = From File
       Linear Blade Aligned Variable Available = false
@@ -425,11 +374,11 @@ BOUNDARY:StatorRotor Interface Side 2
       Number of Passages in 360 = 113
       Number of Passages in Component = 2
       Outlet Curve Mode = From Turbo Region
-      Outlet Region = /DATA READER/CASE:Case hydraulic_oil_trial_001/\
+      Outlet Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
 BOUNDARY:Oil Outlet
-      Periodic 1 Region = /DATA READER/CASE:Case hydraulic_oil_trial_001/\
+      Periodic 1 Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
 PRIMITIVE2D:PER1
-      Periodic 2 Region = /DATA READER/CASE:Case hydraulic_oil_trial_001/\
+      Periodic 2 Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
 PRIMITIVE2D:PER2
       Principal Axis = Z
       Reflection Plane Option = From Plane
@@ -438,7 +387,7 @@ PRIMITIVE2D:PER2
       Rotation Axis To = 0 [m], 0 [m], 1 [m]
       Rotation Axis Type = Rotation Axis
       Shroud Curve Mode = From Turbo Region
-      Shroud Region = /DATA READER/CASE:Case hydraulic_oil_trial_001/\
+      Shroud Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
 PRIMITIVE2D:SHROUD
       TBR User Theta Correction = 0.0
       Translation Vector = 0.0, 0.0, 0.0
@@ -456,17 +405,17 @@ PRIMITIVE2D:SHROUD
       Background Mesh Density = 2000
       Background Mesh Generation Method = Quasi Orthogonal
       Blade Aligned Variable Available = false
-      Blade Region = /DATA READER/CASE:Case hydraulic_oil_trial_001/\
+      Blade Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
 COMPOSITE:blade
       Create Additional Turbo Variables = false
       Do Cylindrical Initialization = True
       Domain Type = Normal
       Full Circle = Off
       Hub Curve Mode = From Turbo Region
-      Hub Region = /DATA READER/CASE:Case hydraulic_oil_trial_001/\
+      Hub Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
 COMPOSITE:hub
       Inlet Curve Mode = From Turbo Region
-      Inlet Region = /DATA READER/CASE:Case hydraulic_oil_trial_001/\
+      Inlet Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
 BOUNDARY:Oil Inlet
       Instance Definition = From File
       Linear Blade Aligned Variable Available = false
@@ -476,11 +425,11 @@ BOUNDARY:Oil Inlet
       Number of Passages in 360 = 60
       Number of Passages in Component = 1
       Outlet Curve Mode = From Turbo Region
-      Outlet Region = /DATA READER/CASE:Case hydraulic_oil_trial_001/\
+      Outlet Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
 BOUNDARY:StatorRotor Interface Side 1
-      Periodic 1 Region = /DATA READER/CASE:Case hydraulic_oil_trial_001/\
+      Periodic 1 Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
 COMPOSITE:periodic1
-      Periodic 2 Region = /DATA READER/CASE:Case hydraulic_oil_trial_001/\
+      Periodic 2 Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
 COMPOSITE:periodic2
       Principal Axis = Z
       Reflection Plane Option = From Plane
@@ -489,7 +438,7 @@ COMPOSITE:periodic2
       Rotation Axis To = 0 [m], 0 [m], 1 [m]
       Rotation Axis Type = Rotation Axis
       Shroud Curve Mode = From Turbo Region
-      Shroud Region = /DATA READER/CASE:Case hydraulic_oil_trial_001/\
+      Shroud Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
 COMPOSITE:shroud
       TBR User Theta Correction = 0.0
       Translation Vector = 0.0, 0.0, 0.0
@@ -598,7 +547,6 @@ DEFAULT LEGEND:Default Legend View 1
   Legend Aspect = 0.07
   Legend Format = %10.3e
   Legend Orientation = Vertical
-  Legend Plot = /CONTOUR:Static Pressure
   Legend Position = 0.02, 0.15
   Legend Resolution = 256
   Legend Shading = Smooth
@@ -621,7 +569,6 @@ DEFAULT LEGEND:Default Legend View 2
   Legend Aspect = 0.07
   Legend Format = %10.3e
   Legend Orientation = Vertical
-  Legend Plot = /CONTOUR:Static Pressure
   Legend Position = 0.02, 0.15
   Legend Resolution = 256
   Legend Shading = Smooth
@@ -644,7 +591,6 @@ DEFAULT LEGEND:Default Legend View 3
   Legend Aspect = 0.07
   Legend Format = %10.3e
   Legend Orientation = Vertical
-  Legend Plot = /CONTOUR:Static Pressure
   Legend Position = 0.02, 0.15
   Legend Resolution = 256
   Legend Shading = Smooth
@@ -667,7 +613,6 @@ DEFAULT LEGEND:Default Legend View 4
   Legend Aspect = 0.07
   Legend Format = %10.3e
   Legend Orientation = Vertical
-  Legend Plot = /CONTOUR:Static Pressure
   Legend Position = 0.02, 0.15
   Legend Resolution = 256
   Legend Shading = Smooth
@@ -695,13 +640,13 @@ END
 LIBRARY:
   CEL:
     EXPRESSIONS:
-      Accumulated Time Step = 117
+      Accumulated Time Step = 84
       Angular Velocity = 5000 [rev min^-1]
       Current Phase Position = 0
-      Current Time Step = 117
+      Current Time Step = 84
       Phase = Current Phase Position
       Reference Pressure = 1 [atm]
-      Sequence Step = 117
+      Sequence Step = 84
       Time = 0 [s]
       atstep = Accumulated Time Step
       ctstep = Current Time Step
@@ -814,9 +759,6 @@ SCALAR VARIABLE:Axial Direction Z
   Boundary Values = Conservative
 END
 SCALAR VARIABLE:Axial Distance
-  Boundary Values = Conservative
-END
-SCALAR VARIABLE:Circumferential Band Number
   Boundary Values = Conservative
 END
 SCALAR VARIABLE:Connectivity Number
@@ -937,9 +879,6 @@ SCALAR VARIABLE:Specific Heat Capacity at Constant Volume
   Boundary Values = Conservative
 END
 SCALAR VARIABLE:Specific Volume
-  Boundary Values = Conservative
-END
-SCALAR VARIABLE:Stage Velocity Factor
   Boundary Values = Conservative
 END
 SCALAR VARIABLE:Static Enthalpy
@@ -1738,8 +1677,8 @@ VIEW:View 1
   Highlight Type = Surface Mesh
   Is A Figure = false
   Light Angle = 50, 110
-  Object Visibility List = /CONTOUR:Static Pressure,/DEFAULT LEGEND:Default \
-Legend View 1,/WIREFRAME:Wireframe
+  Object Visibility List = /DEFAULT LEGEND:Default Legend View 1,/\
+WIREFRAME:Wireframe
   Projection = Orthographic
   Ruler Visibility = true
   Standard View = Isometric Y
@@ -1748,7 +1687,7 @@ Legend View 1,/WIREFRAME:Wireframe
     Pan = 0,0
     Pivot Point = 0.414047,0.0386077,0.0536147
     Rotation = -90, 0, 0
-    Rotation Quaternion = 0.268071,-0.290777,-0.0614609,0.91641
+    Rotation Quaternion = 0.279848,-0.364705,-0.115917,0.880476
     Scale = 8.11995
     Send To Viewer = True
   END
