@@ -1,12 +1,12 @@
-# State file created:  2026/10/08 23:40:16
+# State file created:  2026/10/22 23:55:52
 # CFX-26.1
 
 CALCULATOR:
-  Case Name = Case hydraulic_oil_trial_003
+  Case Name = Case hydraulic_oil_trial_005
   Expression = Pressure
   Fluid = All Fluids
   Function = massFlow
-  Location = StatorRotor Interface Side 1
+  Location = Oil Inlet
   Verbose = Off
 END
 COMMENT:User Data
@@ -14,19 +14,70 @@ COMMENT:User Data
   Comment Heading = User Data
   Heading Level = 1
 END
+CONTOUR:InletPressure
+  Apply Instancing Transform = On
+  Clip Contour = Off
+  Colour Map = Default Colour Map
+  Colour Scale = Linear
+  Colour Variable = Pressure
+  Colour Variable Boundary Values = Hybrid
+  Constant Contour Colour = Off
+  Contour Range = Global
+  Culling Mode = No Culling
+  Domain List = /DOMAIN GROUP:All Domains
+  Draw Contours = On
+  Font = Sans Serif
+  Fringe Fill = On
+  Instancing Transform = /DEFAULT INSTANCE TRANSFORM:Default Transform
+  Lighting = On
+  Line Colour = 0, 0, 0
+  Line Colour Mode = Default
+  Line Width = 1
+  Location List = Oil Inlet
+  Max = 0.0 [Pa]
+  Min = 0.0 [Pa]
+  Number of Contours = 11
+  Show Numbers = Off
+  Specular Lighting = On
+  Surface Drawing = Smooth Shading
+  Text Colour = 0, 0, 0
+  Text Colour Mode = Default
+  Text Height = 0.024
+  Transparency = 0.0
+  Use Face Values = Off
+  Value List = 0 [Pa],1 [Pa]
+  Visibility = On
+  OBJECT VIEW TRANSFORM:
+    Apply Reflection = Off
+    Apply Rotation = Off
+    Apply Scale = Off
+    Apply Translation = Off
+    Principal Axis = Z
+    Reflection Plane Option = XY Plane
+    Rotation Angle = 0.0 [degree]
+    Rotation Axis From = 0 [m], 0 [m], 0 [m]
+    Rotation Axis To = 0 [m], 0 [m], 0 [m]
+    Rotation Axis Type = Principal Axis
+    Scale Vector = 1 , 1 , 1
+    Translation Vector = 0 [m], 0 [m], 0 [m]
+    X = 0.0 [m]
+    Y = 0.0 [m]
+    Z = 0.0 [m]
+  END
+END
 DATA READER:
-  Active Case Name = Case hydraulic_oil_trial_003
+  Active Case Name = Case hydraulic_oil_trial_005
   Append Results = False
   Apply X Offset = false
   Apply Y Offset = false
   Apply Z Offset = false
   Clear All Objects = False
   Construct Variables From Fourier Coefficients = true
-  Current Case List = Case hydraulic_oil_trial_003
+  Current Case List = Case hydraulic_oil_trial_005
   Current Case Name = C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/\
-ANSYS_SIMULATION_2/hydraulic_oil_trial_003.res
+ANSYS_SIMULATION_2/hydraulic_oil_trial_005.res
   Current Results File = C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/\
-ANSYS_SIMULATION_2/hydraulic_oil_trial_003.res
+ANSYS_SIMULATION_2/hydraulic_oil_trial_005.res
   Current Timestep = -1
   Current Timevalue = 0
   Edit Case Names = false
@@ -52,12 +103,12 @@ ANSYS_SIMULATION_2/hydraulic_oil_trial_003.res
   Timestep Match Criterion = Same Step
   Timestep Sync Mode = By Time Value
   Timevalue Match Criterion = Same Value
-  CASE:Case hydraulic_oil_trial_003
+  CASE:Case hydraulic_oil_trial_005
     Construct Variables From Fourier Coefficients = true
     Current Case Name = C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/\
-ANSYS_SIMULATION_2/hydraulic_oil_trial_003.res
+ANSYS_SIMULATION_2/hydraulic_oil_trial_005.res
     Current Results File = C:/Users/mahmu/OneDrive/Desktop/SOFT_SWITCH_BUILD/\
-ANSYS_SIMULATION_2/hydraulic_oil_trial_003.res
+ANSYS_SIMULATION_2/hydraulic_oil_trial_005.res
     Current Timestep = -1
     Current Timevalue = 0
     Domains to Load = Rotor, Stator
@@ -141,7 +192,7 @@ ANSYS_SIMULATION_2/hydraulic_oil_trial_003.res
       Transparency = 0.0
       Visibility = false
     END
-    BOUNDARY:Rotor Default
+    BOUNDARY:Rotor Blade
       Apply Instancing Transform = On
       Apply Texture = Off
       Blend Texture = On
@@ -175,7 +226,279 @@ ANSYS_SIMULATION_2/hydraulic_oil_trial_003.res
       Transparency = 0.0
       Visibility = false
     END
-    BOUNDARY:Stator Default
+    BOUNDARY:Rotor Hub
+      Apply Instancing Transform = On
+      Apply Texture = Off
+      Blend Texture = On
+      Colour = 0.2, 0.5, 1
+      Colour Map = Default Colour Map
+      Colour Mode = Constant
+      Colour Scale = Linear
+      Colour Variable Boundary Values = Hybrid
+      Culling Mode = No Culling
+      Draw Contours = Off
+      Draw Faces = On
+      Draw Lines = Off
+      Instancing Transform = Default Transform
+      Lighting = true
+      Line Colour = 0, 0, 0
+      Line Colour Mode = Default
+      Line Width = 1
+      Number of Contours = 11
+      Range = Global
+      Render Edge Angle = 0 [degree]
+      Specular Lighting = On
+      Surface Drawing = Smooth Shading
+      Texture Angle = 0
+      Texture Direction = 0.0, 1.0, 0.0
+      Texture Material = Metal
+      Texture Position = 0.0, 0.0
+      Texture Scale = 1.0
+      Texture Type = Predefined
+      Tile Texture = Off
+      Transform Texture = Off
+      Transparency = 0.0
+      Visibility = false
+    END
+    BOUNDARY:Rotor Shroud
+      Apply Instancing Transform = On
+      Apply Texture = Off
+      Blend Texture = On
+      Colour = 0.2, 0.5, 1
+      Colour Map = Default Colour Map
+      Colour Mode = Constant
+      Colour Scale = Linear
+      Colour Variable Boundary Values = Hybrid
+      Culling Mode = No Culling
+      Draw Contours = Off
+      Draw Faces = On
+      Draw Lines = Off
+      Instancing Transform = Default Transform
+      Lighting = true
+      Line Colour = 0, 0, 0
+      Line Colour Mode = Default
+      Line Width = 1
+      Number of Contours = 11
+      Range = Global
+      Render Edge Angle = 0 [degree]
+      Specular Lighting = On
+      Surface Drawing = Smooth Shading
+      Texture Angle = 0
+      Texture Direction = 0.0, 1.0, 0.0
+      Texture Material = Metal
+      Texture Position = 0.0, 0.0
+      Texture Scale = 1.0
+      Texture Type = Predefined
+      Tile Texture = Off
+      Transform Texture = Off
+      Transparency = 0.0
+      Visibility = false
+    END
+    BOUNDARY:Rotor to Rotor Periodic 1 Side 1
+      Apply Instancing Transform = On
+      Apply Texture = Off
+      Blend Texture = On
+      Colour = 0.2, 0.5, 1
+      Colour Map = Default Colour Map
+      Colour Mode = Constant
+      Colour Scale = Linear
+      Colour Variable Boundary Values = Hybrid
+      Culling Mode = No Culling
+      Draw Contours = Off
+      Draw Faces = On
+      Draw Lines = Off
+      Instancing Transform = Default Transform
+      Lighting = true
+      Line Colour = 0, 0, 0
+      Line Colour Mode = Default
+      Line Width = 1
+      Number of Contours = 11
+      Range = Global
+      Render Edge Angle = 0 [degree]
+      Specular Lighting = On
+      Surface Drawing = Smooth Shading
+      Texture Angle = 0
+      Texture Direction = 0.0, 1.0, 0.0
+      Texture Material = Metal
+      Texture Position = 0.0, 0.0
+      Texture Scale = 1.0
+      Texture Type = Predefined
+      Tile Texture = Off
+      Transform Texture = Off
+      Transparency = 0.0
+      Visibility = false
+    END
+    BOUNDARY:Rotor to Rotor Periodic 1 Side 2
+      Apply Instancing Transform = On
+      Apply Texture = Off
+      Blend Texture = On
+      Colour = 0.2, 0.5, 1
+      Colour Map = Default Colour Map
+      Colour Mode = Constant
+      Colour Scale = Linear
+      Colour Variable Boundary Values = Hybrid
+      Culling Mode = No Culling
+      Draw Contours = Off
+      Draw Faces = On
+      Draw Lines = Off
+      Instancing Transform = Default Transform
+      Lighting = true
+      Line Colour = 0, 0, 0
+      Line Colour Mode = Default
+      Line Width = 1
+      Number of Contours = 11
+      Range = Global
+      Render Edge Angle = 0 [degree]
+      Specular Lighting = On
+      Surface Drawing = Smooth Shading
+      Texture Angle = 0
+      Texture Direction = 0.0, 1.0, 0.0
+      Texture Material = Metal
+      Texture Position = 0.0, 0.0
+      Texture Scale = 1.0
+      Texture Type = Predefined
+      Tile Texture = Off
+      Transform Texture = Off
+      Transparency = 0.0
+      Visibility = false
+    END
+    BOUNDARY:Stator Blade
+      Apply Instancing Transform = On
+      Apply Texture = Off
+      Blend Texture = On
+      Colour = 0.2, 0.5, 1
+      Colour Map = Default Colour Map
+      Colour Mode = Constant
+      Colour Scale = Linear
+      Colour Variable Boundary Values = Hybrid
+      Culling Mode = No Culling
+      Draw Contours = Off
+      Draw Faces = On
+      Draw Lines = Off
+      Instancing Transform = Default Transform
+      Lighting = true
+      Line Colour = 0, 0, 0
+      Line Colour Mode = Default
+      Line Width = 1
+      Number of Contours = 11
+      Range = Global
+      Render Edge Angle = 0 [degree]
+      Specular Lighting = On
+      Surface Drawing = Smooth Shading
+      Texture Angle = 0
+      Texture Direction = 0.0, 1.0, 0.0
+      Texture Material = Metal
+      Texture Position = 0.0, 0.0
+      Texture Scale = 1.0
+      Texture Type = Predefined
+      Tile Texture = Off
+      Transform Texture = Off
+      Transparency = 0.0
+      Visibility = false
+    END
+    BOUNDARY:Stator Hub
+      Apply Instancing Transform = On
+      Apply Texture = Off
+      Blend Texture = On
+      Colour = 0.2, 0.5, 1
+      Colour Map = Default Colour Map
+      Colour Mode = Constant
+      Colour Scale = Linear
+      Colour Variable Boundary Values = Hybrid
+      Culling Mode = No Culling
+      Draw Contours = Off
+      Draw Faces = On
+      Draw Lines = Off
+      Instancing Transform = Default Transform
+      Lighting = true
+      Line Colour = 0, 0, 0
+      Line Colour Mode = Default
+      Line Width = 1
+      Number of Contours = 11
+      Range = Global
+      Render Edge Angle = 0 [degree]
+      Specular Lighting = On
+      Surface Drawing = Smooth Shading
+      Texture Angle = 0
+      Texture Direction = 0.0, 1.0, 0.0
+      Texture Material = Metal
+      Texture Position = 0.0, 0.0
+      Texture Scale = 1.0
+      Texture Type = Predefined
+      Tile Texture = Off
+      Transform Texture = Off
+      Transparency = 0.0
+      Visibility = false
+    END
+    BOUNDARY:Stator Shroud
+      Apply Instancing Transform = On
+      Apply Texture = Off
+      Blend Texture = On
+      Colour = 0.2, 0.5, 1
+      Colour Map = Default Colour Map
+      Colour Mode = Constant
+      Colour Scale = Linear
+      Colour Variable Boundary Values = Hybrid
+      Culling Mode = No Culling
+      Draw Contours = Off
+      Draw Faces = On
+      Draw Lines = Off
+      Instancing Transform = Default Transform
+      Lighting = true
+      Line Colour = 0, 0, 0
+      Line Colour Mode = Default
+      Line Width = 1
+      Number of Contours = 11
+      Range = Global
+      Render Edge Angle = 0 [degree]
+      Specular Lighting = On
+      Surface Drawing = Smooth Shading
+      Texture Angle = 0
+      Texture Direction = 0.0, 1.0, 0.0
+      Texture Material = Metal
+      Texture Position = 0.0, 0.0
+      Texture Scale = 1.0
+      Texture Type = Predefined
+      Tile Texture = Off
+      Transform Texture = Off
+      Transparency = 0.0
+      Visibility = false
+    END
+    BOUNDARY:Stator to Stator Periodic 1 Side 1
+      Apply Instancing Transform = On
+      Apply Texture = Off
+      Blend Texture = On
+      Colour = 0.2, 0.5, 1
+      Colour Map = Default Colour Map
+      Colour Mode = Constant
+      Colour Scale = Linear
+      Colour Variable Boundary Values = Hybrid
+      Culling Mode = No Culling
+      Draw Contours = Off
+      Draw Faces = On
+      Draw Lines = Off
+      Instancing Transform = Default Transform
+      Lighting = true
+      Line Colour = 0, 0, 0
+      Line Colour Mode = Default
+      Line Width = 1
+      Number of Contours = 11
+      Range = Global
+      Render Edge Angle = 0 [degree]
+      Specular Lighting = On
+      Surface Drawing = Smooth Shading
+      Texture Angle = 0
+      Texture Direction = 0.0, 1.0, 0.0
+      Texture Material = Metal
+      Texture Position = 0.0, 0.0
+      Texture Scale = 1.0
+      Texture Type = Predefined
+      Tile Texture = Off
+      Transform Texture = Off
+      Transparency = 0.0
+      Visibility = false
+    END
+    BOUNDARY:Stator to Stator Periodic 1 Side 2
       Apply Instancing Transform = On
       Apply Texture = Off
       Blend Texture = On
@@ -281,7 +604,7 @@ ANSYS_SIMULATION_2/hydraulic_oil_trial_003.res
       Apply Instancing Transform = On
       Apply Texture = Off
       Blend Texture = On
-      Colour = 1, 0.5, 0
+      Colour = .6, .6, .6
       Colour Map = Default Colour Map
       Colour Mode = Constant
       Colour Scale = Linear
@@ -309,13 +632,217 @@ ANSYS_SIMULATION_2/hydraulic_oil_trial_003.res
       Tile Texture = Off
       Transform Texture = Off
       Transparency = 0.0
-      Visibility = false
+      Visibility = Off
+    END
+    COMPOSITE:in
+      Apply Instancing Transform = On
+      Apply Texture = Off
+      Blend Texture = On
+      Colour = .6, .6, .6
+      Colour Map = Default Colour Map
+      Colour Mode = Constant
+      Colour Scale = Linear
+      Colour Variable Boundary Values = Hybrid
+      Culling Mode = No Culling
+      Draw Contours = Off
+      Draw Faces = On
+      Draw Lines = Off
+      Instancing Transform = Default Transform
+      Lighting = true
+      Line Colour = 0, 0, 0
+      Line Colour Mode = Default
+      Line Width = 1
+      Number of Contours = 11
+      Range = Global
+      Render Edge Angle = 0 [degree]
+      Specular Lighting = On
+      Surface Drawing = Smooth Shading
+      Texture Angle = 0
+      Texture Direction = 0.0, 1.0, 0.0
+      Texture Material = Metal
+      Texture Position = 0.0, 0.0
+      Texture Scale = 1.0
+      Texture Type = Predefined
+      Tile Texture = Off
+      Transform Texture = Off
+      Transparency = 0.0
+      Visibility = On
+    END
+    COMPOSITE:out
+      Apply Instancing Transform = On
+      Apply Texture = Off
+      Blend Texture = On
+      Colour = .6, .6, .6
+      Colour Map = Default Colour Map
+      Colour Mode = Constant
+      Colour Scale = Linear
+      Colour Variable Boundary Values = Hybrid
+      Culling Mode = No Culling
+      Draw Contours = Off
+      Draw Faces = On
+      Draw Lines = Off
+      Instancing Transform = Default Transform
+      Lighting = true
+      Line Colour = 0, 0, 0
+      Line Colour Mode = Default
+      Line Width = 1
+      Number of Contours = 11
+      Range = Global
+      Render Edge Angle = 0 [degree]
+      Specular Lighting = On
+      Surface Drawing = Smooth Shading
+      Texture Angle = 0
+      Texture Direction = 0.0, 1.0, 0.0
+      Texture Material = Metal
+      Texture Position = 0.0, 0.0
+      Texture Scale = 1.0
+      Texture Type = Predefined
+      Tile Texture = Off
+      Transform Texture = Off
+      Transparency = 0.0
+      Visibility = On
+    END
+    COMPOSITE:hub
+      Apply Instancing Transform = On
+      Apply Texture = Off
+      Blend Texture = On
+      Colour = .6, .6, .6
+      Colour Map = Default Colour Map
+      Colour Mode = Constant
+      Colour Scale = Linear
+      Colour Variable Boundary Values = Hybrid
+      Culling Mode = No Culling
+      Draw Contours = Off
+      Draw Faces = On
+      Draw Lines = Off
+      Instancing Transform = Default Transform
+      Lighting = true
+      Line Colour = 0, 0, 0
+      Line Colour Mode = Default
+      Line Width = 1
+      Number of Contours = 11
+      Range = Global
+      Render Edge Angle = 0 [degree]
+      Specular Lighting = On
+      Surface Drawing = Smooth Shading
+      Texture Angle = 0
+      Texture Direction = 0.0, 1.0, 0.0
+      Texture Material = Metal
+      Texture Position = 0.0, 0.0
+      Texture Scale = 1.0
+      Texture Type = Predefined
+      Tile Texture = Off
+      Transform Texture = Off
+      Transparency = 0.0
+      Visibility = On
+    END
+    COMPOSITE:shroud
+      Apply Instancing Transform = On
+      Apply Texture = Off
+      Blend Texture = On
+      Colour = .6, .6, .6
+      Colour Map = Default Colour Map
+      Colour Mode = Constant
+      Colour Scale = Linear
+      Colour Variable Boundary Values = Hybrid
+      Culling Mode = No Culling
+      Draw Contours = Off
+      Draw Faces = On
+      Draw Lines = Off
+      Instancing Transform = Default Transform
+      Lighting = true
+      Line Colour = 0, 0, 0
+      Line Colour Mode = Default
+      Line Width = 1
+      Number of Contours = 11
+      Range = Global
+      Render Edge Angle = 0 [degree]
+      Specular Lighting = On
+      Surface Drawing = Smooth Shading
+      Texture Angle = 0
+      Texture Direction = 0.0, 1.0, 0.0
+      Texture Material = Metal
+      Texture Position = 0.0, 0.0
+      Texture Scale = 1.0
+      Texture Type = Predefined
+      Tile Texture = Off
+      Transform Texture = Off
+      Transparency = 0.0
+      Visibility = Off
+    END
+    COMPOSITE:blade
+      Apply Instancing Transform = On
+      Apply Texture = Off
+      Blend Texture = On
+      Colour = .6, .6, .6
+      Colour Map = Default Colour Map
+      Colour Mode = Constant
+      Colour Scale = Linear
+      Colour Variable Boundary Values = Hybrid
+      Culling Mode = No Culling
+      Draw Contours = Off
+      Draw Faces = On
+      Draw Lines = Off
+      Instancing Transform = Default Transform
+      Lighting = true
+      Line Colour = 0, 0, 0
+      Line Colour Mode = Default
+      Line Width = 1
+      Number of Contours = 11
+      Range = Global
+      Render Edge Angle = 0 [degree]
+      Specular Lighting = On
+      Surface Drawing = Smooth Shading
+      Texture Angle = 0
+      Texture Direction = 0.0, 1.0, 0.0
+      Texture Material = Metal
+      Texture Position = 0.0, 0.0
+      Texture Scale = 1.0
+      Texture Type = Predefined
+      Tile Texture = Off
+      Transform Texture = Off
+      Transparency = 0.0
+      Visibility = On
+    END
+    COMPOSITE:BLADE
+      Apply Instancing Transform = On
+      Apply Texture = Off
+      Blend Texture = On
+      Colour = .6, .6, .6
+      Colour Map = Default Colour Map
+      Colour Mode = Constant
+      Colour Scale = Linear
+      Colour Variable Boundary Values = Hybrid
+      Culling Mode = No Culling
+      Draw Contours = Off
+      Draw Faces = On
+      Draw Lines = Off
+      Instancing Transform = Default Transform
+      Lighting = true
+      Line Colour = 0, 0, 0
+      Line Colour Mode = Default
+      Line Width = 1
+      Number of Contours = 11
+      Range = Global
+      Render Edge Angle = 0 [degree]
+      Specular Lighting = On
+      Surface Drawing = Smooth Shading
+      Texture Angle = 0
+      Texture Direction = 0.0, 1.0, 0.0
+      Texture Material = Metal
+      Texture Position = 0.0, 0.0
+      Texture Scale = 1.0
+      Texture Type = Predefined
+      Tile Texture = Off
+      Transform Texture = Off
+      Transparency = 0.0
+      Visibility = On
     END
     COMPOSITE:periodic2
       Apply Instancing Transform = On
       Apply Texture = Off
       Blend Texture = On
-      Colour = 1, 0.5, 0
+      Colour = .6, .6, .6
       Colour Map = Default Colour Map
       Colour Mode = Constant
       Colour Scale = Linear
@@ -343,7 +870,7 @@ ANSYS_SIMULATION_2/hydraulic_oil_trial_003.res
       Tile Texture = Off
       Transform Texture = Off
       Transparency = 0.0
-      Visibility = false
+      Visibility = Off
     END
     DOMAIN:Rotor
       Angle Definition Method = Instances in 360
@@ -354,31 +881,32 @@ ANSYS_SIMULATION_2/hydraulic_oil_trial_003.res
       Background Mesh Density = 2000
       Background Mesh Generation Method = Quasi Orthogonal
       Blade Aligned Variable Available = false
-      Blade Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
+      Blade Region = /DATA READER/CASE:Case hydraulic_oil_trial_005/\
 COMPOSITE:BLADE
+      Components to Initialize = Component 2
       Create Additional Turbo Variables = false
       Do Cylindrical Initialization = True
-      Domain Type = Normal
+      Domain Type = Turbo Component
       Full Circle = Off
       Hub Curve Mode = From Turbo Region
-      Hub Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
+      Hub Region = /DATA READER/CASE:Case hydraulic_oil_trial_005/\
 PRIMITIVE2D:HUB
       Inlet Curve Mode = From Turbo Region
-      Inlet Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
-BOUNDARY:StatorRotor Interface Side 2
+      Inlet Region = /DATA READER/CASE:Case hydraulic_oil_trial_005/\
+PRIMITIVE2D:INFLOW
       Instance Definition = From File
       Linear Blade Aligned Variable Available = false
-      Number of Components in 360 = 56.50
-      Number of Copies = 1
+      Number of Components in 360 = 56.5
+      Number of Copies = 57
       Number of Data Instances = 1
       Number of Passages in 360 = 113
       Number of Passages in Component = 2
       Outlet Curve Mode = From Turbo Region
-      Outlet Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
-BOUNDARY:Oil Outlet
-      Periodic 1 Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
+      Outlet Region = /DATA READER/CASE:Case hydraulic_oil_trial_005/\
+PRIMITIVE2D:OUTFLOW
+      Periodic 1 Region = /DATA READER/CASE:Case hydraulic_oil_trial_005/\
 PRIMITIVE2D:PER1
-      Periodic 2 Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
+      Periodic 2 Region = /DATA READER/CASE:Case hydraulic_oil_trial_005/\
 PRIMITIVE2D:PER2
       Principal Axis = Z
       Reflection Plane Option = From Plane
@@ -387,7 +915,7 @@ PRIMITIVE2D:PER2
       Rotation Axis To = 0 [m], 0 [m], 1 [m]
       Rotation Axis Type = Rotation Axis
       Shroud Curve Mode = From Turbo Region
-      Shroud Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
+      Shroud Region = /DATA READER/CASE:Case hydraulic_oil_trial_005/\
 PRIMITIVE2D:SHROUD
       TBR User Theta Correction = 0.0
       Translation Vector = 0.0, 0.0, 0.0
@@ -405,31 +933,32 @@ PRIMITIVE2D:SHROUD
       Background Mesh Density = 2000
       Background Mesh Generation Method = Quasi Orthogonal
       Blade Aligned Variable Available = false
-      Blade Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
+      Blade Region = /DATA READER/CASE:Case hydraulic_oil_trial_005/\
 COMPOSITE:blade
+      Components to Initialize = Component 1
       Create Additional Turbo Variables = false
       Do Cylindrical Initialization = True
-      Domain Type = Normal
+      Domain Type = Turbo Component
       Full Circle = Off
       Hub Curve Mode = From Turbo Region
-      Hub Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
+      Hub Region = /DATA READER/CASE:Case hydraulic_oil_trial_005/\
 COMPOSITE:hub
       Inlet Curve Mode = From Turbo Region
-      Inlet Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
-BOUNDARY:Oil Inlet
+      Inlet Region = /DATA READER/CASE:Case hydraulic_oil_trial_005/\
+COMPOSITE:in
       Instance Definition = From File
       Linear Blade Aligned Variable Available = false
-      Number of Components in 360 = 60.00
-      Number of Copies = 1
+      Number of Components in 360 = 60
+      Number of Copies = 60
       Number of Data Instances = 1
       Number of Passages in 360 = 60
       Number of Passages in Component = 1
       Outlet Curve Mode = From Turbo Region
-      Outlet Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
-BOUNDARY:StatorRotor Interface Side 1
-      Periodic 1 Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
+      Outlet Region = /DATA READER/CASE:Case hydraulic_oil_trial_005/\
+COMPOSITE:out
+      Periodic 1 Region = /DATA READER/CASE:Case hydraulic_oil_trial_005/\
 COMPOSITE:periodic1
-      Periodic 2 Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
+      Periodic 2 Region = /DATA READER/CASE:Case hydraulic_oil_trial_005/\
 COMPOSITE:periodic2
       Principal Axis = Z
       Reflection Plane Option = From Plane
@@ -438,7 +967,7 @@ COMPOSITE:periodic2
       Rotation Axis To = 0 [m], 0 [m], 1 [m]
       Rotation Axis Type = Rotation Axis
       Shroud Curve Mode = From Turbo Region
-      Shroud Region = /DATA READER/CASE:Case hydraulic_oil_trial_003/\
+      Shroud Region = /DATA READER/CASE:Case hydraulic_oil_trial_005/\
 COMPOSITE:shroud
       TBR User Theta Correction = 0.0
       Translation Vector = 0.0, 0.0, 0.0
@@ -451,7 +980,7 @@ COMPOSITE:shroud
       Apply Instancing Transform = On
       Apply Texture = Off
       Blend Texture = On
-      Colour = 1, 0.5, 0
+      Colour = .6, .6, .6
       Colour Map = Default Colour Map
       Colour Mode = Constant
       Colour Scale = Linear
@@ -480,13 +1009,153 @@ COMPOSITE:shroud
       Tile Texture = Off
       Transform Texture = Off
       Transparency = 0.0
-      Visibility = false
+      Visibility = Off
+    END
+    PRIMITIVE2D:INFLOW
+      Apply Instancing Transform = On
+      Apply Texture = Off
+      Blend Texture = On
+      Colour = .6, .6, .6
+      Colour Map = Default Colour Map
+      Colour Mode = Constant
+      Colour Scale = Linear
+      Colour Variable Boundary Values = Hybrid
+      Culling Mode = No Culling
+      Draw Contours = Off
+      Draw Faces = On
+      Draw Lines = Off
+      Instancing Transform = Default Transform
+      Lighting = true
+      Line Colour = 0, 0, 0
+      Line Colour Mode = Default
+      Line Width = 1
+      Number of Contours = 11
+      Range = Global
+      Render Edge Angle = 0 [degree]
+      Set Number = 2
+      Specular Lighting = On
+      Surface Drawing = Smooth Shading
+      Texture Angle = 0
+      Texture Direction = 0.0, 1.0, 0.0
+      Texture Material = Metal
+      Texture Position = 0.0, 0.0
+      Texture Scale = 1.0
+      Texture Type = Predefined
+      Tile Texture = Off
+      Transform Texture = Off
+      Transparency = 0.0
+      Visibility = On
+    END
+    PRIMITIVE2D:OUTFLOW
+      Apply Instancing Transform = On
+      Apply Texture = Off
+      Blend Texture = On
+      Colour = .6, .6, .6
+      Colour Map = Default Colour Map
+      Colour Mode = Constant
+      Colour Scale = Linear
+      Colour Variable Boundary Values = Hybrid
+      Culling Mode = No Culling
+      Draw Contours = Off
+      Draw Faces = On
+      Draw Lines = Off
+      Instancing Transform = Default Transform
+      Lighting = true
+      Line Colour = 0, 0, 0
+      Line Colour Mode = Default
+      Line Width = 1
+      Number of Contours = 11
+      Range = Global
+      Render Edge Angle = 0 [degree]
+      Set Number = 3
+      Specular Lighting = On
+      Surface Drawing = Smooth Shading
+      Texture Angle = 0
+      Texture Direction = 0.0, 1.0, 0.0
+      Texture Material = Metal
+      Texture Position = 0.0, 0.0
+      Texture Scale = 1.0
+      Texture Type = Predefined
+      Tile Texture = Off
+      Transform Texture = Off
+      Transparency = 0.0
+      Visibility = On
+    END
+    PRIMITIVE2D:HUB
+      Apply Instancing Transform = On
+      Apply Texture = Off
+      Blend Texture = On
+      Colour = .6, .6, .6
+      Colour Map = Default Colour Map
+      Colour Mode = Constant
+      Colour Scale = Linear
+      Colour Variable Boundary Values = Hybrid
+      Culling Mode = No Culling
+      Draw Contours = Off
+      Draw Faces = On
+      Draw Lines = Off
+      Instancing Transform = Default Transform
+      Lighting = true
+      Line Colour = 0, 0, 0
+      Line Colour Mode = Default
+      Line Width = 1
+      Number of Contours = 11
+      Range = Global
+      Render Edge Angle = 0 [degree]
+      Set Number = 1
+      Specular Lighting = On
+      Surface Drawing = Smooth Shading
+      Texture Angle = 0
+      Texture Direction = 0.0, 1.0, 0.0
+      Texture Material = Metal
+      Texture Position = 0.0, 0.0
+      Texture Scale = 1.0
+      Texture Type = Predefined
+      Tile Texture = Off
+      Transform Texture = Off
+      Transparency = 0.0
+      Visibility = On
+    END
+    PRIMITIVE2D:SHROUD
+      Apply Instancing Transform = On
+      Apply Texture = Off
+      Blend Texture = On
+      Colour = .6, .6, .6
+      Colour Map = Default Colour Map
+      Colour Mode = Constant
+      Colour Scale = Linear
+      Colour Variable Boundary Values = Hybrid
+      Culling Mode = No Culling
+      Draw Contours = Off
+      Draw Faces = On
+      Draw Lines = Off
+      Instancing Transform = Default Transform
+      Lighting = true
+      Line Colour = 0, 0, 0
+      Line Colour Mode = Default
+      Line Width = 1
+      Number of Contours = 11
+      Range = Global
+      Render Edge Angle = 0 [degree]
+      Set Number = 8
+      Specular Lighting = On
+      Surface Drawing = Smooth Shading
+      Texture Angle = 0
+      Texture Direction = 0.0, 1.0, 0.0
+      Texture Material = Metal
+      Texture Position = 0.0, 0.0
+      Texture Scale = 1.0
+      Texture Type = Predefined
+      Tile Texture = Off
+      Transform Texture = Off
+      Transparency = 0.0
+      Visibility = Off
     END
     PRIMITIVE2D:PER2
       Apply Instancing Transform = On
       Apply Texture = Off
       Blend Texture = On
-      Colour = 1, 0.5, 0
+      Colour = .6, .6, .6
       Colour Map = Default Colour Map
       Colour Mode = Constant
       Colour Scale = Linear
@@ -515,7 +1184,7 @@ COMPOSITE:shroud
       Tile Texture = Off
       Transform Texture = Off
       Transparency = 0.0
-      Visibility = false
+      Visibility = Off
     END
   END
 END
@@ -525,7 +1194,7 @@ DEFAULT INSTANCE TRANSFORM:Default Transform
   Apply Rotation = true
   Apply Translation = false
   Full Circle = Off
-  Instancing Info From Domain = true
+  Instancing Info From Domain = On
   Number of Components in 360 = 12
   Number of Copies = 1
   Number of Passages in 360 = 12
@@ -547,6 +1216,7 @@ DEFAULT LEGEND:Default Legend View 1
   Legend Aspect = 0.07
   Legend Format = %10.3e
   Legend Orientation = Vertical
+  Legend Plot = /CONTOUR:InletPressure
   Legend Position = 0.02, 0.15
   Legend Resolution = 256
   Legend Shading = Smooth
@@ -569,6 +1239,7 @@ DEFAULT LEGEND:Default Legend View 2
   Legend Aspect = 0.07
   Legend Format = %10.3e
   Legend Orientation = Vertical
+  Legend Plot = /CONTOUR:InletPressure
   Legend Position = 0.02, 0.15
   Legend Resolution = 256
   Legend Shading = Smooth
@@ -591,6 +1262,7 @@ DEFAULT LEGEND:Default Legend View 3
   Legend Aspect = 0.07
   Legend Format = %10.3e
   Legend Orientation = Vertical
+  Legend Plot = /CONTOUR:InletPressure
   Legend Position = 0.02, 0.15
   Legend Resolution = 256
   Legend Shading = Smooth
@@ -613,6 +1285,7 @@ DEFAULT LEGEND:Default Legend View 4
   Legend Aspect = 0.07
   Legend Format = %10.3e
   Legend Orientation = Vertical
+  Legend Plot = /CONTOUR:InletPressure
   Legend Position = 0.02, 0.15
   Legend Resolution = 256
   Legend Shading = Smooth
@@ -640,13 +1313,13 @@ END
 LIBRARY:
   CEL:
     EXPRESSIONS:
-      Accumulated Time Step = 84
-      Angular Velocity = 5000 [rev min^-1]
+      Accumulated Time Step = 53
+      Angular Velocity = 600 [rev min^-1]
       Current Phase Position = 0
-      Current Time Step = 84
+      Current Time Step = 53
       Phase = Current Phase Position
       Reference Pressure = 1 [atm]
-      Sequence Step = 84
+      Sequence Step = 53
       Time = 0 [s]
       atstep = Accumulated Time Step
       ctstep = Current Time Step
@@ -761,6 +1434,9 @@ END
 SCALAR VARIABLE:Axial Distance
   Boundary Values = Conservative
 END
+SCALAR VARIABLE:BA Streamwise Location
+  Boundary Values = Conservative
+END
 SCALAR VARIABLE:Connectivity Number
   Boundary Values = Conservative
 END
@@ -801,6 +1477,27 @@ SCALAR VARIABLE:Interpolated Mass Flow
   Boundary Values = Conservative
 END
 SCALAR VARIABLE:Length
+  Boundary Values = Conservative
+END
+SCALAR VARIABLE:Linear BA Streamwise Location
+  Boundary Values = Conservative
+END
+SCALAR VARIABLE:M Length
+  Boundary Values = Conservative
+END
+SCALAR VARIABLE:M Length Local
+  Boundary Values = Conservative
+END
+SCALAR VARIABLE:M Length Normalized
+  Boundary Values = Conservative
+END
+SCALAR VARIABLE:M Prime
+  Boundary Values = Conservative
+END
+SCALAR VARIABLE:M Prime Local
+  Boundary Values = Conservative
+END
+SCALAR VARIABLE:M Prime Normalized
   Boundary Values = Conservative
 END
 SCALAR VARIABLE:Mass Flow
@@ -872,25 +1569,34 @@ END
 SCALAR VARIABLE:Solver Yplus
   Boundary Values = Conservative
 END
-SCALAR VARIABLE:Specific Heat Capacity at Constant Pressure
+SCALAR VARIABLE:Span
   Boundary Values = Conservative
 END
-SCALAR VARIABLE:Specific Heat Capacity at Constant Volume
+SCALAR VARIABLE:Span Direction X
+  Boundary Values = Conservative
+END
+SCALAR VARIABLE:Span Direction Y
+  Boundary Values = Conservative
+END
+SCALAR VARIABLE:Span Direction Z
+  Boundary Values = Conservative
+END
+SCALAR VARIABLE:Span Normalized
   Boundary Values = Conservative
 END
 SCALAR VARIABLE:Specific Volume
   Boundary Values = Conservative
 END
-SCALAR VARIABLE:Static Enthalpy
+SCALAR VARIABLE:Streamwise Direction X
   Boundary Values = Conservative
 END
-SCALAR VARIABLE:Static Entropy
+SCALAR VARIABLE:Streamwise Direction Y
   Boundary Values = Conservative
 END
-SCALAR VARIABLE:Temperature
+SCALAR VARIABLE:Streamwise Direction Z
   Boundary Values = Conservative
 END
-SCALAR VARIABLE:Thermal Conductivity
+SCALAR VARIABLE:Streamwise Location
   Boundary Values = Conservative
 END
 SCALAR VARIABLE:Theta
@@ -926,6 +1632,9 @@ END
 SCALAR VARIABLE:Velocity in Stn Frame u
   Boundary Values = Conservative
 END
+SCALAR VARIABLE:Velocity in Stn Frame u.Beta
+  Boundary Values = Conservative
+END
 SCALAR VARIABLE:Velocity in Stn Frame u.Gradient X
   Boundary Values = Conservative
 END
@@ -938,6 +1647,9 @@ END
 SCALAR VARIABLE:Velocity in Stn Frame v
   Boundary Values = Conservative
 END
+SCALAR VARIABLE:Velocity in Stn Frame v.Beta
+  Boundary Values = Conservative
+END
 SCALAR VARIABLE:Velocity in Stn Frame v.Gradient X
   Boundary Values = Conservative
 END
@@ -948,6 +1660,9 @@ SCALAR VARIABLE:Velocity in Stn Frame v.Gradient Z
   Boundary Values = Conservative
 END
 SCALAR VARIABLE:Velocity in Stn Frame w
+  Boundary Values = Conservative
+END
+SCALAR VARIABLE:Velocity in Stn Frame w.Beta
   Boundary Values = Conservative
 END
 SCALAR VARIABLE:Velocity in Stn Frame w.Gradient X
@@ -1074,9 +1789,6 @@ SCALAR VARIABLE:Volume of Finite Volumes
   Boundary Values = Conservative
 END
 SCALAR VARIABLE:Wall Distance
-  Boundary Values = Conservative
-END
-SCALAR VARIABLE:Wall Heat Flux
   Boundary Values = Conservative
 END
 SCALAR VARIABLE:Wall Scale
@@ -1623,6 +2335,12 @@ END
 VECTOR VARIABLE:Rotation Velocity
   Boundary Values = Conservative
 END
+VECTOR VARIABLE:Span Direction
+  Boundary Values = Conservative
+END
+VECTOR VARIABLE:Streamwise Direction
+  Boundary Values = Conservative
+END
 VECTOR VARIABLE:Theta Direction
   Boundary Values = Conservative
 END
@@ -1665,6 +2383,68 @@ END
 VECTOR VARIABLE:Wall Shear
   Boundary Values = Conservative
 END
+VIEW:Turbo Initialisation View
+  Angular Coord Shift = 0.0
+  Auto Center = false
+  Axis Visibility = true
+  Border Visibility = false
+  Camera Mode = User Specified
+  Clip Scene = false
+  Coord Transform = Cartesian
+  Hide Difference Case = false
+  Highlight Type = Surface Mesh
+  Is A Figure = false
+  Light Angle = 50, 110
+  Object Visibility List = /WIREFRAME:Wireframe,/COMPBGMESH:Component 1,/\
+COMPBGMESH:Component 2,/COMPHIGHLIGHT:Component 1,/COMPHIGHLIGHT:Component 2
+  Projection = Orthographic
+  Ruler Visibility = true
+  Standard View = Isometric Y
+  Valid Case = All Cases
+  CAMERA:
+    Option = Pivot Point and Quaternion
+    Pan = 0,0
+    Pivot Point = 0.414047,0.0386077,0.0536147
+    Rotation = -90, 0, 0
+    Rotation Quaternion = 0.279848,-0.364705,-0.115917,0.880476
+    Scale = 8.74763
+    Send To Viewer = True
+  END
+END
+VIEW:Turbo Regions View
+  Angular Coord Shift = 0.0
+  Auto Center = false
+  Axis Visibility = true
+  Border Visibility = false
+  Camera Mode = User Specified
+  Clip Scene = false
+  Coord Transform = Cartesian
+  Hide Difference Case = false
+  Highlight Type = Surface Mesh
+  Is A Figure = false
+  Light Angle = 50, 110
+  Object Visibility List = /DATA READER/CASE:Case hydraulic_oil_trial_005/\
+COMPOSITE:BLADE,/DATA READER/CASE:Case hydraulic_oil_trial_005/COMPOSITE:blade,/\
+DATA READER/CASE:Case hydraulic_oil_trial_005/COMPOSITE:hub,/DATA READER/\
+CASE:Case hydraulic_oil_trial_005/COMPOSITE:in,/DATA READER/CASE:Case \
+hydraulic_oil_trial_005/COMPOSITE:out,/DATA READER/CASE:Case \
+hydraulic_oil_trial_005/PRIMITIVE2D:HUB,/DATA READER/CASE:Case \
+hydraulic_oil_trial_005/PRIMITIVE2D:INFLOW,/DATA READER/CASE:Case \
+hydraulic_oil_trial_005/PRIMITIVE2D:OUTFLOW,/WIREFRAME:Wireframe
+  Projection = Orthographic
+  Ruler Visibility = true
+  Standard View = Isometric Y
+  Valid Case = All Cases
+  CAMERA:
+    Option = Pivot Point and Quaternion
+    Pan = 0, 0
+    Pivot Point = 0.414047, 0.0386077, 0.0536147
+    Rotation = -90, 0, 0
+    Rotation Quaternion = -0.275643, -0.443279, 0.250679, 0.81529
+    Scale = 1.59623
+    Send To Viewer = True
+  END
+END
 VIEW:View 1
   Angular Coord Shift = 0.0
   Auto Center = false
@@ -1677,8 +2457,8 @@ VIEW:View 1
   Highlight Type = Surface Mesh
   Is A Figure = false
   Light Angle = 50, 110
-  Object Visibility List = /DEFAULT LEGEND:Default Legend View 1,/\
-WIREFRAME:Wireframe
+  Object Visibility List = /CONTOUR:InletPressure,/DEFAULT LEGEND:Default \
+Legend View 1,/WIREFRAME:Wireframe
   Projection = Orthographic
   Ruler Visibility = true
   Standard View = Isometric Y
@@ -1687,8 +2467,8 @@ WIREFRAME:Wireframe
     Pan = 0,0
     Pivot Point = 0.414047,0.0386077,0.0536147
     Rotation = -90, 0, 0
-    Rotation Quaternion = 0.279848,-0.364705,-0.115917,0.880476
-    Scale = 8.11995
+    Rotation Quaternion = 0.324395,-0.633347,-0.171935,0.681244
+    Scale = 1.71261
     Send To Viewer = True
   END
 END
