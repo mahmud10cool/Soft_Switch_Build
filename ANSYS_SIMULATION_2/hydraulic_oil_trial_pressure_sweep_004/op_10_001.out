@@ -1,0 +1,1861 @@
+ This run of the CFX 2026 R1 Solver started at 14:01:26 on 23 Oct 2026
+ by user mahmu on MSI (intel_xeon64.sse2_winnt).
+ 
+ 2026 R1
+ 
+  Point Releases and Patches installed:
+  Ansys, Inc. License Manager 2026 R1
+  Discovery (full install) 2026 R1
+  Core WB Files 2026 R1
+  optiSLang Core UI 2026 R1
+  CFX (includes CFD-Post) 2026 R1
+  Chemkin 2026 R1
+  EnSight 2026 R1
+  FENSAP-ICE 2026 R1
+  Fluent (includes CFD-Post) 2026 R1
+  Polyflow (includes CFD-Post) 2026 R1
+  Forte (includes EnSight) 2026 R1
+  Rocky 2026 R1
+  TurboGrid 2026 R1
+  ACIS Geometry Interface 2026 R1
+  AutoCAD Geometry Interface 2026 R1
+  Catia, Version 4 Geometry Interface 2026 R1
+  Catia, Version 5 Geometry Interface 2026 R1
+  Catia, Version 6 Geometry Interface 2026 R1
+  Creo Elements/Direct Modeling Geometry Interface 2026 R1
+  Creo Parametric Geometry Interface 2026 R1
+  Inventor Geometry Interface 2026 R1
+  JTOpen Geometry Interface 2026 R1
+  NX Geometry Interface 2026 R1
+  Parasolid Geometry Interface  2026 R1
+  Solid Edge Geometry Interface 2026 R1
+  SOLIDWORKS Geometry Interface 2026 R1
+  Speos 2026 R1
+  SpaceClaim 2026 R1
+  Speos RPC 2026 R1
+  Zemax OpticStudio 2026 R1
+  Dynamic Reporting 2026 R1
+  Aqwa 2026 R1
+  Autodyn 2026 R1
+  Material Calibration App 2026 R1
+  Mechanical Products 2026 R1
+  Motion 2026 R1
+  Academic Student 2026 R1
+ 
+ Setting up CFX Solver run ...
+ 
+ 
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                    CFX Command Language for Run                    |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+ 
+ LIBRARY:
+   CEL:
+     EXPRESSIONS:
+       Index = 10
+     END
+     FUNCTION: PressureSweep
+       Index Names = Index
+       Option = Table
+       DATA FIELD: OutletPressure
+         Field Name = OutletPressure
+         Result Units = [MPa]
+       END
+       DATA SOURCE:
+         Option = Internal
+       END
+       DATA VALUE: OutletPressure Generation Lower Bound
+         Result Units = [MPa]
+         Value Name = OutletPressure Generation Lower Bound
+       END
+       DATA VALUE: OutletPressure Generation Upper Bound
+         Result Units = [MPa]
+         Value Name = OutletPressure Generation Upper Bound
+       END
+     END
+   END
+   MATERIAL: Hydraulic Oil
+     Material Description = Generic Hydraulic Oil
+     Material Group = User
+     Option = Pure Substance
+     Thermodynamic State = Liquid
+     PROPERTIES:
+       Option = General Material
+       EQUATION OF STATE:
+         Density = 850 [kg m^-3]
+         Molar Mass = 500 [kg kmol^-1]
+         Option = Value
+       END
+       SPECIFIC HEAT CAPACITY:
+         Option = Value
+         Specific Heat Capacity = 2000 [J kg^-1 K^-1]
+         Specific Heat Type = Constant Pressure
+       END
+       DYNAMIC VISCOSITY:
+         Dynamic Viscosity = 0.04 [Pa s]
+         Option = Value
+       END
+       THERMAL CONDUCTIVITY:
+         Option = Value
+         Thermal Conductivity = 0.13 [W m^-1 K^-1]
+       END
+     END
+   END
+ END
+ FLOW: Flow Analysis 1
+   SOLUTION UNITS:
+     Angle Units = [rad]
+     Length Units = [m]
+     Mass Units = [kg]
+     Solid Angle Units = [sr]
+     Temperature Units = [K]
+     Time Units = [s]
+   END
+   ANALYSIS TYPE:
+     Option = Steady State
+     EXTERNAL SOLVER COUPLING:
+       Option = None
+     END
+   END
+   DOMAIN: Rotor
+     Coord Frame = Coord 0
+     Domain Type = Fluid
+     Location = Primitive 3D
+     BOUNDARY: Oil Outlet
+       Boundary Type = OUTLET
+       Frame Type = Stationary
+       Location = OUTFLOW
+       BOUNDARY CONDITIONS:
+         FLOW REGIME:
+           Option = Subsonic
+         END
+         MASS AND MOMENTUM:
+           Option = Average Static Pressure
+           Pressure Profile Blend = 0.05
+           Relative Pressure = PressureSweep.OutletPressure(Index)
+         END
+         PRESSURE AVERAGING:
+           Option = Average Over Whole Outlet
+         END
+       END
+     END
+     BOUNDARY: Rotor Blade
+       Boundary Type = WALL
+       Frame Type = Rotating
+       Location = BLADE
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: Rotor Hub
+       Boundary Type = WALL
+       Coord Frame = Coord 0
+       Frame Type = Rotating
+       Location = HUB
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: Rotor Shroud
+       Boundary Type = WALL
+       Coord Frame = Coord 0
+       Frame Type = Rotating
+       Location = SHROUD
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: Rotor to Rotor Periodic 1 Side 1
+       Boundary Type = INTERFACE
+       Location = PER1
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     BOUNDARY: Rotor to Rotor Periodic 1 Side 2
+       Boundary Type = INTERFACE
+       Location = PER2
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     BOUNDARY: StatorRotor Interface Side 2
+       Boundary Type = INTERFACE
+       Location = INFLOW
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     DOMAIN MODELS:
+       BUOYANCY MODEL:
+         Option = Non Buoyant
+       END
+       DOMAIN MOTION:
+         Alternate Rotation Model = true
+         Angular Velocity = 600 [rev min^-1]
+         Option = Rotating
+         AXIS DEFINITION:
+           Option = Coordinate Axis
+           Rotation Axis = Coord 0.3
+         END
+       END
+       MESH DEFORMATION:
+         Option = None
+       END
+       REFERENCE PRESSURE:
+         Reference Pressure = 1 [atm]
+       END
+     END
+     FLUID DEFINITION: Fluid 1
+       Material = Hydraulic Oil
+       Option = Material Library
+       MORPHOLOGY:
+         Option = Continuous Fluid
+       END
+     END
+     FLUID MODELS:
+       COMBUSTION MODEL:
+         Option = None
+       END
+       HEAT TRANSFER MODEL:
+         Option = None
+       END
+       THERMAL RADIATION MODEL:
+         Option = None
+       END
+       TURBULENCE MODEL:
+         Option = SST
+       END
+       TURBULENT WALL FUNCTIONS:
+         Option = Automatic
+       END
+     END
+   END
+   DOMAIN: Stator
+     Coord Frame = Coord 0
+     Domain Type = Fluid
+     Location = B364
+     BOUNDARY: Oil Inlet
+       Boundary Type = INLET
+       Location = in
+       BOUNDARY CONDITIONS:
+         FLOW DIRECTION:
+           Option = Normal to Boundary Condition
+         END
+         FLOW REGIME:
+           Option = Subsonic
+         END
+         MASS AND MOMENTUM:
+           Option = Total Pressure
+           Relative Pressure = 10.34 [MPa]
+         END
+         TURBULENCE:
+           Option = Medium Intensity and Eddy Viscosity Ratio
+         END
+       END
+     END
+     BOUNDARY: Stator Blade
+       Boundary Type = WALL
+       Location = blade
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: Stator Hub
+       Boundary Type = WALL
+       Location = hub
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: Stator Shroud
+       Boundary Type = WALL
+       Location = shroud
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: Stator to Stator Periodic 1 Side 1
+       Boundary Type = INTERFACE
+       Location = periodic1
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     BOUNDARY: Stator to Stator Periodic 1 Side 2
+       Boundary Type = INTERFACE
+       Location = periodic2
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     BOUNDARY: StatorRotor Interface Side 1
+       Boundary Type = INTERFACE
+       Location = out
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     DOMAIN MODELS:
+       BUOYANCY MODEL:
+         Option = Non Buoyant
+       END
+       DOMAIN MOTION:
+         Option = Stationary
+       END
+       MESH DEFORMATION:
+         Option = None
+       END
+       REFERENCE PRESSURE:
+         Reference Pressure = 1 [atm]
+       END
+     END
+     FLUID DEFINITION: Fluid 1
+       Material = Hydraulic Oil
+       Option = Material Library
+       MORPHOLOGY:
+         Option = Continuous Fluid
+       END
+     END
+     FLUID MODELS:
+       COMBUSTION MODEL:
+         Option = None
+       END
+       HEAT TRANSFER MODEL:
+         Option = None
+       END
+       THERMAL RADIATION MODEL:
+         Option = None
+       END
+       TURBULENCE MODEL:
+         Option = SST
+       END
+       TURBULENT WALL FUNCTIONS:
+         Option = Automatic
+       END
+     END
+   END
+   DOMAIN INTERFACE: Rotor to Rotor Periodic 1
+     Boundary List1 = Rotor to Rotor Periodic 1 Side 1
+     Boundary List2 = Rotor to Rotor Periodic 1 Side 2
+     Interface Type = Fluid Fluid
+     INTERFACE MODELS:
+       Option = Rotational Periodicity
+       AXIS DEFINITION:
+         Option = Coordinate Axis
+         Rotation Axis = Coord 0.3
+       END
+     END
+     MESH CONNECTION:
+       Option = Automatic
+     END
+   END
+   DOMAIN INTERFACE: Stator to Stator Periodic 1
+     Boundary List1 = Stator to Stator Periodic 1 Side 1
+     Boundary List2 = Stator to Stator Periodic 1 Side 2
+     Interface Type = Fluid Fluid
+     INTERFACE MODELS:
+       Option = Rotational Periodicity
+       AXIS DEFINITION:
+         Option = Coordinate Axis
+         Rotation Axis = Coord 0.3
+       END
+     END
+     MESH CONNECTION:
+       Option = Automatic
+     END
+   END
+   DOMAIN INTERFACE: StatorRotor Interface
+     Boundary List1 = StatorRotor Interface Side 1
+     Boundary List2 = StatorRotor Interface Side 2
+     Interface Type = Fluid Fluid
+     INTERFACE MODELS:
+       Option = General Connection
+       FRAME CHANGE:
+         Option = Frozen Rotor
+       END
+       MASS AND MOMENTUM:
+         Option = Conservative Interface Flux
+         MOMENTUM INTERFACE MODEL:
+           Option = None
+         END
+       END
+       PITCH CHANGE:
+         Option = Specified Pitch Angles
+         Pitch Angle Side1 = 6 [degree]
+         Pitch Angle Side2 = 6.372 [degree]
+       END
+     END
+     MESH CONNECTION:
+       Option = GGI
+     END
+   END
+   OUTPUT CONTROL:
+     MONITOR OBJECTS:
+       MONITOR BALANCES:
+         Option = Full
+       END
+       MONITOR FORCES:
+         Option = Full
+       END
+       MONITOR PARTICLES:
+         Option = Full
+       END
+       MONITOR POINT: InletMassFlow
+         Coord Frame = Coord 0
+         Expression Value = massFlow()@Oil Inlet
+         Option = Expression
+       END
+       MONITOR RESIDUALS:
+         Option = Full
+       END
+       MONITOR TOTALS:
+         Option = Full
+       END
+     END
+     RESULTS:
+       File Compression Level = Default
+       Option = Standard
+     END
+   END
+   SOLVER CONTROL:
+     Turbulence Numerics = First Order
+     ADVECTION SCHEME:
+       Option = High Resolution
+     END
+     CONVERGENCE CONTROL:
+       Length Scale Option = Conservative
+       Maximum Number of Iterations = 500
+       Minimum Number of Iterations = 1
+       Timescale Control = Auto Timescale
+       Timescale Factor = 1.0
+     END
+     CONVERGENCE CRITERIA:
+       Residual Target = 1.E-4
+       Residual Type = RMS
+     END
+     DYNAMIC MODEL CONTROL:
+       Global Dynamic Model Control = On
+     END
+     INTERRUPT CONTROL:
+       Option = Any Interrupt
+       CONVERGENCE CONDITIONS:
+         Option = Default Conditions
+       END
+     END
+   END
+ END
+ COMMAND FILE:
+   Version = 26.1
+   Results Version = 26.1
+ END
+ SIMULATION CONTROL:
+   EXECUTION CONTROL:
+     EXECUTABLE SELECTION:
+       Double Precision = No
+       Large Problem = No
+     END
+     INTERPOLATOR STEP CONTROL:
+       Runtime Priority = Standard
+       MEMORY CONTROL:
+         Memory Allocation Factor = 1.0
+         Option = Model Based
+       END
+     END
+     LICENSE CONTROL:
+       Capability Level = Automatic
+       HPC License = Automatic
+     END
+     OPERATING POINT CONTROL:
+       CONCURRENCY:
+         Maximum Number of Concurrent Jobs = 1
+         Option = Maximum Number of Concurrent Jobs
+       END
+     END
+     PARALLEL HOST LIBRARY:
+       HOST DEFINITION: msi
+         Installation Root = C:\Program Files\ANSYS Inc\ANSYS Student\v%v\CFX
+         Host Architecture String = winnt-amd64
+       END
+     END
+     RUN DEFINITION:
+       Solver Input File = \
+         C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\\
+         hydraulic_oil_trial_pressure_sweep_004\hydraulic_oil_trial_pressure_s\
+         weep_sim.def
+       Run Mode = Full
+       Solver Results File = \
+         C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\\
+         hydraulic_oil_trial_pressure_sweep_004\op_10_001.res
+     END
+     SOLVER STEP CONTROL:
+       Runtime Priority = Standard
+       MEMORY CONTROL:
+         Memory Allocation Factor = 1.0
+         Option = Model Based
+       END
+       PARALLEL ENVIRONMENT:
+         Maximum Number of Processes = 1
+         Start Method = Serial
+       END
+     END
+   END
+ END
+ 
+ 
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                   Profile and Table File Summary                   |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+ 
+
+ +--------------------------------------------------------------------+
+ |                    Table File:PressureSweep.csv                    |
+ |                                                                    |
+ | File size: 433 bytes. Summary shown.                               |
+ +--------------------------------------------------------------------+
+
+ [Name]
+ PressureSweep
+ 
+ [Parameters]
+ OutletPressure Generation Lower Bound = 3.45 [MPa]
+ OutletPressure Generation Upper Bound = 10.34 [MPa]
+ 
+ [Index Fields]
+ Index
+ 
+ [Data]
+ Index, OutletPressure [MPa]
+ 1, 3.45000005e+00
+ 2, 4.13999987e+00
+ 3, 4.82999992e+00
+ 4, 5.51999998e+00
+ 5, 6.21000004e+00
+ 6, 6.88999987e+00
+ 7, 7.57999992e+00
+ 8, 8.27000046e+00
+ 9, 8.96000004e+00
+ ...
+ ...
+ 
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                               Solver                               |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+ 
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                       ANSYS(R) CFX(R) Solver                       |
+ |                                                                    |
+ | 2026 R1                                                            |
+ | Build 26.1 2026-01-12T11:19:59.221722                              |
+ | Mon Jan 12 11:54:10 PST 2026                                       |
+ |                                                                    |
+ |                        Executable Attributes                       |
+ |                                                                    |
+ |           single-64bit-int32-archfort-optimised-std-lcomp          |
+ |                                                                    |
+ | Copyright (C) 1996-2026 Synopsys, Inc. and ANSYS, Inc.             |
+ |                                                                    |
+ | All rights reserved. Unauthorized use, distribution or duplication |
+ | is prohibited. This product is subject to U.S. laws governing      |
+ | export and re-export. For full Legal Notice, see documentation.    |
+ +--------------------------------------------------------------------+
+
+
+
+
+ +--------------------------------------------------------------------+
+ |                  Job Information at Start of Run                   |
+ +--------------------------------------------------------------------+
+
+ Run mode:       serial run
+
+ Host computer:  MSI (PID:7524)
+
+ Job started:    Fri Oct 23 14:01:28 2026
+
+ +--------------------------------------------------------------------+
+ |                        License Information                         |
+ +--------------------------------------------------------------------+
+
+ License Cap:    ANSYS CFD Solver
+ License ID:     MSI-mahmu-4056-000253
+
+ INFO: You are using an academic student license which enables meshes 
+       up to 1000000 vertices.
+
+ INFO: Your license enables 4-way parallel execution.
+       For faster simulations, please start the application with the
+       appropriate parallel options.
+
+
+ +--------------------------------------------------------------------+
+ |         Initial Memory Allocation  (Actual usage may vary)         |
+ +--------------------------------------------------------------------+
+
+           | Real       | Integer    | Character | Logical  | Double
+ ----------+------------+------------+-----------+----------+----------
+ Mwords    |      33.45 |      10.15 |      9.62 |     0.12 |     1.21
+ Mbytes    |     127.62 |      38.73 |      9.18 |     0.46 |     9.22
+ ----------+------------+------------+-----------+----------+----------
+
+
+ +--------------------------------------------------------------------+
+ |            Host Memory Information (Mbytes): Solver                |
+ +--------------------------------------------------------------------+
+ |          Host           |     System     |   Allocated    |   %    |
+ +-------------------------+----------------+----------------+--------+
+ | MSI                     |     32244.80   |       185.20   |   0.57 |
+ +-------------------------+----------------+----------------+--------+
+
+ +--------------------------------------------------------------------+
+ |                      Topology Simplification                       |
+ +--------------------------------------------------------------------+
+
+ +--------------------------------------------------------------------+
+ |                       ****** Warning ******                        |
+ |                                                                    |
+ | Topology simplification is activated with the following            |
+ | restrictions:                                                      |
+ |                                                                    |
+ | - Mesh regions referenced only within User Fortran and NOT         |
+ |   in the command file will cause the solver to stop.               |
+ | - The solver will stop during any "Edit Run in Progress" step      |
+ |   if new 2D regions are referenced.                                |
+ +--------------------------------------------------------------------+
+
+ +--------------------------------------------------------------------+
+ |                          Mesh Statistics                           |
+ +--------------------------------------------------------------------+
+ | Domain Name          | Orthog. Angle | Exp. Factor  | Aspect Ratio |
+ +----------------------+---------------+--------------+--------------+
+ |                      | Minimum [deg] |   Maximum    |    Maximum   |
+ +----------------------+---------------+--------------+--------------+
+ | Rotor                |       30.1 ok |        42  ! |       383 ok |
+ | Stator               |       31.4 ok |       196  ! |        12 OK |
+ | Global               |       30.1 ok |       196  ! |       383 ok |
+ +----------------------+---------------+--------------+--------------+
+ |                      |  %!  %ok  %OK | %!  %ok  %OK | %!  %ok  %OK |
+ +----------------------+---------------+--------------+--------------+
+ | Rotor                |   0   14   86 | <1    2   98 |  0    2   98 |
+ | Stator               |   0    3   97 |  1   18   81 |  0    0  100 |
+ | Global               |   0    9   91 |  1   10   89 |  0    1   99 |
+ +----------------------+---------------+--------------+--------------+
+
+ Domain Name : Rotor
+
+     Total Number of Nodes                                =       38360
+
+     Total Number of Elements                             =       33202
+         Total Number of Hexahedrons                      =       33202
+
+     Total Number of Faces                                =        9970
+
+ Domain Name : Stator
+
+     Total Number of Nodes                                =       36768
+
+     Total Number of Elements                             =      136297
+         Total Number of Tetrahedrons                     =      108534
+         Total Number of Prisms                           =       27163
+         Total Number of Pyramids                         =         600
+
+     Total Number of Faces                                =       16517
+ 
+ Global Statistics :
+
+     Global Number of Nodes                               =       75128
+
+     Global Number of Elements                            =      169499
+         Total Number of Tetrahedrons                     =      108534
+         Total Number of Prisms                           =       27163
+         Total Number of Hexahedrons                      =       33202
+         Total Number of Pyramids                         =         600
+
+     Global Number of Faces                               =       26487
+
+ Domain Interface Name : Rotor to Rotor Periodic 1
+
+     Discretization type                                  =         1:1
+     Pitch angle  [degrees]                               =       6.372
+
+ Domain Interface Name : Stator to Stator Periodic 1
+
+     Discretization type                                  =         GGI
+     Intersection type                                    =      Direct
+     Non-overlap area fraction on side 1                  =    2.68E-07
+     Non-overlap area fraction on side 2                  =    2.66E-05
+     Pitch angle  [degrees]                               =       6.000
+
+ Domain Interface Name : StatorRotor Interface
+
+     Discretization type                                  =         GGI
+     Intersection type                                    =      Direct
+     Non-overlap area fraction on side 1                  =    1.22E-03
+     Non-overlap area fraction on side 2                  =    1.07E-02
+     Pitch ratio ( pitch side 1 / pitch side 2 )          =       0.942
+     Pitch angle for side 1 [degrees]                     =       6.000
+     Pitch angle for side 2 [degrees]                     =       6.372
+
+ +--------------------------------------------------------------------+
+ |                  User Defined Monitor Information                  |
+ +--------------------------------------------------------------------+
+
+ Monitor Point: InletMassFlow
+
+ +--------------------------------------------------------------------+
+ |                     Average Scale Information                      |
+ +--------------------------------------------------------------------+
+
+ Domain Name : Rotor
+     Global Length                                         = 6.9704E-02
+     Minimum Extent                                        = 8.6285E-02
+     Maximum Extent                                        = 1.0482E-01
+     Density                                               = 8.5000E+02
+     Dynamic Viscosity                                     = 4.0000E-02
+     Velocity                                              = 2.9452E+01
+     Advection Time                                        = 2.3667E-03
+     Reynolds Number                                       = 4.3624E+04
+
+ Domain Name : Stator
+     Global Length                                         = 6.7344E-02
+     Minimum Extent                                        = 8.4073E-02
+     Maximum Extent                                        = 1.0413E-01
+     Density                                               = 8.5000E+02
+     Dynamic Viscosity                                     = 4.0000E-02
+     Velocity                                              = 1.3178E+01
+     Advection Time                                        = 5.1103E-03
+     Reynolds Number                                       = 1.8859E+04
+
+ +--------------------------------------------------------------------+
+ |                Checking for Isolated Fluid Regions                 |
+ +--------------------------------------------------------------------+
+ 
+ No isolated fluid regions were found.
+
+ +--------------------------------------------------------------------+
+ |              The Equations Solved in This Calculation              |
+ +--------------------------------------------------------------------+
+ 
+ Equations are given two labels: the individual name and a combined 
+ name used for combining residuals together.  Residuals for multidomain 
+ problems are combined provided the domains are connected together and 
+ have the same domain type (solid or fluid/porous).  If there are 
+ multiple groups of the same domain type, then the group residual is 
+ identified by the name of the first domain in the connected group. 
+ 
+ The individual and combined equation names are given below.
+
+ Subsystem : Wall Scale
+
+   Wallscale-Rotor                           --> Wallscale
+   Wallscale-Stator                          --> Wallscale
+
+ Subsystem : Momentum and Mass
+
+   U-Mom-Rotor                               --> U-Mom
+   V-Mom-Rotor                               --> V-Mom
+   W-Mom-Rotor                               --> W-Mom
+   P-Mass-Rotor                              --> P-Mass
+   U-Mom-Stator                              --> U-Mom
+   V-Mom-Stator                              --> V-Mom
+   W-Mom-Stator                              --> W-Mom
+   P-Mass-Stator                             --> P-Mass
+
+ Subsystem : TurbKE and TurbFreq
+
+   K-TurbKE-Rotor                            --> K-TurbKE
+   O-TurbFreq-Rotor                          --> O-TurbFreq
+   K-TurbKE-Stator                           --> K-TurbKE
+   O-TurbFreq-Stator                         --> O-TurbFreq
+                   
+ CFD Solver started: Fri Oct 23 14:01:29 2026
+
+
+ +--------------------------------------------------------------------+
+ |                       Convergence History                          |
+ +--------------------------------------------------------------------+
+
+ ======================================================================
+ |                        Timescale Information                       |
+ ----------------------------------------------------------------------
+ |       Equation       |         Type          |      Timescale      |
+ +----------------------+-----------------------+---------------------+
+ | U-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | V-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | W-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | U-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ | V-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ | W-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ +----------------------+-----------------------+---------------------+
+ | K-TurbKE-Rotor       | Auto Timescale        |     1.44310E-03     |
+ | O-TurbFreq-Rotor     | Auto Timescale        |     1.44310E-03     |
+ | K-TurbKE-Stator      | Auto Timescale        |     1.44310E-03     |
+ | O-TurbFreq-Stator    | Auto Timescale        |     1.44310E-03     |
+ +----------------------+-----------------------+---------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =    1                    CPU SECONDS = 1.581E+00
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | Wallscale            | 0.00 | 1.4E-03 | 6.4E-03 | 24.9  9.6E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.00 | 2.0E-04 | 3.5E-03 |       1.8E+00  ok|
+ | V-Mom                | 0.00 | 1.8E-03 | 2.3E-02 |       9.0E-01  ok|
+ | W-Mom                | 0.00 | 5.0E-03 | 4.6E-02 |       1.3E-01  ok|
+ | P-Mass               | 0.00 | 8.6E-03 | 8.3E-02 |  9.5  2.5E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.00 | 2.1E-02 | 1.3E-01 |  5.7  3.9E-02  OK|
+ | O-TurbFreq           | 0.00 | 7.2E-02 | 1.0E+00 |  8.0  2.5E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =    2                    CPU SECONDS = 4.739E+00
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | Wallscale            | 0.90 | 1.2E-03 | 5.1E-02 | 10.6  7.7E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                |53.64 | 1.1E-02 | 1.6E-01 |       1.8E-02  OK|
+ | V-Mom                |22.28 | 4.0E-02 | 4.4E-01 |       1.6E-02  OK|
+ | W-Mom                | 5.09 | 2.6E-02 | 2.4E-01 |       3.9E-02  OK|
+ | P-Mass               | 0.12 | 1.0E-03 | 2.1E-02 |  9.5  9.4E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 2.01 | 4.2E-02 | 3.3E-01 |  5.7  8.4E-03  OK|
+ | O-TurbFreq           | 0.24 | 1.7E-02 | 2.2E-01 |  8.0  1.9E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =    3                    CPU SECONDS = 8.942E+00
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | Wallscale            | 0.46 | 5.7E-04 | 2.4E-02 | 15.3  8.0E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 1.68 | 1.8E-02 | 3.4E-01 |       4.2E-02  OK|
+ | V-Mom                | 1.40 | 5.6E-02 | 8.6E-01 |       4.2E-02  OK|
+ | W-Mom                | 1.23 | 3.1E-02 | 4.0E-01 |       7.7E-02  OK|
+ | P-Mass               | 1.49 | 1.5E-03 | 1.8E-02 |  5.2  4.4E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.99 | 4.1E-02 | 5.8E-01 |  5.7  3.1E-03  OK|
+ | O-TurbFreq           | 1.94 | 3.3E-02 | 6.5E-01 |  8.0  3.6E-04  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =    4                    CPU SECONDS = 1.299E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | Wallscale            | 0.53 | 3.0E-04 | 1.1E-02 | 15.3  7.9E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.73 | 1.3E-02 | 2.9E-01 |       6.0E-02  OK|
+ | V-Mom                | 0.76 | 4.3E-02 | 8.6E-01 |       6.0E-02  OK|
+ | W-Mom                | 0.71 | 2.2E-02 | 2.4E-01 |       8.7E-02  OK|
+ | P-Mass               | 0.81 | 1.2E-03 | 1.8E-02 |  5.2  3.8E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.61 | 2.5E-02 | 4.9E-01 |  5.7  2.7E-03  OK|
+ | O-TurbFreq           | 0.83 | 2.7E-02 | 5.0E-01 |  8.0  1.9E-04  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =    5                    CPU SECONDS = 1.702E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | Wallscale            | 0.55 | 1.7E-04 | 5.2E-03 | 15.3  7.4E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.69 | 9.2E-03 | 2.3E-01 |       7.9E-02  OK|
+ | V-Mom                | 0.70 | 3.0E-02 | 6.4E-01 |       9.7E-02  OK|
+ | W-Mom                | 0.73 | 1.6E-02 | 2.2E-01 |       9.0E-02  OK|
+ | P-Mass               | 0.39 | 4.8E-04 | 6.4E-03 |  5.2  3.1E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 2.08 | 5.2E-02 | 1.2E+00 |  5.7  3.6E-03  OK|
+ | O-TurbFreq           | 1.12 | 3.1E-02 | 5.0E-01 |  8.0  3.0E-04  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ |                        Timescale Information                       |
+ ----------------------------------------------------------------------
+ |       Equation       |         Type          |      Timescale      |
+ +----------------------+-----------------------+---------------------+
+ | U-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | V-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | W-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | U-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ | V-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ | W-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ +----------------------+-----------------------+---------------------+
+ | K-TurbKE-Rotor       | Auto Timescale        |     1.44310E-03     |
+ | O-TurbFreq-Rotor     | Auto Timescale        |     1.44310E-03     |
+ | K-TurbKE-Stator      | Auto Timescale        |     1.44310E-03     |
+ | O-TurbFreq-Stator    | Auto Timescale        |     1.44310E-03     |
+ +----------------------+-----------------------+---------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =    6                    CPU SECONDS = 2.113E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | Wallscale            | 0.56 | 9.3E-05 | 2.7E-03 | 15.3  6.9E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.62 | 5.8E-03 | 1.3E-01 |       8.1E-02  OK|
+ | V-Mom                | 0.67 | 2.0E-02 | 4.0E-01 |       9.5E-02  OK|
+ | W-Mom                | 0.69 | 1.1E-02 | 1.8E-01 |       1.0E-01  ok|
+ | P-Mass               | 0.79 | 3.8E-04 | 5.9E-03 |  5.2  9.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.51 | 2.6E-02 | 4.0E-01 |  5.7  7.7E-03  OK|
+ | O-TurbFreq           | 0.72 | 2.2E-02 | 3.6E-01 |  8.0  5.4E-04  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =    7                    CPU SECONDS = 2.527E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.62 | 3.6E-03 | 7.9E-02 |       9.0E-02  OK|
+ | V-Mom                | 0.66 | 1.3E-02 | 2.6E-01 |       9.9E-02  OK|
+ | W-Mom                | 0.70 | 7.9E-03 | 1.2E-01 |       1.2E-01  ok|
+ | P-Mass               | 0.78 | 2.9E-04 | 4.1E-03 |  5.2  7.9E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.52 | 1.4E-02 | 2.4E-01 |  5.7  1.2E-02  OK|
+ | O-TurbFreq           | 0.61 | 1.4E-02 | 2.4E-01 |  8.0  9.0E-04  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =    8                    CPU SECONDS = 2.871E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.60 | 2.2E-03 | 3.9E-02 |       2.4E-02  OK|
+ | V-Mom                | 0.62 | 8.3E-03 | 1.5E-01 |       3.4E-02  OK|
+ | W-Mom                | 0.72 | 5.7E-03 | 8.6E-02 |       3.4E-02  OK|
+ | P-Mass               | 0.69 | 2.0E-04 | 2.6E-03 |  9.5  4.1E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.59 | 8.1E-03 | 1.2E-01 |  5.7  1.4E-02  OK|
+ | O-TurbFreq           | 0.57 | 7.8E-03 | 1.5E-01 |  8.0  1.8E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =    9                    CPU SECONDS = 3.246E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.66 | 1.4E-03 | 2.6E-02 |       2.4E-02  OK|
+ | V-Mom                | 0.63 | 5.2E-03 | 8.6E-02 |       2.9E-02  OK|
+ | W-Mom                | 0.77 | 4.4E-03 | 6.2E-02 |       2.7E-02  OK|
+ | P-Mass               | 0.66 | 1.3E-04 | 1.8E-03 |  9.5  4.8E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.77 | 6.2E-03 | 1.3E-01 |  5.7  1.4E-02  OK|
+ | O-TurbFreq           | 0.50 | 3.9E-03 | 8.9E-02 |  8.0  3.6E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   10                    CPU SECONDS = 3.602E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.71 | 1.0E-03 | 2.6E-02 |       2.5E-02  OK|
+ | V-Mom                | 0.67 | 3.5E-03 | 4.6E-02 |       2.6E-02  OK|
+ | W-Mom                | 0.82 | 3.6E-03 | 5.9E-02 |       2.4E-02  OK|
+ | P-Mass               | 0.67 | 8.8E-05 | 1.2E-03 |  9.5  5.9E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.94 | 5.8E-03 | 1.3E-01 |  5.7  1.4E-02  OK|
+ | O-TurbFreq           | 0.46 | 1.8E-03 | 4.3E-02 |  8.0  7.7E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ |                        Timescale Information                       |
+ ----------------------------------------------------------------------
+ |       Equation       |         Type          |      Timescale      |
+ +----------------------+-----------------------+---------------------+
+ | U-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | V-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | W-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | U-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ | V-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ | W-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ +----------------------+-----------------------+---------------------+
+ | K-TurbKE-Rotor       | Auto Timescale        |     1.44310E-03     |
+ | O-TurbFreq-Rotor     | Auto Timescale        |     1.44310E-03     |
+ | K-TurbKE-Stator      | Auto Timescale        |     1.44310E-03     |
+ | O-TurbFreq-Stator    | Auto Timescale        |     1.44310E-03     |
+ +----------------------+-----------------------+---------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   11                    CPU SECONDS = 3.956E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.78 | 7.9E-04 | 2.0E-02 |       2.6E-02  OK|
+ | V-Mom                | 0.73 | 2.6E-03 | 3.8E-02 |       2.6E-02  OK|
+ | W-Mom                | 0.84 | 3.1E-03 | 5.6E-02 |       2.3E-02  OK|
+ | P-Mass               | 0.75 | 6.6E-05 | 9.8E-04 |  9.5  7.5E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.97 | 5.6E-03 | 1.3E-01 |  5.7  1.5E-02  OK|
+ | O-TurbFreq           | 0.64 | 1.2E-03 | 2.6E-02 |  8.0  1.0E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   12                    CPU SECONDS = 4.310E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.83 | 6.6E-04 | 1.7E-02 |       2.7E-02  OK|
+ | V-Mom                | 0.79 | 2.0E-03 | 3.3E-02 |       2.6E-02  OK|
+ | W-Mom                | 0.86 | 2.6E-03 | 5.3E-02 |       2.3E-02  OK|
+ | P-Mass               | 0.82 | 5.4E-05 | 8.8E-04 |  9.5  9.5E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.94 | 5.3E-03 | 1.5E-01 |  5.7  1.5E-02  OK|
+ | O-TurbFreq           | 0.90 | 1.0E-03 | 2.6E-02 |  8.0  9.1E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   13                    CPU SECONDS = 4.672E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.85 | 5.6E-04 | 1.7E-02 |       7.1E-03  OK|
+ | V-Mom                | 0.83 | 1.7E-03 | 2.9E-02 |       8.4E-03  OK|
+ | W-Mom                | 0.87 | 2.3E-03 | 5.0E-02 |       7.9E-03  OK|
+ | P-Mass               | 0.85 | 4.6E-05 | 7.7E-04 | 13.7  4.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.87 | 4.6E-03 | 1.4E-01 |  5.7  1.4E-02  OK|
+ | O-TurbFreq           | 0.90 | 9.4E-04 | 2.5E-02 |  8.0  8.4E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   14                    CPU SECONDS = 5.039E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.86 | 4.8E-04 | 1.3E-02 |       6.7E-03  OK|
+ | V-Mom                | 0.86 | 1.4E-03 | 2.2E-02 |       7.2E-03  OK|
+ | W-Mom                | 0.87 | 2.0E-03 | 4.0E-02 |       7.1E-03  OK|
+ | P-Mass               | 0.88 | 4.0E-05 | 6.6E-04 | 13.7  4.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.81 | 3.7E-03 | 1.1E-01 |  5.7  1.4E-02  OK|
+ | O-TurbFreq           | 0.87 | 8.1E-04 | 1.9E-02 |  8.0  8.4E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   15                    CPU SECONDS = 5.410E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.85 | 4.1E-04 | 9.1E-03 |       6.6E-03  OK|
+ | V-Mom                | 0.87 | 1.3E-03 | 1.8E-02 |       6.8E-03  OK|
+ | W-Mom                | 0.86 | 1.7E-03 | 3.5E-02 |       6.8E-03  OK|
+ | P-Mass               | 0.88 | 3.6E-05 | 5.7E-04 | 13.7  4.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.81 | 3.0E-03 | 8.7E-02 |  5.7  1.3E-02  OK|
+ | O-TurbFreq           | 0.88 | 7.2E-04 | 1.7E-02 |  8.0  8.2E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ |                        Timescale Information                       |
+ ----------------------------------------------------------------------
+ |       Equation       |         Type          |      Timescale      |
+ +----------------------+-----------------------+---------------------+
+ | U-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | V-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | W-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | U-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ | V-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ | W-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ +----------------------+-----------------------+---------------------+
+ | K-TurbKE-Rotor       | Auto Timescale        |     1.44310E-03     |
+ | O-TurbFreq-Rotor     | Auto Timescale        |     1.44310E-03     |
+ | K-TurbKE-Stator      | Auto Timescale        |     1.44310E-03     |
+ | O-TurbFreq-Stator    | Auto Timescale        |     1.44310E-03     |
+ +----------------------+-----------------------+---------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   16                    CPU SECONDS = 5.778E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.87 | 3.5E-04 | 8.2E-03 |       6.6E-03  OK|
+ | V-Mom                | 0.88 | 1.1E-03 | 1.8E-02 |       6.8E-03  OK|
+ | W-Mom                | 0.85 | 1.5E-03 | 2.8E-02 |       6.7E-03  OK|
+ | P-Mass               | 0.89 | 3.2E-05 | 5.0E-04 | 13.7  4.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.82 | 2.5E-03 | 7.3E-02 |  5.7  1.1E-02  OK|
+ | O-TurbFreq           | 0.88 | 6.3E-04 | 1.4E-02 |  8.0  8.2E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   17                    CPU SECONDS = 6.146E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.86 | 3.1E-04 | 6.6E-03 |       6.6E-03  OK|
+ | V-Mom                | 0.88 | 9.7E-04 | 1.6E-02 |       7.0E-03  OK|
+ | W-Mom                | 0.84 | 1.2E-03 | 2.2E-02 |       6.9E-03  OK|
+ | P-Mass               | 0.88 | 2.8E-05 | 4.3E-04 | 13.7  4.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.83 | 2.1E-03 | 6.3E-02 |  5.7  8.7E-03  OK|
+ | O-TurbFreq           | 0.87 | 5.5E-04 | 1.1E-02 |  8.0  8.1E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   18                    CPU SECONDS = 6.513E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.87 | 2.7E-04 | 5.5E-03 |       6.2E-03  OK|
+ | V-Mom                | 0.88 | 8.5E-04 | 1.3E-02 |       7.0E-03  OK|
+ | W-Mom                | 0.84 | 1.0E-03 | 1.8E-02 |       6.9E-03  OK|
+ | P-Mass               | 0.88 | 2.4E-05 | 3.6E-04 | 13.7  4.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.83 | 1.7E-03 | 4.9E-02 |  5.7  7.6E-03  OK|
+ | O-TurbFreq           | 0.87 | 4.8E-04 | 9.4E-03 |  8.0  8.4E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   19                    CPU SECONDS = 6.877E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.87 | 2.3E-04 | 5.3E-03 |       5.5E-03  OK|
+ | V-Mom                | 0.88 | 7.5E-04 | 1.0E-02 |       6.7E-03  OK|
+ | W-Mom                | 0.84 | 8.7E-04 | 1.6E-02 |       6.6E-03  OK|
+ | P-Mass               | 0.87 | 2.1E-05 | 3.1E-04 | 13.7  4.1E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.83 | 1.4E-03 | 3.6E-02 |  5.7  7.3E-03  OK|
+ | O-TurbFreq           | 0.86 | 4.1E-04 | 8.2E-03 |  8.0  8.6E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   20                    CPU SECONDS = 7.245E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.87 | 2.0E-04 | 4.6E-03 |       5.0E-03  OK|
+ | V-Mom                | 0.88 | 6.6E-04 | 8.8E-03 |       6.4E-03  OK|
+ | W-Mom                | 0.85 | 7.4E-04 | 1.4E-02 |       6.3E-03  OK|
+ | P-Mass               | 0.87 | 1.8E-05 | 2.7E-04 | 13.7  4.0E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.83 | 1.2E-03 | 2.6E-02 |  5.7  7.7E-03  OK|
+ | O-TurbFreq           | 0.85 | 3.5E-04 | 7.1E-03 |  8.0  9.0E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ |                        Timescale Information                       |
+ ----------------------------------------------------------------------
+ |       Equation       |         Type          |      Timescale      |
+ +----------------------+-----------------------+---------------------+
+ | U-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | V-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | W-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | U-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ | V-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ | W-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ +----------------------+-----------------------+---------------------+
+ | K-TurbKE-Rotor       | Auto Timescale        |     1.44310E-03     |
+ | O-TurbFreq-Rotor     | Auto Timescale        |     1.44310E-03     |
+ | K-TurbKE-Stator      | Auto Timescale        |     1.44310E-03     |
+ | O-TurbFreq-Stator    | Auto Timescale        |     1.44310E-03     |
+ +----------------------+-----------------------+---------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   21                    CPU SECONDS = 7.614E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.88 | 1.8E-04 | 4.4E-03 |       4.7E-03  OK|
+ | V-Mom                | 0.88 | 5.8E-04 | 7.5E-03 |       6.3E-03  OK|
+ | W-Mom                | 0.85 | 6.3E-04 | 1.2E-02 |       6.2E-03  OK|
+ | P-Mass               | 0.87 | 1.6E-05 | 2.3E-04 | 13.7  4.1E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.83 | 1.0E-03 | 1.8E-02 |  5.7  8.5E-03  OK|
+ | O-TurbFreq           | 0.85 | 3.0E-04 | 6.0E-03 |  8.0  9.4E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   22                    CPU SECONDS = 7.981E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.89 | 1.6E-04 | 3.9E-03 |       4.6E-03  OK|
+ | V-Mom                | 0.88 | 5.1E-04 | 6.7E-03 |       6.5E-03  OK|
+ | W-Mom                | 0.85 | 5.4E-04 | 1.1E-02 |       6.2E-03  OK|
+ | P-Mass               | 0.87 | 1.4E-05 | 2.0E-04 | 13.7  4.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.84 | 8.3E-04 | 1.2E-02 |  5.7  9.3E-03  OK|
+ | O-TurbFreq           | 0.85 | 2.5E-04 | 4.9E-03 |  8.0  9.6E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   23                    CPU SECONDS = 8.349E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.89 | 1.4E-04 | 3.3E-03 |       4.7E-03  OK|
+ | V-Mom                | 0.88 | 4.5E-04 | 6.0E-03 |       6.8E-03  OK|
+ | W-Mom                | 0.86 | 4.6E-04 | 1.0E-02 |       6.4E-03  OK|
+ | P-Mass               | 0.87 | 1.2E-05 | 1.7E-04 | 13.7  4.6E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.84 | 7.0E-04 | 8.6E-03 |  5.7  9.8E-03  OK|
+ | O-TurbFreq           | 0.85 | 2.2E-04 | 4.2E-03 |  8.0  9.6E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   24                    CPU SECONDS = 8.715E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.90 | 1.3E-04 | 3.1E-03 |       4.8E-03  OK|
+ | V-Mom                | 0.88 | 4.0E-04 | 5.3E-03 |       7.1E-03  OK|
+ | W-Mom                | 0.86 | 4.0E-04 | 9.1E-03 |       6.5E-03  OK|
+ | P-Mass               | 0.87 | 1.0E-05 | 1.5E-04 | 13.7  4.8E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.85 | 5.9E-04 | 7.3E-03 |  5.7  1.0E-02  OK|
+ | O-TurbFreq           | 0.86 | 1.9E-04 | 3.4E-03 |  8.0  9.5E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   25                    CPU SECONDS = 9.082E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.90 | 1.1E-04 | 2.8E-03 |       4.9E-03  OK|
+ | V-Mom                | 0.88 | 3.5E-04 | 4.8E-03 |       7.3E-03  OK|
+ | W-Mom                | 0.87 | 3.4E-04 | 8.1E-03 |       6.6E-03  OK|
+ | P-Mass               | 0.87 | 9.1E-06 | 1.3E-04 | 13.7  5.0E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.85 | 5.1E-04 | 6.1E-03 |  5.7  1.0E-02  OK|
+ | O-TurbFreq           | 0.86 | 1.6E-04 | 3.1E-03 |  8.0  9.3E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ |                        Timescale Information                       |
+ ----------------------------------------------------------------------
+ |       Equation       |         Type          |      Timescale      |
+ +----------------------+-----------------------+---------------------+
+ | U-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | V-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | W-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | U-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ | V-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ | W-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ +----------------------+-----------------------+---------------------+
+ | K-TurbKE-Rotor       | Auto Timescale        |     1.44310E-03     |
+ | O-TurbFreq-Rotor     | Auto Timescale        |     1.44310E-03     |
+ | K-TurbKE-Stator      | Auto Timescale        |     1.44310E-03     |
+ | O-TurbFreq-Stator    | Auto Timescale        |     1.44310E-03     |
+ +----------------------+-----------------------+---------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   26                    CPU SECONDS = 9.449E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.90 | 1.0E-04 | 2.1E-03 |       4.9E-03  OK|
+ | V-Mom                | 0.88 | 3.1E-04 | 4.2E-03 |       7.4E-03  OK|
+ | W-Mom                | 0.87 | 3.0E-04 | 6.8E-03 |       6.6E-03  OK|
+ | P-Mass               | 0.87 | 7.9E-06 | 1.1E-04 | 13.7  5.0E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.85 | 4.3E-04 | 5.1E-03 |  5.7  1.0E-02  OK|
+ | O-TurbFreq           | 0.86 | 1.4E-04 | 2.8E-03 |  8.0  9.0E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   27                    CPU SECONDS = 9.817E+01
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.90 | 9.2E-05 | 1.6E-03 |       4.8E-03  OK|
+ | V-Mom                | 0.88 | 2.8E-04 | 4.3E-03 |       7.3E-03  OK|
+ | W-Mom                | 0.87 | 2.6E-04 | 5.7E-03 |       6.5E-03  OK|
+ | P-Mass               | 0.87 | 6.9E-06 | 1.0E-04 | 13.7  5.1E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.86 | 3.7E-04 | 4.3E-03 |  5.7  1.0E-02  OK|
+ | O-TurbFreq           | 0.87 | 1.2E-04 | 2.6E-03 |  8.0  8.8E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   28                    CPU SECONDS = 1.018E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.90 | 8.3E-05 | 1.5E-03 |       4.6E-03  OK|
+ | V-Mom                | 0.88 | 2.4E-04 | 4.2E-03 |       7.2E-03  OK|
+ | W-Mom                | 0.87 | 2.3E-04 | 4.8E-03 |       6.4E-03  OK|
+ | P-Mass               | 0.87 | 6.0E-06 | 8.9E-05 | 13.7  5.0E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.86 | 3.2E-04 | 3.6E-03 |  5.7  1.0E-02  OK|
+ | O-TurbFreq           | 0.87 | 1.0E-04 | 2.3E-03 |  8.0  8.5E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   29                    CPU SECONDS = 1.055E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.90 | 7.5E-05 | 1.3E-03 |       4.4E-03  OK|
+ | V-Mom                | 0.88 | 2.2E-04 | 4.0E-03 |       6.9E-03  OK|
+ | W-Mom                | 0.87 | 2.0E-04 | 4.2E-03 |       6.1E-03  OK|
+ | P-Mass               | 0.87 | 5.2E-06 | 7.9E-05 | 13.7  4.9E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.86 | 2.7E-04 | 3.0E-03 |  5.7  1.1E-02  OK|
+ | O-TurbFreq           | 0.87 | 9.0E-05 | 2.1E-03 |  8.0  8.3E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   30                    CPU SECONDS = 1.092E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.90 | 6.7E-05 | 1.3E-03 |       4.2E-03  OK|
+ | V-Mom                | 0.88 | 1.9E-04 | 3.7E-03 |       6.5E-03  OK|
+ | W-Mom                | 0.88 | 1.7E-04 | 3.8E-03 |       5.9E-03  OK|
+ | P-Mass               | 0.87 | 4.6E-06 | 7.0E-05 | 13.7  4.8E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.86 | 2.3E-04 | 2.6E-03 |  5.7  1.1E-02  OK|
+ | O-TurbFreq           | 0.87 | 7.9E-05 | 1.8E-03 |  8.0  8.0E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ |                        Timescale Information                       |
+ ----------------------------------------------------------------------
+ |       Equation       |         Type          |      Timescale      |
+ +----------------------+-----------------------+---------------------+
+ | U-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | V-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | W-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | U-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ | V-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ | W-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ +----------------------+-----------------------+---------------------+
+ | K-TurbKE-Rotor       | Auto Timescale        |     1.44310E-03     |
+ | O-TurbFreq-Rotor     | Auto Timescale        |     1.44310E-03     |
+ | K-TurbKE-Stator      | Auto Timescale        |     1.44310E-03     |
+ | O-TurbFreq-Stator    | Auto Timescale        |     1.44310E-03     |
+ +----------------------+-----------------------+---------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   31                    CPU SECONDS = 1.128E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.90 | 6.0E-05 | 1.2E-03 |       4.0E-03  OK|
+ | V-Mom                | 0.89 | 1.7E-04 | 3.4E-03 |       6.2E-03  OK|
+ | W-Mom                | 0.88 | 1.5E-04 | 3.4E-03 |       5.6E-03  OK|
+ | P-Mass               | 0.87 | 4.0E-06 | 6.3E-05 | 13.7  4.7E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.86 | 2.0E-04 | 2.2E-03 |  5.7  1.1E-02  OK|
+ | O-TurbFreq           | 0.88 | 6.9E-05 | 1.7E-03 |  8.0  7.7E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   32                    CPU SECONDS = 1.165E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.89 | 5.4E-05 | 1.1E-03 |       3.7E-03  OK|
+ | V-Mom                | 0.89 | 1.5E-04 | 3.1E-03 |       5.8E-03  OK|
+ | W-Mom                | 0.88 | 1.4E-04 | 3.1E-03 |       5.4E-03  OK|
+ | P-Mass               | 0.87 | 3.5E-06 | 5.6E-05 | 13.7  4.6E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.86 | 1.7E-04 | 1.9E-03 |  5.7  1.1E-02  OK|
+ | O-TurbFreq           | 0.88 | 6.1E-05 | 1.5E-03 |  8.0  7.5E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   33                    CPU SECONDS = 1.201E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.89 | 4.8E-05 | 1.1E-03 |       3.6E-03  OK|
+ | V-Mom                | 0.89 | 1.3E-04 | 2.7E-03 |       5.4E-03  OK|
+ | W-Mom                | 0.89 | 1.2E-04 | 2.8E-03 |       5.1E-03  OK|
+ | P-Mass               | 0.87 | 3.0E-06 | 5.0E-05 | 13.7  4.5E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.87 | 1.5E-04 | 1.7E-03 |  5.7  1.1E-02  OK|
+ | O-TurbFreq           | 0.88 | 5.4E-05 | 1.4E-03 |  8.0  7.2E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   34                    CPU SECONDS = 1.238E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.90 | 4.3E-05 | 9.9E-04 |       3.4E-03  OK|
+ | V-Mom                | 0.89 | 1.2E-04 | 2.4E-03 |       5.0E-03  OK|
+ | W-Mom                | 0.89 | 1.1E-04 | 2.6E-03 |       4.8E-03  OK|
+ | P-Mass               | 0.87 | 2.6E-06 | 4.5E-05 | 13.7  4.3E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.87 | 1.3E-04 | 1.5E-03 |  5.7  1.2E-02  OK|
+ | O-TurbFreq           | 0.88 | 4.7E-05 | 1.2E-03 |  8.0  7.0E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   35                    CPU SECONDS = 1.275E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.90 | 3.9E-05 | 9.3E-04 |       3.2E-03  OK|
+ | V-Mom                | 0.89 | 1.0E-04 | 2.1E-03 |       4.7E-03  OK|
+ | W-Mom                | 0.89 | 9.4E-05 | 2.4E-03 |       4.6E-03  OK|
+ | P-Mass               | 0.87 | 2.3E-06 | 4.0E-05 | 13.7  4.2E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.87 | 1.1E-04 | 1.5E-03 |  5.7  1.2E-02  OK|
+ | O-TurbFreq           | 0.88 | 4.2E-05 | 1.1E-03 |  8.0  6.8E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+
+ ======================================================================
+ |                        Timescale Information                       |
+ ----------------------------------------------------------------------
+ |       Equation       |         Type          |      Timescale      |
+ +----------------------+-----------------------+---------------------+
+ | U-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | V-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | W-Mom-Rotor          | Auto Timescale        |     1.44310E-03     |
+ | U-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ | V-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ | W-Mom-Stator         | Auto Timescale        |     1.44310E-03     |
+ +----------------------+-----------------------+---------------------+
+ | K-TurbKE-Rotor       | Auto Timescale        |     1.44310E-03     |
+ | O-TurbFreq-Rotor     | Auto Timescale        |     1.44310E-03     |
+ | K-TurbKE-Stator      | Auto Timescale        |     1.44310E-03     |
+ | O-TurbFreq-Stator    | Auto Timescale        |     1.44310E-03     |
+ +----------------------+-----------------------+---------------------+
+
+ ======================================================================
+ OUTER LOOP ITERATION =   36                    CPU SECONDS = 1.312E+02
+ ----------------------------------------------------------------------
+ |       Equation       | Rate | RMS Res | Max Res |  Linear Solution |
+ +----------------------+------+---------+---------+------------------+
+ | U-Mom                | 0.90 | 3.5E-05 | 8.6E-04 |       3.0E-03  OK|
+ | V-Mom                | 0.89 | 9.3E-05 | 1.8E-03 |       4.4E-03  OK|
+ | W-Mom                | 0.89 | 8.4E-05 | 2.2E-03 |       4.4E-03  OK|
+ | P-Mass               | 0.87 | 2.0E-06 | 3.6E-05 | 13.7  4.0E-02  OK|
+ +----------------------+------+---------+---------+------------------+
+ | K-TurbKE             | 0.87 | 9.9E-05 | 1.3E-03 |  5.7  1.3E-02  OK|
+ | O-TurbFreq           | 0.88 | 3.7E-05 | 9.7E-04 |  8.0  6.6E-03  OK|
+ +----------------------+------+---------+---------+------------------+
+                   
+ CFD Solver finished: Fri Oct 23 14:03:42 2026
+ CFD Solver wall clock seconds: 1.3326E+02
+
+ ======================================================================
+              Termination and Interrupt Condition Summary
+ ======================================================================
+    
+ CFD Solver: All target criteria reached
+   (Equation residuals)
+
+ ======================================================================
+              Boundary Flow and Total Source Term Summary
+ ======================================================================
+
+ +--------------------------------------------------------------------+
+ |                            U-Mom-Rotor                             |
+ +--------------------------------------------------------------------+
+ Boundary         : Oil Outlet                              1.2589E+02
+ Boundary         : Rotor Blade                             3.2426E+03
+ Boundary         : Rotor Hub                               3.5551E+04
+ Boundary         : Rotor Shroud                           -4.7712E+04
+ Boundary         : Periodic                                8.6412E+03
+ Domain Src (Pos) : Rotor                                   3.1638E+02
+ Domain Interface : StatorRotor Interface (Side 2)         -1.6576E+02
+                                                           -----------
+ Domain Imbalance :                                        -1.0843E-01
+
+ +--------------------------------------------------------------------+
+ |                            V-Mom-Rotor                             |
+ +--------------------------------------------------------------------+
+ Boundary         : Oil Outlet                             -3.8860E+02
+ Boundary         : Rotor Blade                            -3.3235E+02
+ Boundary         : Rotor Hub                               4.1576E+03
+ Boundary         : Rotor Shroud                           -5.8453E+03
+ Boundary         : Periodic                                1.1469E+03
+ Domain Src (Neg) : Rotor                                  -7.2693E-01
+ Domain Src (Pos) : Rotor                                   3.8829E+01
+ Domain Interface : StatorRotor Interface (Side 2)          1.2242E+03
+                                                           -----------
+ Domain Imbalance :                                         5.6689E-01
+
+ +--------------------------------------------------------------------+
+ |                            W-Mom-Rotor                             |
+ +--------------------------------------------------------------------+
+ Boundary         : Oil Outlet                             -3.5431E+04
+ Boundary         : Rotor Blade                            -3.3131E+02
+ Boundary         : Rotor Hub                               3.2297E+02
+ Boundary         : Rotor Shroud                            5.9721E+01
+ Boundary         : Periodic                               -2.9297E-02
+ Domain Interface : StatorRotor Interface (Side 2)          3.5378E+04
+                                                           -----------
+ Domain Imbalance :                                        -1.0430E+00
+
+ +--------------------------------------------------------------------+
+ |                            P-Mass-Rotor                            |
+ +--------------------------------------------------------------------+
+ Boundary         : Oil Outlet                             -3.6747E+01
+ Domain Interface : StatorRotor Interface (Side 2)          3.6747E+01
+                                                           -----------
+ Domain Imbalance :                                         3.0518E-05
+
+ +--------------------------------------------------------------------+
+ |                            U-Mom-Stator                            |
+ +--------------------------------------------------------------------+
+ Boundary         : Oil Inlet                              -7.4616E+02
+ Boundary         : Stator Blade                            2.1627E+02
+ Boundary         : Stator Hub                              3.6720E+04
+ Boundary         : Stator Shroud                          -4.4602E+04
+ Domain Interface : StatorRotor Interface (Side 1)          1.4891E+02
+ Domain Interface : Stator to Stator Periodic 1 (Side 1)    4.7527E+03
+ Domain Interface : Stator to Stator Periodic 1 (Side 2)    3.5104E+03
+                                                           -----------
+ Domain Imbalance :                                         1.8311E-02
+
+ +--------------------------------------------------------------------+
+ |                            V-Mom-Stator                            |
+ +--------------------------------------------------------------------+
+ Boundary         : Oil Inlet                              -1.4007E+01
+ Boundary         : Stator Blade                            1.2062E+03
+ Boundary         : Stator Hub                              1.0237E+03
+ Boundary         : Stator Shroud                          -9.9363E+02
+ Domain Interface : StatorRotor Interface (Side 1)         -1.1537E+03
+ Domain Interface : Stator to Stator Periodic 1 (Side 1)    7.8806E+04
+ Domain Interface : Stator to Stator Periodic 1 (Side 2)   -7.8874E+04
+                                                           -----------
+ Domain Imbalance :                                         1.3281E-01
+
+ +--------------------------------------------------------------------+
+ |                            W-Mom-Stator                            |
+ +--------------------------------------------------------------------+
+ Boundary         : Oil Inlet                               3.4741E+04
+ Boundary         : Stator Blade                           -1.7545E+03
+ Boundary         : Stator Hub                             -3.4410E+00
+ Boundary         : Stator Shroud                          -2.6070E+00
+ Domain Interface : StatorRotor Interface (Side 1)         -3.3006E+04
+ Domain Interface : Stator to Stator Periodic 1 (Side 1)   -3.5142E+04
+ Domain Interface : Stator to Stator Periodic 1 (Side 2)    3.5166E+04
+                                                           -----------
+ Domain Imbalance :                                        -9.1406E-01
+
+ +--------------------------------------------------------------------+
+ |                           P-Mass-Stator                            |
+ +--------------------------------------------------------------------+
+ Boundary         : Oil Inlet                               3.4602E+01
+ Domain Interface : StatorRotor Interface (Side 1)         -3.4601E+01
+ Domain Interface : Stator to Stator Periodic 1 (Side 1)    9.2843E+00
+ Domain Interface : Stator to Stator Periodic 1 (Side 2)   -9.2843E+00
+                                                           -----------
+ Domain Imbalance :                                         2.5368E-04
+
+
+ +--------------------------------------------------------------------+
+ |                     Normalised Imbalance Summary                   |
+ +--------------------------------------------------------------------+
+ |       Equation       |      Maximum Flow     |     Imbalance (%)   |
+ +--------------------------------------------------------------------+
+ | U-Mom-Rotor          |       7.8874E+04      |       -0.0001       |
+ | V-Mom-Rotor          |       7.8874E+04      |        0.0007       |
+ | W-Mom-Rotor          |       7.8874E+04      |       -0.0013       |
+ | P-Mass-Rotor         |       3.6747E+01      |        0.0001       |
+ | U-Mom-Stator         |       7.8874E+04      |        0.0000       |
+ | V-Mom-Stator         |       7.8874E+04      |        0.0002       |
+ | W-Mom-Stator         |       7.8874E+04      |       -0.0012       |
+ | P-Mass-Stator        |       3.6747E+01      |        0.0007       |
+ +----------------------+-----------------------+---------------------+
+
+ ======================================================================
+                     Wall Force and Moment Summary
+ ======================================================================
+                                                                          
+ Notes:
+ 1. Pressure integrals exclude the reference pressure.  To include
+    it, set the expert parameter 'include pref in forces = t'.
+ 2. These quantities are evaluated in a reference frame fixed to
+    the initial domain orientation and are not rotated if the orientation
+    changes (e.g. transient run or specified rotational offset).
+
+
+ +--------------------------------------------------------------------+
+ |                      Pressure Force On Walls                       |
+ +--------------------------------------------------------------------+
+                                    X-Comp.      Y-Comp.      Z-Comp.
+
+ Domain Group: Rotor
+
+ Rotor Blade                     -3.2439E+03   3.3877E+02   3.0562E+02
+ Rotor Hub                       -3.5551E+04  -4.1561E+03  -3.2442E+02
+ Rotor Shroud                     4.7711E+04   5.8490E+03  -6.2627E+01
+ Stator Blade                    -2.1410E+02  -1.2290E+03   1.7380E+03
+ Stator Hub                      -3.6720E+04  -1.0267E+03   6.0202E-01
+ Stator Shroud                    4.4602E+04   9.9080E+02  -4.8996E-01
+                                  -----------  -----------  -----------
+ Domain Group Totals :            1.6584E+04   7.6686E+02   1.6567E+03
+
+
+ +--------------------------------------------------------------------+
+ |                       Viscous Force On Walls                       |
+ +--------------------------------------------------------------------+
+                                    X-Comp.      Y-Comp.      Z-Comp.
+
+ Domain Group: Rotor
+
+ Rotor Blade                      1.3605E+00  -6.3731E+00   2.5705E+01
+ Rotor Hub                        1.5543E-01  -1.4819E+00   1.4488E+00
+ Rotor Shroud                     3.9310E-01  -3.7382E+00   2.9061E+00
+ Stator Blade                    -2.1713E+00   2.2676E+01   1.6407E+01
+ Stator Hub                      -2.5219E-01   2.9616E+00   2.8390E+00
+ Stator Shroud                   -1.8213E-01   2.8310E+00   3.0969E+00
+                                  -----------  -----------  -----------
+ Domain Group Totals :           -6.9662E-01   1.6876E+01   5.2403E+01
+
+
+ +--------------------------------------------------------------------+
+ |                      Pressure Moment On Walls                      |
+ +--------------------------------------------------------------------+
+                                    X-Comp.      Y-Comp.      Z-Comp.
+
+ Domain Group: Rotor
+
+ Rotor Blade                     -1.5816E+01  -3.8741E+02   3.2574E+02
+ Rotor Hub                        4.1721E+02  -3.7595E+03   1.5357E+01
+ Rotor Shroud                    -5.7174E+02   5.1090E+03   1.4410E+01
+ Stator Blade                     6.0828E+01  -7.2557E+02  -5.0006E+02
+ Stator Hub                       2.3853E+01   9.0628E+01  -7.8235E-02
+ Stator Shroud                   -2.3155E+01  -3.8597E+01   6.3184E-02
+                                  -----------  -----------  -----------
+ Domain Group Totals :           -1.0883E+02   2.8852E+02  -1.4456E+02
+
+
+ +--------------------------------------------------------------------+
+ |                       Viscous Moment On Walls                      |
+ +--------------------------------------------------------------------+
+                                    X-Comp.      Y-Comp.      Z-Comp.
+
+ Domain Group: Rotor
+
+ Rotor Blade                      2.3983E+00  -1.0473E+01  -2.8410E+00
+ Rotor Hub                        2.6887E-01  -5.2427E-01  -5.6565E-01
+ Rotor Shroud                     6.1282E-01  -1.2728E+00  -1.7210E+00
+ Stator Blade                    -6.3947E-01  -6.9348E+00   9.5078E+00
+ Stator Hub                      -8.0340E-02  -1.0907E+00   1.1346E+00
+ Stator Shroud                   -8.1322E-02  -1.4222E+00   1.2988E+00
+                                  -----------  -----------  -----------
+ Domain Group Totals :            2.4789E+00  -2.1718E+01   6.8135E+00
+
+
+ +--------------------------------------------------------------------+
+ |                   Locations of Maximum Residuals                   |
+ +--------------------------------------------------------------------+
+ |       Equation       |      Domain Name      |     Node Number     |
+ +--------------------------------------------------------------------+
+ | U-Mom                | Rotor                 |          25014      |
+ | V-Mom                | Stator                |            553      |
+ | W-Mom                | Stator                |           2297      |
+ | P-Mass               | Stator                |           2423      |
+ +----------------------+-----------------------+---------------------+
+ | K-TurbKE             | Rotor                 |          15991      |
+ | O-TurbFreq           | Rotor                 |          23684      |
+ +----------------------+-----------------------+---------------------+
+
+ ======================================================================
+ |                     False Transient Information                    |
+ +--------------------------------------------------------------------+
+ |       Equation       |         Type          | Elapsed Pseudo-Time |
+ +--------------------------------------------------------------------+
+ | U-Mom-Rotor          | Auto Timescale        |     5.19515E-02     |
+ | V-Mom-Rotor          | Auto Timescale        |     5.19515E-02     |
+ | W-Mom-Rotor          | Auto Timescale        |     5.19515E-02     |
+ | U-Mom-Stator         | Auto Timescale        |     5.19515E-02     |
+ | V-Mom-Stator         | Auto Timescale        |     5.19515E-02     |
+ | W-Mom-Stator         | Auto Timescale        |     5.19515E-02     |
+ +----------------------+-----------------------+---------------------+
+ | K-TurbKE-Rotor       | Auto Timescale        |     5.19515E-02     |
+ | O-TurbFreq-Rotor     | Auto Timescale        |     5.19515E-02     |
+ | K-TurbKE-Stator      | Auto Timescale        |     5.19515E-02     |
+ | O-TurbFreq-Stator    | Auto Timescale        |     5.19515E-02     |
+ +----------------------+-----------------------+---------------------+
+
+ +--------------------------------------------------------------------+
+ |                     Average Scale Information                      |
+ +--------------------------------------------------------------------+
+
+ Domain Name : Rotor
+     Global Length                                         = 6.9704E-02
+     Minimum Extent                                        = 8.6285E-02
+     Maximum Extent                                        = 1.0482E-01
+     Density                                               = 8.5000E+02
+     Dynamic Viscosity                                     = 4.0000E-02
+     Velocity                                              = 1.6310E+01
+     Advection Time                                        = 4.2737E-03
+     Reynolds Number                                       = 2.4159E+04
+
+ Domain Name : Stator
+     Global Length                                         = 6.7344E-02
+     Minimum Extent                                        = 8.4073E-02
+     Maximum Extent                                        = 1.0413E-01
+     Density                                               = 8.5000E+02
+     Dynamic Viscosity                                     = 4.0000E-02
+     Velocity                                              = 2.2293E+01
+     Advection Time                                        = 3.0208E-03
+     Reynolds Number                                       = 3.1903E+04
+
+ +--------------------------------------------------------------------+
+ |                     Variable Range Information                     |
+ +--------------------------------------------------------------------+
+
+ Domain Name : Rotor
+ +--------------------------------------------------------------------+
+ |      Variable Name                         |    min    |    max    |
+ +--------------------------------------------------------------------+
+ | Density                                    |  8.50E+02 |  8.50E+02 |
+ | Dynamic Viscosity                          |  4.00E-02 |  4.00E-02 |
+ | Velocity u                                 | -7.31E+00 |  7.83E+00 |
+ | Velocity v                                 | -2.00E+01 |  1.73E+01 |
+ | Velocity w                                 | -6.09E+00 |  2.32E+01 |
+ | Pressure                                   |  9.56E+06 |  9.90E+06 |
+ | Turbulence Kinetic Energy                  |  1.50E-01 |  7.70E+00 |
+ | Turbulence Eddy Frequency                  |  2.08E+03 |  1.58E+05 |
+ | Eddy Viscosity                             |  1.91E-03 |  5.04E-01 |
+ | Wall Scale                                 | -1.51E-06 |  4.95E-04 |
+ | Wall Distance                              |  0.00E+00 |  2.89E-02 |
+ +--------------------------------------------------------------------+
+
+ Domain Name : Stator
+ +--------------------------------------------------------------------+
+ |      Variable Name                         |    min    |    max    |
+ +--------------------------------------------------------------------+
+ | Density                                    |  8.50E+02 |  8.50E+02 |
+ | Dynamic Viscosity                          |  4.00E-02 |  4.00E-02 |
+ | Velocity u                                 | -8.64E+00 |  3.18E+00 |
+ | Velocity v                                 | -1.02E+01 |  3.89E+01 |
+ | Velocity w                                 | -8.59E+00 |  2.87E+01 |
+ | Pressure                                   |  9.27E+06 |  1.03E+07 |
+ | Turbulence Kinetic Energy                  |  1.98E-02 |  9.50E+00 |
+ | Turbulence Eddy Frequency                  |  8.71E+02 |  5.66E+06 |
+ | Eddy Viscosity                             |  3.01E-06 |  4.04E-01 |
+ | Wall Scale                                 | -1.05E-06 |  5.61E-04 |
+ | Wall Distance                              |  0.00E+00 |  3.31E-02 |
+ +--------------------------------------------------------------------+
+
+
+ +--------------------------------------------------------------------+
+ |            Host Memory Information (Mbytes): Solver                |
+ +--------------------------------------------------------------------+
+ |          Host           |     System     |      Peak      |   %    |
+ +-------------------------+----------------+----------------+--------+
+ | MSI                     |     32244.80   |       222.84   |   0.69 |
+ +-------------------------+----------------+----------------+--------+
+
+ +--------------------------------------------------------------------+
+ |                  CPU Time Requirements of Solver                   |
+ +--------------------------------------------------------------------+
+ 
+ Subsystem Name                  Discretization       Linear Solution
+                                (secs.   %total)     (secs.   %total) 
+ ----------------------------------------------------------------------
+ Wall Scale                     1.83E+00   1.3 %     1.61E+00   1.2 %
+ Momentum and Mass              5.73E+01  41.5 %     1.69E+01  12.3 %
+ TurbKE and TurbFreq            2.60E+01  18.8 %     1.74E+01  12.6 %
+                                -------- -------     --------  ------
+ Subsystem Summary              8.50E+01  61.6 %     3.59E+01  26.0 %
+
+ GGI Intersection               6.80E-02    0.0 %
+ File Reading                   4.90E-01    0.4 %
+ Search Calculations            6.99E-03    0.0 %
+ Variable Updates               1.15E+01    8.3 %
+ File Writing                   3.22E+00    2.3 %
+ Miscellaneous                  1.80E+00    1.3 %
+                                --------
+ Total                          1.38E+02
+
+ +--------------------------------------------------------------------+
+ |                   Job Information at End of Run                    |
+ +--------------------------------------------------------------------+
+
+ Host computer:  MSI (PID:7524)
+
+ Job finished:   Fri Oct 23 14:03:46 2026
+
+ Total wall clock time: 1.379E+02 seconds
+             or: (          0:         0:         2:    17.895 )
+                 (       Days:     Hours:   Minutes:   Seconds )
+
+End of solution stage.
+
+ +--------------------------------------------------------------------+
+ | The results from this run of the ANSYS CFX Solver have been        |
+ | written to                                                         |
+ | C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATIO- |
+ | N_2\hydraulic_oil_trial_pressure_sweep_004\op_10_001.res           |
+ +--------------------------------------------------------------------+
+
+
+This run of the ANSYS CFX Solver has finished.

@@ -1,0 +1,108 @@
+GUI INFORMATION:
+  RUN SETUP INFORMATION:
+    Definition File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep.mdef
+    Full Run Prefix = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002
+    Messages File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\gui-err.txt
+    Multiconfig = False
+    Object Name = Operating Point Run hydraulic oil trial pressure sweep 002
+    Operating Points = True
+    Output File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002.out
+    Run Name = hydraulic_oil_trial_pressure_sweep_002
+    Working Directory = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002
+  END
+END
+GUI INFORMATION:
+  CONFIG SETUP INFORMATION: Run op 1 001
+    Full Run Prefix = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_1_001
+    Messages File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_1_001.dir\gui-err.txt
+    Object Name = Run op 1 001
+    Operating Point Index = 1
+    Output File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_1_001.out
+    Run Name = op_1_001
+    Working Directory = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_1_001.dir
+  END
+END
+GUI INFORMATION:
+  CONFIG SETUP INFORMATION: Run op 2 001
+    Full Run Prefix = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_2_001
+    Messages File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_2_001.dir\gui-err.txt
+    Object Name = Run op 2 001
+    Operating Point Index = 2
+    Output File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_2_001.out
+    Run Name = op_2_001
+    Working Directory = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_2_001.dir
+  END
+END
+GUI INFORMATION:
+  CONFIG SETUP INFORMATION: Run op 3 001
+    Full Run Prefix = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_3_001
+    Messages File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_3_001.dir\gui-err.txt
+    Object Name = Run op 3 001
+    Operating Point Index = 3
+    Output File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_3_001.out
+    Run Name = op_3_001
+    Working Directory = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_3_001.dir
+  END
+END
+GUI INFORMATION:
+  CONFIG SETUP INFORMATION: Run op 4 001
+    Full Run Prefix = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_4_001
+    Messages File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_4_001.dir\gui-err.txt
+    Object Name = Run op 4 001
+    Operating Point Index = 4
+    Output File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_4_001.out
+    Run Name = op_4_001
+    Working Directory = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_4_001.dir
+  END
+END
+GUI INFORMATION:
+  RUN CONCLUSION INFORMATION: Run op 2 001
+    Run Name = op_2_001
+    Reason for Exit = ERROR
+  END
+END
+GUI INFORMATION:
+  RUN CONCLUSION INFORMATION: Run op 3 001
+    Run Name = op_3_001
+    Reason for Exit = ERROR
+  END
+END
+GUI INFORMATION:
+  RUN CONCLUSION INFORMATION: Run op 4 001
+    Run Name = op_4_001
+    Reason for Exit = ERROR
+  END
+END
+GUI INFORMATION:
+  CONFIG SETUP INFORMATION: Run op 5 001
+    Full Run Prefix = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_5_001
+    Messages File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_5_001.dir\gui-err.txt
+    Object Name = Run op 5 001
+    Operating Point Index = 5
+    Output File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_5_001.out
+    Run Name = op_5_001
+    Working Directory = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_5_001.dir
+  END
+END
+GUI INFORMATION:
+  CONFIG SETUP INFORMATION: Run op 6 001
+    Full Run Prefix = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_6_001
+    Messages File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_6_001.dir\gui-err.txt
+    Object Name = Run op 6 001
+    Operating Point Index = 6
+    Output File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_6_001.out
+    Run Name = op_6_001
+    Working Directory = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_6_001.dir
+  END
+END
+GUI INFORMATION:
+  CONFIG SETUP INFORMATION: Run op 7 001
+    Full Run Prefix = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_7_001
+    Messages File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_7_001.dir\gui-err.txt
+    Object Name = Run op 7 001
+    Operating Point Index = 7
+    Output File = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_7_001.out
+    Run Name = op_7_001
+    Working Directory = C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\hydraulic_oil_trial_pressure_sweep_002\op_7_001.dir
+  END
+END

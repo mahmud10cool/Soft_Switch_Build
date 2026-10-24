@@ -1,0 +1,718 @@
+ This run of the CFX 2026 R1 Solver started at 13:32:30 on 23 Oct 2026
+ by user mahmu on MSI (intel_xeon64.sse2_winnt).
+ 
+ 2026 R1
+ 
+  Point Releases and Patches installed:
+  Ansys, Inc. License Manager 2026 R1
+  Discovery (full install) 2026 R1
+  Core WB Files 2026 R1
+  optiSLang Core UI 2026 R1
+  CFX (includes CFD-Post) 2026 R1
+  Chemkin 2026 R1
+  EnSight 2026 R1
+  FENSAP-ICE 2026 R1
+  Fluent (includes CFD-Post) 2026 R1
+  Polyflow (includes CFD-Post) 2026 R1
+  Forte (includes EnSight) 2026 R1
+  Rocky 2026 R1
+  TurboGrid 2026 R1
+  ACIS Geometry Interface 2026 R1
+  AutoCAD Geometry Interface 2026 R1
+  Catia, Version 4 Geometry Interface 2026 R1
+  Catia, Version 5 Geometry Interface 2026 R1
+  Catia, Version 6 Geometry Interface 2026 R1
+  Creo Elements/Direct Modeling Geometry Interface 2026 R1
+  Creo Parametric Geometry Interface 2026 R1
+  Inventor Geometry Interface 2026 R1
+  JTOpen Geometry Interface 2026 R1
+  NX Geometry Interface 2026 R1
+  Parasolid Geometry Interface  2026 R1
+  Solid Edge Geometry Interface 2026 R1
+  SOLIDWORKS Geometry Interface 2026 R1
+  Speos 2026 R1
+  SpaceClaim 2026 R1
+  Speos RPC 2026 R1
+  Zemax OpticStudio 2026 R1
+  Dynamic Reporting 2026 R1
+  Aqwa 2026 R1
+  Autodyn 2026 R1
+  Material Calibration App 2026 R1
+  Mechanical Products 2026 R1
+  Motion 2026 R1
+  Academic Student 2026 R1
+ 
+ Setting up CFX Solver run ...
+ 
+ 
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                    CFX Command Language for Run                    |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+ 
+ LIBRARY:
+   CEL:
+     EXPRESSIONS:
+       Index = 3
+     END
+     FUNCTION: PressureSweep
+       Index Names = Index
+       Option = Table
+       DATA FIELD: OutletPressure
+         Field Name = OutletPressure
+         Result Units = [MPa]
+       END
+       DATA SOURCE:
+         Option = Internal
+       END
+       DATA VALUE: OutletPressure Generation Lower Bound
+         Result Units = [MPa]
+         Value Name = OutletPressure Generation Lower Bound
+       END
+       DATA VALUE: OutletPressure Generation Upper Bound
+         Result Units = [MPa]
+         Value Name = OutletPressure Generation Upper Bound
+       END
+     END
+   END
+   MATERIAL: Hydraulic Oil
+     Material Description = Generic Hydraulic Oil
+     Material Group = User
+     Option = Pure Substance
+     Thermodynamic State = Liquid
+     PROPERTIES:
+       Option = General Material
+       EQUATION OF STATE:
+         Density = 850 [kg m^-3]
+         Molar Mass = 500 [kg kmol^-1]
+         Option = Value
+       END
+       SPECIFIC HEAT CAPACITY:
+         Option = Value
+         Specific Heat Capacity = 2000 [J kg^-1 K^-1]
+         Specific Heat Type = Constant Pressure
+       END
+       DYNAMIC VISCOSITY:
+         Dynamic Viscosity = 0.04 [Pa s]
+         Option = Value
+       END
+       THERMAL CONDUCTIVITY:
+         Option = Value
+         Thermal Conductivity = 0.13 [W m^-1 K^-1]
+       END
+     END
+   END
+ END
+ FLOW: Flow Analysis 1
+   SOLUTION UNITS:
+     Angle Units = [rad]
+     Length Units = [m]
+     Mass Units = [kg]
+     Solid Angle Units = [sr]
+     Temperature Units = [K]
+     Time Units = [s]
+   END
+   ANALYSIS TYPE:
+     Option = Steady State
+     EXTERNAL SOLVER COUPLING:
+       Option = None
+     END
+   END
+   DOMAIN: Rotor
+     Coord Frame = Coord 0
+     Domain Type = Fluid
+     Location = Primitive 3D
+     BOUNDARY: Oil Outlet
+       Boundary Type = OUTLET
+       Frame Type = Stationary
+       Location = OUTFLOW
+       BOUNDARY CONDITIONS:
+         FLOW REGIME:
+           Option = Subsonic
+         END
+         MASS AND MOMENTUM:
+           Option = Average Static Pressure
+           Pressure Profile Blend = 0.05
+           Relative Pressure = PressureSweep.OutletPressure(Index)
+         END
+         PRESSURE AVERAGING:
+           Option = Average Over Whole Outlet
+         END
+       END
+     END
+     BOUNDARY: Rotor Blade
+       Boundary Type = WALL
+       Frame Type = Rotating
+       Location = BLADE
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: Rotor Hub
+       Boundary Type = WALL
+       Coord Frame = Coord 0
+       Frame Type = Rotating
+       Location = HUB
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: Rotor Shroud
+       Boundary Type = WALL
+       Coord Frame = Coord 0
+       Frame Type = Rotating
+       Location = SHROUD
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: Rotor to Rotor Periodic 1 Side 1
+       Boundary Type = INTERFACE
+       Location = PER1
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     BOUNDARY: Rotor to Rotor Periodic 1 Side 2
+       Boundary Type = INTERFACE
+       Location = PER2
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     BOUNDARY: StatorRotor Interface Side 2
+       Boundary Type = INTERFACE
+       Location = INFLOW
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     DOMAIN MODELS:
+       BUOYANCY MODEL:
+         Option = Non Buoyant
+       END
+       DOMAIN MOTION:
+         Alternate Rotation Model = true
+         Angular Velocity = 600 [rev min^-1]
+         Option = Rotating
+         AXIS DEFINITION:
+           Option = Coordinate Axis
+           Rotation Axis = Coord 0.3
+         END
+       END
+       MESH DEFORMATION:
+         Option = None
+       END
+       REFERENCE PRESSURE:
+         Reference Pressure = 1 [atm]
+       END
+     END
+     FLUID DEFINITION: Fluid 1
+       Material = Hydraulic Oil
+       Option = Material Library
+       MORPHOLOGY:
+         Option = Continuous Fluid
+       END
+     END
+     FLUID MODELS:
+       COMBUSTION MODEL:
+         Option = None
+       END
+       HEAT TRANSFER MODEL:
+         Option = None
+       END
+       THERMAL RADIATION MODEL:
+         Option = None
+       END
+       TURBULENCE MODEL:
+         Option = SST
+       END
+       TURBULENT WALL FUNCTIONS:
+         Option = Automatic
+       END
+     END
+   END
+   DOMAIN: Stator
+     Coord Frame = Coord 0
+     Domain Type = Fluid
+     Location = B364
+     BOUNDARY: Oil Inlet
+       Boundary Type = INLET
+       Location = in
+       BOUNDARY CONDITIONS:
+         FLOW DIRECTION:
+           Option = Normal to Boundary Condition
+         END
+         FLOW REGIME:
+           Option = Subsonic
+         END
+         MASS AND MOMENTUM:
+           Option = Total Pressure
+           Relative Pressure = 10.34 [MPa]
+         END
+         TURBULENCE:
+           Option = Medium Intensity and Eddy Viscosity Ratio
+         END
+       END
+     END
+     BOUNDARY: Stator Blade
+       Boundary Type = WALL
+       Location = blade
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: Stator Hub
+       Boundary Type = WALL
+       Location = hub
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: Stator Shroud
+       Boundary Type = WALL
+       Location = shroud
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = No Slip Wall
+         END
+         WALL ROUGHNESS:
+           Option = Smooth Wall
+         END
+       END
+     END
+     BOUNDARY: Stator to Stator Periodic 1 Side 1
+       Boundary Type = INTERFACE
+       Location = periodic1
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     BOUNDARY: Stator to Stator Periodic 1 Side 2
+       Boundary Type = INTERFACE
+       Location = periodic2
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     BOUNDARY: StatorRotor Interface Side 1
+       Boundary Type = INTERFACE
+       Location = out
+       BOUNDARY CONDITIONS:
+         MASS AND MOMENTUM:
+           Option = Conservative Interface Flux
+         END
+         TURBULENCE:
+           Option = Conservative Interface Flux
+         END
+       END
+     END
+     DOMAIN MODELS:
+       BUOYANCY MODEL:
+         Option = Non Buoyant
+       END
+       DOMAIN MOTION:
+         Option = Stationary
+       END
+       MESH DEFORMATION:
+         Option = None
+       END
+       REFERENCE PRESSURE:
+         Reference Pressure = 1 [atm]
+       END
+     END
+     FLUID DEFINITION: Fluid 1
+       Material = Hydraulic Oil
+       Option = Material Library
+       MORPHOLOGY:
+         Option = Continuous Fluid
+       END
+     END
+     FLUID MODELS:
+       COMBUSTION MODEL:
+         Option = None
+       END
+       HEAT TRANSFER MODEL:
+         Option = None
+       END
+       THERMAL RADIATION MODEL:
+         Option = None
+       END
+       TURBULENCE MODEL:
+         Option = SST
+       END
+       TURBULENT WALL FUNCTIONS:
+         Option = Automatic
+       END
+     END
+   END
+   DOMAIN INTERFACE: Rotor to Rotor Periodic 1
+     Boundary List1 = Rotor to Rotor Periodic 1 Side 1
+     Boundary List2 = Rotor to Rotor Periodic 1 Side 2
+     Interface Type = Fluid Fluid
+     INTERFACE MODELS:
+       Option = Rotational Periodicity
+       AXIS DEFINITION:
+         Option = Coordinate Axis
+         Rotation Axis = Coord 0.3
+       END
+     END
+     MESH CONNECTION:
+       Option = Automatic
+     END
+   END
+   DOMAIN INTERFACE: Stator to Stator Periodic 1
+     Boundary List1 = Stator to Stator Periodic 1 Side 1
+     Boundary List2 = Stator to Stator Periodic 1 Side 2
+     Interface Type = Fluid Fluid
+     INTERFACE MODELS:
+       Option = Rotational Periodicity
+       AXIS DEFINITION:
+         Option = Coordinate Axis
+         Rotation Axis = Coord 0.3
+       END
+     END
+     MESH CONNECTION:
+       Option = Automatic
+     END
+   END
+   DOMAIN INTERFACE: StatorRotor Interface
+     Boundary List1 = StatorRotor Interface Side 1
+     Boundary List2 = StatorRotor Interface Side 2
+     Interface Type = Fluid Fluid
+     INTERFACE MODELS:
+       Option = General Connection
+       FRAME CHANGE:
+         Option = Frozen Rotor
+       END
+       MASS AND MOMENTUM:
+         Option = Conservative Interface Flux
+         MOMENTUM INTERFACE MODEL:
+           Option = None
+         END
+       END
+       PITCH CHANGE:
+         Option = Specified Pitch Angles
+         Pitch Angle Side1 = 6 [degree]
+         Pitch Angle Side2 = 6.372 [degree]
+       END
+     END
+     MESH CONNECTION:
+       Option = GGI
+     END
+   END
+   OUTPUT CONTROL:
+     MONITOR OBJECTS:
+       MONITOR BALANCES:
+         Option = Full
+       END
+       MONITOR FORCES:
+         Option = Full
+       END
+       MONITOR PARTICLES:
+         Option = Full
+       END
+       MONITOR POINT: InletMassFlow
+         Coord Frame = Coord 0
+         Expression Value = massFlow()@Oil Inlet
+         Option = Expression
+       END
+       MONITOR RESIDUALS:
+         Option = Full
+       END
+       MONITOR TOTALS:
+         Option = Full
+       END
+     END
+     RESULTS:
+       File Compression Level = Default
+       Option = Standard
+     END
+   END
+   SOLVER CONTROL:
+     Turbulence Numerics = First Order
+     ADVECTION SCHEME:
+       Option = High Resolution
+     END
+     CONVERGENCE CONTROL:
+       Length Scale Option = Conservative
+       Maximum Number of Iterations = 500
+       Minimum Number of Iterations = 1
+       Timescale Control = Auto Timescale
+       Timescale Factor = 1.0
+     END
+     CONVERGENCE CRITERIA:
+       Residual Target = 1.E-4
+       Residual Type = RMS
+     END
+     DYNAMIC MODEL CONTROL:
+       Global Dynamic Model Control = On
+     END
+     INTERRUPT CONTROL:
+       Option = Any Interrupt
+       CONVERGENCE CONDITIONS:
+         Option = Default Conditions
+       END
+     END
+   END
+ END
+ COMMAND FILE:
+   Version = 26.1
+   Results Version = 26.1
+ END
+ SIMULATION CONTROL:
+   EXECUTION CONTROL:
+     EXECUTABLE SELECTION:
+       Double Precision = No
+       Large Problem = No
+     END
+     INTERPOLATOR STEP CONTROL:
+       Runtime Priority = Standard
+       MEMORY CONTROL:
+         Memory Allocation Factor = 1.0
+         Option = Model Based
+       END
+     END
+     LICENSE CONTROL:
+       Capability Level = Automatic
+       HPC License = Automatic
+     END
+     OPERATING POINT CONTROL:
+       CONCURRENCY:
+         Maximum Number of Concurrent Jobs = 4
+         Option = Maximum Number of Concurrent Jobs
+       END
+     END
+     PARALLEL HOST LIBRARY:
+       HOST DEFINITION: msi
+         Installation Root = C:\Program Files\ANSYS Inc\ANSYS Student\v%v\CFX
+         Host Architecture String = winnt-amd64
+       END
+     END
+     PARTITIONER STEP CONTROL:
+       Multidomain Option = Automatic
+       Option = Spatial Partitioning
+       Runtime Priority = Standard
+       MEMORY CONTROL:
+         Memory Allocation Factor = 1.0
+         Option = Model Based
+       END
+       PARTITION SMOOTHING:
+         Maximum Partition Smoothing Sweeps = 100
+         Option = Smooth
+       END
+       PARTITIONING TYPE:
+         MeTiS Type = k-way
+         Option = MeTiS
+         Partition Size Rule = Automatic
+         Partition Weight Factors = 0.25000, 0.25000, 0.25000, 0.25000
+       END
+       SPATIAL PARTITIONING:
+         Option = Automatic
+       END
+     END
+     RUN DEFINITION:
+       Solver Input File = \
+         C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\\
+         hydraulic_oil_trial_pressure_sweep_002\hydraulic_oil_trial_pressure_s\
+         weep_sim.def
+       Run Mode = Full
+       Solver Results File = \
+         C:\Users\mahmu\OneDrive\Desktop\SOFT_SWITCH_BUILD\ANSYS_SIMULATION_2\\
+         hydraulic_oil_trial_pressure_sweep_002\op_3_001.res
+     END
+     SOLVER STEP CONTROL:
+       Runtime Priority = Standard
+       MEMORY CONTROL:
+         Memory Allocation Factor = 1.0
+         Option = Model Based
+       END
+       PARALLEL ENVIRONMENT:
+         Maximum Number of Processes = 4
+         Start Method = Microsoft MPI Local Parallel
+         Parallel Host List = msi*4
+       END
+     END
+   END
+ END
+ 
+ 
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                   Profile and Table File Summary                   |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+ 
+
+ +--------------------------------------------------------------------+
+ |                    Table File:PressureSweep.csv                    |
+ |                                                                    |
+ | File size: 433 bytes. Summary shown.                               |
+ +--------------------------------------------------------------------+
+
+ [Name]
+ PressureSweep
+ 
+ [Parameters]
+ OutletPressure Generation Lower Bound = 3.45 [MPa]
+ OutletPressure Generation Upper Bound = 10.34 [MPa]
+ 
+ [Index Fields]
+ Index
+ 
+ [Data]
+ Index, OutletPressure [MPa]
+ 1, 3.45000005e+00
+ 2, 4.13999987e+00
+ 3, 4.82999992e+00
+ 4, 5.51999998e+00
+ 5, 6.21000004e+00
+ 6, 6.88999987e+00
+ 7, 7.57999992e+00
+ 8, 8.27000046e+00
+ 9, 8.96000004e+00
+ ...
+ ...
+ 
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                            Partitioning                            |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+ 
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                     ANSYS(R) CFX(R) Partitioner                    |
+ |                                                                    |
+ | 2026 R1                                                            |
+ | Build 26.1 2026-01-12T11:19:59.221722                              |
+ | Mon Jan 12 11:54:10 PST 2026                                       |
+ |                                                                    |
+ |                        Executable Attributes                       |
+ |                                                                    |
+ |           single-64bit-int32-archfort-optimised-std-lcomp          |
+ |                                                                    |
+ | Copyright (C) 1996-2026 Synopsys, Inc. and ANSYS, Inc.             |
+ |                                                                    |
+ | All rights reserved. Unauthorized use, distribution or duplication |
+ | is prohibited. This product is subject to U.S. laws governing      |
+ | export and re-export. For full Legal Notice, see documentation.    |
+ +--------------------------------------------------------------------+
+
+
+
+
+ +--------------------------------------------------------------------+
+ |                  Job Information at Start of Run                   |
+ +--------------------------------------------------------------------+
+
+ Run mode:       partitioning run
+
+ Host computer:  MSI (PID:25216)
+
+ Job started:    Fri Oct 23 13:32:31 2026
+
+ +--------------------------------------------------------------------+
+ |                        License Information                         |
+ +--------------------------------------------------------------------+
+
+ANSYS LICENSE MANAGER ERROR
+
+Maximum licensed number of demo users already reached.
+
+
+
+ License Cap:    ANSYS CFD Solver
+ License ID:     License checkout failed (CFD SOLVER).
+
+ANSYS LICENSE MANAGER ERROR
+
+Maximum licensed number of demo users already reached.
+
+
+ 
+ +--------------------------------------------------------------------+
+ | ERROR #001100247 has occurred in subroutine .                      |
+ | Message:                                                           |
+ |                                                                    |
+ | The solver is unable to continue because of licensing problems.    |
+ |                                                                    |
+ | A license for the following capability level could not be checked  |
+ | out:                                                               |
+ |                                                                    |
+ | ANSYS CFD Solver                                                   |
+ |                                                                    |
+ | Please carefully examine the error message output above and check  |
+ | that:                                                              |
+ |                                                                    |
+ | 1) The license server is specified correctly and is running.       |
+ |                                                                    |
+ | 2) An appropriate license is available for checking out.           |
+ |                                                                    |
+ | These problems can be checked using the Ansys Client ANSLIC_ADMIN  |
+ | utility.  For further troubleshooting information please consult   |
+ | Ansys, Inc. Licensing Guide.                                       |
+ +--------------------------------------------------------------------+
+
+ +--------------------------------------------------------------------+
+ |                An error has occurred in cfx5solve:                 |
+ |                                                                    |
+ | The ANSYS CFX partitioner exited with return code 1.               |
+ +--------------------------------------------------------------------+
+
+
+This run of the ANSYS CFX Solver has finished.
