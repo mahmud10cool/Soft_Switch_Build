@@ -59,17 +59,23 @@ param.delay_switch = 40e-3;
 param.valve_buffer = 0.01;
 param.open_ratio = 1;
 
+% Trial outlet reaction-turbine geometry
+param.turb_r    = 6e-3;           % Outlet radius: 6 mm
+param.turb_Ain  = pi*(2e-3)^2;    % Inlet diameter: 4 mm
+param.turb_Aout = 0.10e-6;        % Total outlet area: 0.10 mm^2
+param.turb_B    = 0;             % Initially neglect mechanical friction
+
 % Hydraulic Pump/Motor
 param.J_hyd = 3000e-7;
 param.D = 0.8e-6;    % In cc/rev
 
 % Volumetric Efficiency Stuff
-param.eta_v_nom = 0.97;  
+param.eta_v_nom = 1;  
 param.omega_nom = 3000;      
 param.dp_nom = 21e6;     
 
 % Mechanical Efficiency Stuff
-param.eta_m_nom = 0.92;
+param.eta_m_nom = 1;
 param.tau0 = 0.01;
 
 % Electric Motor/Generator
