@@ -38,7 +38,7 @@ title('Speed from ESCON')
 ylabel('Speed (RPM)')
 xlabel('Time (ms)')
 grid on
-xlim([0 1000])
+xlim([0 1200])
 
 subplot(3,1,3)
 t_torque = sampling_time/no_of_sensors*(t_y-current_turn);
@@ -50,7 +50,7 @@ xlabel('Time (ms)')
 ylabel('Torque (Nm)')
 grid on
 % xlim([10 25])
-xlim([0 1000])
+xlim([0 1200])
 
 subplot(3,1,1)
 plot(sampling_time/no_of_sensors*(t_z-pressure_turn),1.6113281*filtfilt(b,a,z),LineWidth=2)
@@ -59,7 +59,7 @@ xlabel('Time (ms)')
 title('Pressure')
 grid on
 % xlim([10 25])
-xlim([0 1000])
+xlim([0 1200])
 
 some_fig = gcf;
 
