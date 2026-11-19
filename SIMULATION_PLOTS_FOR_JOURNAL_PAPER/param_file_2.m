@@ -19,8 +19,8 @@ param.gamma = 1.4;
 param.P_FD = 0.8*param.P_H;
 
 % Linear Actuator Chamber
-% param.V1_0 = 150e-6;
-param.V1_0 = 265e-6;
+param.V1_0 = 150e-6;
+% param.V1_0 = 265e-6;
 param.Acap = pi*(2.54)^2*1e-4;
 param.piston_freq = 100;
 
@@ -34,7 +34,7 @@ param.xddot = 0;
 % param.V5_0 = 20e-6;
 % param.V6_0 = 20e-6;
 
-% Hose parameters
+%% Hose parameters
 param.D_hose = 6.4e-3;
 param.L_hose = 0.3;
 param.mu = 0.04;
@@ -42,33 +42,34 @@ param.ResistHose = 128*param.mu*param.L_hose/(pi*param.D_hose^4);
 param.InertHose = (4*param.rho*param.L_hose)/(pi*param.D_hose^2);
 
 % Hose volumes
-param.multiplier = 0.5;
+param.multiplier = 1;
 param.VA_0 = param.multiplier*0.25*pi*param.D_hose^2*param.L_hose;
 param.VB_0 = param.multiplier*0.25*pi*param.D_hose^2*param.L_hose;
 param.VP_0 = param.multiplier*0.25*pi*param.D_hose^2*param.L_hose;
 param.VT_0 = param.multiplier*0.25*pi*param.D_hose^2*param.L_hose;
 
-% Valve
-param.max_Avt = 10*4.9160e-06;
+%% Valve
+param.max_Avt = 5*4.9160e-06;
 param.Cd = 0.6;
 % param.stroke = 5e-3;
 param.stroke = 1;
 % param.wn = 400;
-param.wn = 25000;
+param.wn = 20000;
 param.zeta = 1;
-% param.delay_switch = 40e-3;
-param.delay_switch = 0.075e-3;
+% param.delay_switch = 25e-3;
+param.delay_switch = 0.1e-3;
 param.valve_buffer = 0.01;
 param.open_ratio = 1;
+param.dp_smooth = 1e2;
 
-% Hydraulic Pump/Motor
+%% Hydraulic Pump/Motor
 param.J_hyd = 3000e-7;
 param.D = 0.8e-6;    % In cc/rev
 
 % Volumetric Efficiency Stuff
 % param.eta_v_nom = 0.97;  
 param.eta_v_nom = 1; 
-param.omega_nom = 3000;      
+param.omega_nom = 3000*((2*pi)/60);      
 param.dp_nom = 21e6;     
 
 % Mechanical Efficiency Stuff
@@ -76,13 +77,13 @@ param.eta_m_nom = 0.92;
 param.tau0 = 0.01;
 param.hyd_motor_fric = 0; % 0 for off and 1 for on
 
-% Electric Motor/Generator
+%% Electric Motor/Generator
 param.J_elec = 3060e-7;
 param.Kt = 109e-3;
 param.Kv = (87.6082*pi)/30; % In rads^-1/Volt
 % param.B  = 1.16e-4;    % Nm*s/rad
 param.B = 0;
-param.elec_motor = 0;
+param.elec_motor = 1; % 0 for off and 1 for on
 
 % Damping
 param.damping = 0;
@@ -95,11 +96,11 @@ param.Aplunger = pi*(2.54)^2*1e-4;
 % param.damping = 5e-4; 
 
 % Initial speed
-const_speed = 3000;
-% param.start_final_velocity = const_speed*(2*pi/60);
+const_speed = 2000;
+param.start_final_velocity = const_speed*(2*pi/60);
 param.max_speed = const_speed*(2*pi/60);
 
-param.start_final_velocity = 0*(2*pi/60);
+% param.start_final_velocity = 0*(2*pi/60);
 % param.max_speed = 0;
 
 % param.start_final_velocity = 100;

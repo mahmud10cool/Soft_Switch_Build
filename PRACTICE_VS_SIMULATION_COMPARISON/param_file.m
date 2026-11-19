@@ -19,8 +19,8 @@ param.gamma = 1.4;
 param.P_FD = 0.8*param.P_H;
 
 % Linear Actuator Chamber
-% param.V1_0 = 150e-6;
-param.V1_0 = 265e-6;
+param.V1_0 = 150e-6;
+% param.V1_0 = 265e-6;
 param.Acap = pi*(2.54)^2*1e-4;
 param.piston_freq = 100;
 
@@ -55,7 +55,7 @@ param.Cd = 0.6;
 param.stroke = 1;
 param.wn = 400;
 param.zeta = 1;
-param.delay_switch = 40e-3;
+param.delay_switch = 25e-3;
 param.valve_buffer = 0.01;
 param.open_ratio = 1;
 

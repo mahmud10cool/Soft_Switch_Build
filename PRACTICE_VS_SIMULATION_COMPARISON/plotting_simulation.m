@@ -1,119 +1,171 @@
-clc; clear; close all;
+
+clc;
+clear;
+close all;
+
+%% ========================================================================
+% SIMULATION
+% ========================================================================
 
 T_sim = 1.2;
 
 soft_sim = sim("simulation.slx");
 
-t_soft = soft_sim.tout;
-t_soft = t_soft*1e3;
+t_soft = soft_sim.tout(:) * 1e3;   % ms
 
-input_energy = soft_sim.Input_Energy.Data;
-hyd_in_energy = soft_sim.Hydraulic_Input.Data;
-output_energy = soft_sim.Output_Energy.Data;
+regen_sim        = soft_sim.Regen.Data(:);
+Px_chamber_sim   = soft_sim.Px.Data(:);
+omega_rot_sim    = soft_sim.omega.Data(:);
+regen_torque_sim = soft_sim.regen_torque.Data(:);
 
-pump_loss = soft_sim.Pump_Losses.Data;
-regen = soft_sim.Regen.Data;
-kinetic_energy = soft_sim.Kinetic_Energy.Data;
-elec_loss = soft_sim.Elec_Losses.Data;
-throttling_loss = soft_sim.Throttling_Loss.Data;
+prv_open = soft_sim.PRV_Opening.Data(:);
+ssv_open = soft_sim.SSV_Opening.Data(:);
 
-work = soft_sim.Work.Data;
-stored_energy = soft_sim.Stored_Energy.Data;
-prv_open = soft_sim.PRV_Opening.Data;
-ssv_open = soft_sim.SSV_Opening.Data;
-Px_chamber = soft_sim.Px.Data;
-Pdesired = soft_sim.Pdes.Data;
-omega_rot = soft_sim.omega.Data;
-regen_torque = soft_sim.regen_torque.Data;
+%% ========================================================================
+% FRICTION CALCULATION
+% ========================================================================
 
-%% Friction Calculations
-load coeff_pressure_data.mat
+coeff_data = load('coeff_pressure_data.mat');
+coeff_pressure_data = coeff_data.coeff_pressure_data;
 
-pressure = 0.000145038*Px_chamber(:).';
-speed    = (60/(2*pi))*omega_rot(:).';
+pressure_sim = 0.000145038 * Px_chamber_sim;  % PSI
+speed_sim = (60/(2*pi)) * omega_rot_sim;       % RPM
 
-p_final = [pressure.^3;
-           pressure.^2;
-           pressure;
-           ones(size(pressure))];
+p_final_sim = [pressure_sim.'.^3;
+               pressure_sim.'.^2;
+               pressure_sim.';
+               ones(1,length(pressure_sim))];
 
-w_final = [speed.^3;
-           speed.^2;
-           speed;
-           ones(size(speed))];
+w_final_sim = [speed_sim.'.^3;
+               speed_sim.'.^2;
+               speed_sim.';
+               ones(1,length(speed_sim))];
 
-friction = sum((coeff_pressure_data * p_final) .* w_final, 1);
-friction = friction.';
+friction_sim = sum((coeff_pressure_data * p_final_sim) ...
+                   .* w_final_sim, 1).';
 
-%% Plots
-figure(1)
+%% ========================================================================
+% POWER CALCULATION
+% ========================================================================
 
-% Pressure
-subplot(6,1,1)
-plot(t_soft, Px_chamber*0.000145038, 'LineWidth', 2);
+power_sim = regen_torque_sim .* omega_rot_sim;
+
+%% ========================================================================
+% SIMULATION PLOTS
+% ========================================================================
+
+sim_fig = figure(1);
+set(sim_fig,'Position',[100 50 1000 1500],'Color','white');
+
+tl = tiledlayout(6,1, ...
+    'TileSpacing','compact', ...
+    'Padding','compact');
+
+sim_color = [0.85 0.10 0.10];
+line_width = 2;
+
+% Row 1 - Pressure
+ax1 = nexttile;
+plot(t_soft, pressure_sim, ...
+    'Color',sim_color,'LineWidth',line_width);
 ylabel('Pressure (PSI)')
 grid on
 
-% Speed
-subplot(6,1,2)
-plot(t_soft, omega_rot*(60/(2*pi)), 'LineWidth', 2);
+% Row 2 - Speed
+ax2 = nexttile;
+plot(t_soft, speed_sim, ...
+    'Color',sim_color,'LineWidth',line_width);
 ylabel('Speed (RPM)')
 grid on
 
-% FL Torque
-subplot(6,1,3)
-plot(t_soft, regen_torque+friction, 'LineWidth', 2);
+% Row 3 - Torque including friction
+ax3 = nexttile;
+plot(t_soft, regen_torque_sim + friction_sim, ...
+    'Color',sim_color,'LineWidth',line_width);
 ylabel('Torque (Nm)')
 grid on
 
-% Torque
-subplot(6,1,4)
-plot(t_soft, regen_torque, 'LineWidth', 2);
+% Row 4 - Frictionless torque
+ax4 = nexttile;
+plot(t_soft, regen_torque_sim, ...
+    'Color',sim_color,'LineWidth',line_width);
 ylabel('FL Torque (Nm)')
 grid on
 
-% Power
-subplot(6,1,5)
-plot(t_soft, regen_torque.*omega_rot,'LineWidth',2);
-ylabel('Power (W)');
+% Row 5 - Power
+ax5 = nexttile;
+plot(t_soft, power_sim, ...
+    'Color',sim_color,'LineWidth',line_width);
+ylabel('Power (W)')
 grid on
 
-% Energy
-subplot(6,1,6)
-plot(t_soft, regen, 'LineWidth', 2);
+% Row 6 - Energy
+ax6 = nexttile;
+plot(t_soft, regen_sim, ...
+    'Color',sim_color,'LineWidth',line_width);
 ylabel('Energy (J)')
-text(400,0,['Energy Saved = ', num2str(regen(end)),'J'],'Color','black','FontSize',10,'FontWeight','Bold');
+xlabel('Time (ms)')
 grid on
 
+text(0.70*max(t_soft), ...
+     min(regen_sim)+0.25*abs(min(regen_sim)), ...
+     ['Energy Saved = ',num2str(regen_sim(end),'%.2f'),' J'], ...
+     'Color','black', ...
+     'FontSize',12, ...
+     'FontWeight','bold');
+
+%% ========================================================================
+% FIGURE FORMATTING
+% ========================================================================
+
+ax = [ax1 ax2 ax3 ax4 ax5 ax6];
+
+set(ax, ...
+    'FontName','Arial', ...
+    'FontSize',14, ...
+    'FontWeight','bold', ...
+    'LineWidth',1.5, ...
+    'Color','white');
+
+linkaxes(ax,'x');
+
+txt = findall(sim_fig,'Type','text');
+
+set(txt, ...
+    'FontName','Arial', ...
+    'FontWeight','bold');
+
+exportgraphics(sim_fig, ...
+    'simulation_results.png', ...
+    'Resolution',300, ...
+    'BackgroundColor','white');
+
+%% ========================================================================
+% VALVE TIMING
+% ========================================================================
+
+valve_fig = figure(2);
+set(valve_fig,'Position',[150 150 1000 400], ...
+    'Color','white');
+
+plot(t_soft, prv_open, 'k-', ...
+     t_soft, ssv_open, 'k--', ...
+     'LineWidth',2);
+
+ylabel('Valve Position')
 xlabel('Time (ms)')
 
-% Figure Format
-some_fig = gcf;
+legend({'PRV','SSV'},'Location','best')
 
-sgtitle('Simulation Results','FontName','Arial','FontSize',15,'FontWeight','Bold', 'LineWidth', 2)
-set(findobj(some_fig,'type','axes'),'FontName','Arial','FontSize',12,'FontWeight','Bold', 'LineWidth', 2);
-
-set(some_fig, 'position', [0, 0, 840, 1920])
-
-saveas(gcf, 'simulation.png')
-
-% Input Energy
-% subplot(6,1,4)
-% hold on
-% plot(t_soft, input_energy, 'b-', 'LineWidth', 2);
-% ylabel('Input Energy (J)')
-% grid on
-
-figure(2)
-% Switch Timing
-h_right = plot(t_soft, prv_open, 'k-', ...
-               t_soft, ssv_open, 'k--', ...
-               'LineWidth', 2);
-ylabel('Valve Position')
-ylim([min(prv_open) 1.2*max(prv_open)])
-all_handles = [h_right(:)];
-labels = {'PSV', 'SSV'};
-legend(all_handles, labels, 'Location', 'best')
 grid on
 
+set(gca, ...
+    'FontName','Arial', ...
+    'FontSize',14, ...
+    'FontWeight','bold', ...
+    'LineWidth',1.5);
 
+exportgraphics(valve_fig, ...
+    'simulation_valve_timing.png', ...
+    'Resolution',300, ...
+    'BackgroundColor','white');
